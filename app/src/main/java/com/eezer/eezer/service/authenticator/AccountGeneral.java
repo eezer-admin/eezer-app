@@ -1,8 +1,5 @@
 package com.eezer.eezer.service.authenticator;
 
-import com.eezer.eezer.service.authenticator.EezerServerAuthenticateImpl;
-import com.eezer.eezer.service.authenticator.ServerAuthenticate;
-
 /**
  * General settings for Eezer authenticator account.
  */

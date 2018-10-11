@@ -4,7 +4,6 @@ import android.accounts.AbstractAccountAuthenticator;
 import android.accounts.Account;
 import android.accounts.AccountAuthenticatorResponse;
 import android.accounts.AccountManager;
-import android.accounts.NetworkErrorException;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -36,8 +35,7 @@ public class EezerAuthenticator extends AbstractAccountAuthenticator {
 
     @Override
     public Bundle addAccount(AccountAuthenticatorResponse response, String accountType,
-                             String authTokenType, String[] requiredFeatures, Bundle options)
-            throws NetworkErrorException {
+                             String authTokenType, String[] requiredFeatures, Bundle options) {
 
         final Intent intent = new Intent(mContext, AuthenticatorActivity.class);
         intent.putExtra(AuthenticatorActivity.ARG_ACCOUNT_TYPE, accountType);
@@ -51,14 +49,14 @@ public class EezerAuthenticator extends AbstractAccountAuthenticator {
 
     @Override
     public Bundle confirmCredentials(AccountAuthenticatorResponse response, Account account,
-                                     Bundle options) throws NetworkErrorException {
+                                     Bundle options) {
 
         return null;
     }
 
     @Override
     public Bundle getAuthToken(AccountAuthenticatorResponse response, Account account,
-                               String authTokenType, Bundle options) throws NetworkErrorException {
+                               String authTokenType, Bundle options) {
 
         // Extract the username and password from the Account Manager, and ask
         // the server for an appropriate AuthToken.
@@ -101,19 +99,19 @@ public class EezerAuthenticator extends AbstractAccountAuthenticator {
 
     @Override
     public String getAuthTokenLabel(String authTokenType) {
-            return AUTHTOKEN_TYPE_FULL_ACCESS_LABEL;
+        return AUTHTOKEN_TYPE_FULL_ACCESS_LABEL;
     }
 
     @Override
     public Bundle updateCredentials(AccountAuthenticatorResponse response, Account account,
-                                    String authTokenType, Bundle options) throws NetworkErrorException {
+                                    String authTokenType, Bundle options) {
 
         return null;
     }
 
     @Override
     public Bundle hasFeatures(AccountAuthenticatorResponse response, Account account,
-                              String[] features) throws NetworkErrorException {
+                              String[] features) {
 
         final Bundle result = new Bundle();
         result.putBoolean(KEY_BOOLEAN_RESULT, false);

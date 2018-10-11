@@ -6,7 +6,7 @@ package com.eezer.eezer.application.config;
 
 public class Config {
 
-    public static final String EEZER_BACKEND_URL = "https://eezer-backend.herokuapp.com";
+    public static final String EEZER_BACKEND_URL = "https://9ncx4rpi4h.execute-api.eu-central-1.amazonaws.com/prod";
 
     public static final String EEZER_RESOURCE_STORE = "/api/store";
     public static final String EEZER_RESOURCE_LOGIN = "/api/login";

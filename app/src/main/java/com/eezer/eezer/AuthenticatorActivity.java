@@ -79,12 +79,12 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
         final String accountType = getIntent().getStringExtra(ARG_ACCOUNT_TYPE);
 
         new AsyncTask<Void, Void, Intent>() {
+
             @Override
             protected Intent doInBackground(Void... params) {
-                String authtoken = null;
                 Bundle data = new Bundle();
                 try {
-                    authtoken = sServerAuthenticate.userSignIn(userName, userPass, getApplicationContext());
+                    String authtoken = sServerAuthenticate.userSignIn(userName, userPass, getApplicationContext());
 
                     data.putString(AccountManager.KEY_ACCOUNT_NAME, userName);
                     data.putString(AccountManager.KEY_ACCOUNT_TYPE, accountType);
@@ -95,8 +95,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
                     data.putString(KEY_ERROR_MESSAGE, e.getMessage());
                 }
 
-                final Intent res = new Intent();
+                Intent res = new Intent();
                 res.putExtras(data);
+
                 return res;
             }
             @Override

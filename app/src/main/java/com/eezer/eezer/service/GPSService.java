@@ -12,6 +12,9 @@ import android.os.IBinder;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
 
+import com.eezer.eezer.R;
+import com.eezer.eezer.application.util.Utils.GPSAccuracy;
+
 import static com.eezer.eezer.application.util.Utils.getTextRepresentationOfAccuracy;
 
 /**
@@ -56,7 +59,8 @@ public class GPSService extends Service {
                 i.putExtra(LOCATION_COORDINATE_LONG_KEY, location.getLongitude());
                 i.putExtra(LOCATION_COORDINATE_LAT_KEY, location.getLatitude());
                 i.putExtra(LOCATION_COORDINATE_ACCURACY,
-                        getTextRepresentationOfAccuracy(location.getAccuracy()));
+                        translateGPSAccuracy(getTextRepresentationOfAccuracy(
+                                location.getAccuracy())));
 
                 sendBroadcast(i);
             }
@@ -79,8 +83,10 @@ public class GPSService extends Service {
 
         manager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
 
-        manager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
-                UPDATE_INTERVAL_IN_MS, MIN_DISTANCE, listener);
+        if (manager != null) {
+            manager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
+                    UPDATE_INTERVAL_IN_MS, MIN_DISTANCE, listener);
+        }
     }
 
     @Override
@@ -90,5 +96,20 @@ public class GPSService extends Service {
         if (manager != null) {
             manager.removeUpdates(listener);
         }
+    }
+
+    private String translateGPSAccuracy(GPSAccuracy gpsAccuracy) {
+
+        switch (gpsAccuracy) {
+            case POOR:
+            case OKAY:
+                return getResources().getString(R.string.gps_poor);
+            case GOOD:
+                return getResources().getString(R.string.gps_good);
+            case EXCELLENT:
+                return getResources().getString(R.string.gps_excellent);
+        }
+
+        return getResources().getString(R.string.accuracy_not_available);
     }
 }

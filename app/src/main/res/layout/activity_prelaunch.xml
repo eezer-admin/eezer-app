@@ -33,7 +33,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:textAlignment="center"
-                android:text="Press START to start a new transport." />
+                android:text="@string/start_new_header" />
 
             <TextView
                 android:id="@+id/txtSignalGPS"

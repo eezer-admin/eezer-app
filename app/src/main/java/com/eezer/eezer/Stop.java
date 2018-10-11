@@ -28,7 +28,7 @@ import static com.eezer.eezer.service.TransportService.TRANSPORT_KEY_NO_GO;
 import static com.eezer.eezer.service.TransportService.TRANSPORT_SERVICE_FILTER;
 
 /**
- * Stop activity. Should defenitely be renamed later...
+ * Stop activity. Should definitely be renamed later...
  */
 public class Stop extends AppCompatActivity {
 
@@ -75,15 +75,15 @@ public class Stop extends AppCompatActivity {
     public void onBackPressed() {
         new AlertDialog.Builder(this)
                 .setIcon(android.R.drawable.ic_dialog_alert)
-                .setTitle("Cancel transport?")
-                .setMessage("Are you sure you want to cancel transport?")
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                .setTitle(getResources().getString(R.string.cancel_transport))
+                .setMessage(getResources().getString(R.string.confirm_cancel_transport))
+                .setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         btnStopOnClick(null);
                     }
                 })
-                .setNegativeButton("No", null)
+                .setNegativeButton(getResources().getString(R.string.no), null)
                 .show();
     }
 

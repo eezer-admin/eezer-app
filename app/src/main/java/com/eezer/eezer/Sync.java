@@ -41,28 +41,8 @@ public class Sync extends ListActivity {
         setListAdapter(adapter);
 
         if (transports.size() == 0) {
-            makeToast("Nothing to sync, press back to return.");
+            makeToast(getResources().getString(R.string.nothing_to_sync));
         }
-    }
-
-    private void updateList() {
-
-        transports.clear();
-        transports.addAll(service.getTransportIds());
-
-        Sync.this.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                adapter.notifyDataSetChanged();
-            }
-        });
-    }
-
-    @Override
-    protected void onListItemClick(final ListView l, View v, int position, long id) {
-
-        // TODO: no manual sync now...
-
     }
 
     private void makeToast(String message) {

@@ -1,21 +1,9 @@
 package com.eezer.eezer.application.util;
 
-import android.app.Activity;
-import android.app.AlertDialog;
-
-import com.eezer.eezer.application.config.Config;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
-import java.util.concurrent.TimeUnit;
-
-import okhttp3.Callback;
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
 
 /**
  * Util class with helpful methods.
@@ -23,26 +11,33 @@ import okhttp3.RequestBody;
 
 public class Utils {
 
-    public static String getTextRepresentationOfAccuracy(Float accuracy) {
+    private static String TIMEZONE_GMT = "GMT";
+    private static String DATE_FORMAT = "HH:mm:ss";
 
-        String result;
+    public enum GPSAccuracy {
+        POOR, OKAY, GOOD, EXCELLENT
+    }
+
+    public static GPSAccuracy getTextRepresentationOfAccuracy(Float accuracy) {
+
+        GPSAccuracy result;
 
         if (accuracy < 16) {
-            result = "Excellent.";
+            result = GPSAccuracy.EXCELLENT;
         } else if (accuracy < 25) {
-            result = "Good.";
+            result = GPSAccuracy.GOOD;
         } else if (accuracy < 50) {
-            result = "Okay.";
+            result = GPSAccuracy.OKAY;
         } else {
-            result = "Poor.";
+            result = GPSAccuracy.POOR;
         }
 
         return result;
     }
 
     public static String getNiceTimeFromSeconds(long seconds) {
-        SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
-        formatter.setTimeZone(TimeZone.getTimeZone("GMT"));
+        SimpleDateFormat formatter = new SimpleDateFormat(DATE_FORMAT, Locale.getDefault());
+        formatter.setTimeZone(TimeZone.getTimeZone(TIMEZONE_GMT));
         return formatter.format(new Date(seconds * 1000));
     }
 

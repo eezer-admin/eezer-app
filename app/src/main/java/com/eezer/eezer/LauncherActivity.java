@@ -46,7 +46,9 @@ public class LauncherActivity extends AppCompatActivity {
 
     private void getAuthToken(Account account) {
 
-        final AccountManagerFuture<Bundle> future = mAccountManager.getAuthToken(account, AccountGeneral.AUTHTOKEN_TYPE_FULL_ACCESS, null, this, null, null);
+        final AccountManagerFuture<Bundle> future = mAccountManager.getAuthToken(account,
+                AccountGeneral.AUTHTOKEN_TYPE_FULL_ACCESS, null, this,
+                null, null);
 
         new Thread(new Runnable() {
             @Override
@@ -78,9 +80,12 @@ public class LauncherActivity extends AppCompatActivity {
 
     private void addAccount() {
 
-        final AccountManagerFuture<Bundle> future = mAccountManager.addAccount(AccountGeneral.ACCOUNT_TYPE, AccountGeneral.AUTHTOKEN_TYPE_FULL_ACCESS, null, null, this, new AccountManagerCallback<Bundle>() {
+        final AccountManagerFuture<Bundle> future = mAccountManager.addAccount(
+                AccountGeneral.ACCOUNT_TYPE, AccountGeneral.AUTHTOKEN_TYPE_FULL_ACCESS,
+                null, null, this, new AccountManagerCallback<Bundle>() {
             @Override
             public void run(AccountManagerFuture<Bundle> future) {
+
                 try {
                     Bundle bnd = future.getResult();
 
@@ -99,7 +104,8 @@ public class LauncherActivity extends AppCompatActivity {
     }
 
     private Account findAccount() {
-        final Account availableAccounts[] = mAccountManager.getAccountsByType(AccountGeneral.ACCOUNT_TYPE);
+        final Account availableAccounts[] = mAccountManager.getAccountsByType(
+                AccountGeneral.ACCOUNT_TYPE);
 
         for (Account account : availableAccounts) {
 

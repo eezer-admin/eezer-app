@@ -7,8 +7,8 @@ import android.os.IBinder;
 /**
  * Eezer authenticator service
  */
-
 public class EezerAuthenticatorService extends Service {
+
     @Override
     public IBinder onBind(Intent intent) {
 

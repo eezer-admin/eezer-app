@@ -1,16 +1,11 @@
 package com.eezer.eezer.application.domain.service;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.util.Log;
-
 import com.eezer.eezer.application.config.Config;
 
 import java.io.IOException;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
-import okhttp3.Callback;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;

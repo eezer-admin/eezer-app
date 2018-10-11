@@ -20,7 +20,6 @@ import okhttp3.Response;
 /**
  * Server authenticator implementation for the Eezer API.
  */
-
 public class EezerServerAuthenticateImpl implements ServerAuthenticate {
 
     private static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");

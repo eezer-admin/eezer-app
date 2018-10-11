@@ -64,7 +64,7 @@ public class FinalizeTransport extends AppCompatActivity {
     /**
      * Fetch an unfinished transport.
      *
-     * @return the transport if fonud, or {@code null}.
+     * @return the transport if found, or {@code null}.
      */
     private Long getUnfinishedTransport() {
 
@@ -96,15 +96,15 @@ public class FinalizeTransport extends AppCompatActivity {
     public void onBackPressed() {
         new AlertDialog.Builder(this)
                 .setIcon(android.R.drawable.ic_dialog_alert)
-                .setTitle("Cancel transport?")
-                .setMessage("Are you sure you want to cancel transport?")
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                .setTitle(getResources().getString(R.string.cancel_transport))
+                .setMessage(getResources().getString(R.string.confirm_cancel_transport))
+                .setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         finalizeUnfinishedTransport();
                     }
                 })
-                .setNegativeButton("No", null)
+                .setNegativeButton(getResources().getString(R.string.no), null)
                 .show();
     }
 

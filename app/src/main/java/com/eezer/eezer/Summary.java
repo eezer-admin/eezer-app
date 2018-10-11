@@ -30,7 +30,7 @@ public class Summary extends AppCompatActivity {
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
-        getSupportActionBar().setTitle(getResources().getString(R.string.summary_of_transport));
+        getSupportActionBar().setTitle(getResources().getString(R.string.activity_summary));
 
         RouteServiceImpl service = RouteServiceImpl.getInstance(getApplicationContext());
         Long transportId = getIntent().getLongExtra(TRANSPORT_KEY, TRANSPORT_KEY_NO_GO);
@@ -42,10 +42,18 @@ public class Summary extends AppCompatActivity {
             TextView txtDuration = (TextView) findViewById(R.id.txtInfoDuration);
             TextView txtCost = (TextView) findViewById(R.id.txtInfoCost);
 
-            txtDuration.setText(String.format(Locale.getDefault(),
-                    "Duration: %s", Utils.getNiceTimeFromSeconds(transport.getDuration())));
-            txtDistance.setText(String.format(Locale.getDefault(), "Distance: %.2f km", transport.getDistance() / 1000));
-            txtCost.setText(String.format(Locale.getDefault(), "Cost: %.2f SEK", transport.getDistance() / 100L));
+            txtDuration.setText(String.format(Locale.getDefault(), "%s %s",
+                    getResources().getString(R.string.duration),
+                    Utils.getNiceTimeFromSeconds(transport.getDuration())));
+
+            txtDistance.setText(String.format(Locale.getDefault(), "%s %.2f km",
+                    getResources().getString(R.string.distance),
+                    transport.getDistance() / 1000));
+
+            txtCost.setText(String.format(Locale.getDefault(), "%s %.2f %s",
+                    getResources().getString(R.string.cost),
+                    transport.getDistance() / 100L,
+                    getResources().getString(R.string.currency)));
         } else {
 
             makeToast("Summary: Unable to get transport, contact developer.");

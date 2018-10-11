@@ -22,7 +22,7 @@
     <string name="activity_finalize">Finalize Transport</string>
 
     <string name="username">Username</string>
-    <string name="password">Username</string>
+    <string name="password">Password</string>
     <string name="login">Login</string>
 
     <string name="accuracy_not_available">Not available.</string>
@@ -33,6 +33,42 @@
     <string name="unexpected_error">An unexpected error occoured.</string>
     <string name="input_user_and_pass">Please input username and password.</string>
     <string name="invalid_user_or_pass">Invalid username and/or password.</string>
+
+    <string name="gps_poor">Poor.</string>
+    <string name="gps_good">Good.</string>
+    <string name="gps_excellent">Excellent.</string>
+
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="ok">Ok</string>
+
+    <!-- CURRENCY -->
+
+    <string name="currency">SEK</string>
+
+    <!-- STOP ACTIVITY -->
+
+    <string name="cancel_transport">Cancel transport?</string>
+    <string name="confirm_cancel_transport">"Are you sure you want to cancel transport?"</string>
+    <string name="stop">Stop</string>
+    <string name="accuracy">Accuracy:</string>
+    <string name="total_distance">Total distance:</string>
+
+    <!-- SUMMARY ACTIVITY -->
+
+    <string name="duration">Duration:</string>
+    <string name="distance">Distance:</string>
+    <string name="cost">Cost:</string>
+
+    <!-- SYNC ACTIVITY -->
+
+    <string name="nothing_to_sync">Nothing to sync, press back to return.</string>
+
+    <!-- PRE LAUNCH -->
+
+    <string name="start_new_header">Press START to start a new transport.</string>
+
+    <!-- /// -->
 
     <array name="reason_items">
         <item>-- Select reason --</item>
