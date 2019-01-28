@@ -17,9 +17,10 @@ public class SettingsActivity extends PreferenceActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        addPreferencesFromResource(R.xml.preferences_main);
+        addPreferencesFromResource(R.xml.preferences);
 
-        Preference cleardb = (Preference)getPreferenceManager().findPreference("cleardb");
+        Preference cleardb = getPreferenceManager().findPreference("cleardb");
+
         if (cleardb != null) {
             cleardb.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
@@ -38,4 +39,6 @@ public class SettingsActivity extends PreferenceActivity {
         }
 
     }
+
+
 }

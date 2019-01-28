@@ -4,4 +4,4 @@
     android:icon="@drawable/ez"
     android:smallIcon="@drawable/ez"
     android:label="@string/app_name"
-    android:accountPreferences="@xml/preferences_main"/>
+    android:accountPreferences="@xml/preferences"/>
