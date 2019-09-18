@@ -25,7 +25,7 @@ public class JsonUtil {
             return gSon.fromJson(loginResponse, LoginResponse.class);
         } catch (Exception e) {
 
-            Log.i("JsonUtil", "Failed to parse response data: " + e);
+            Log.e("JsonUtil", "Failed to parse response data: " + e);
             return null;
         }
     }
@@ -36,7 +36,7 @@ public class JsonUtil {
             return gSon.fromJson(errorResponse, ErrorResponse.class);
         } catch (Exception e) {
 
-            Log.i("JsonUtil", "Failed to parse response data: " + e);
+            Log.e("JsonUtil", "Failed to parse response data: " + e);
             return null;
         }
     }
@@ -48,7 +48,7 @@ public class JsonUtil {
             return gSon.fromJson(serverResponseData, StoreTransportResponse.class);
         } catch (Exception e) {
 
-            Log.i("JsonUtil", "Failed to parse response data: " + e);
+            Log.e("JsonUtil", "Failed to parse response data: " + e);
             return null;
         }
 

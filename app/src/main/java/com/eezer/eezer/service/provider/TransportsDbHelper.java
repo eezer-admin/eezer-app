@@ -11,7 +11,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class TransportsDbHelper extends SQLiteOpenHelper {
 
     private static final String NAME = DbSchema.DB_NAME;
-    private static final int VERSION = 8;
+    private static final int VERSION = 9;
 
     public TransportsDbHelper(Context context) {
         super(context, NAME, null, VERSION);

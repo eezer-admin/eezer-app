@@ -127,6 +127,7 @@ public class EezerSyncAdapter extends AbstractThreadedSyncAdapter {
             transport.setReason(result.getString(result.getColumnIndex(Transports.REASON)));
             transport.setDistance(Float.parseFloat(result.getString(result.getColumnIndex(Transports.DISTANCE))));
             transport.setStartedTime(new Date(result.getLong(result.getColumnIndex(Transports.STARTED))));
+            transport.setDeviceInfo(result.getString(result.getColumnIndex(Transports.DEVICE_INFO)));
 
             Long endedTime = result.getLong(result.getColumnIndex(Transports.ENDED));
 
@@ -168,6 +169,7 @@ public class EezerSyncAdapter extends AbstractThreadedSyncAdapter {
 
     private void syncTransport(String contents, String authToken) throws IOException {
 
+        Log.d("EezerSyncAdapter", "Syncing content: " + contents);
         Response response = HttpHelper.storeTransport(contents, authToken);
 
         try {

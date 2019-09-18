@@ -27,6 +27,7 @@ interface DbSchema {
     String T_STARTED_COLUMN_NAME = "started_time";
     String T_ENDED_COLUMN_NAME = "ended_time";
     String T_DURATION_COLUMN_NAME = "duration";
+    String T_DEVICE_INFO = "deviceinfo";
 
     // transport coords table details
 
@@ -39,16 +40,16 @@ interface DbSchema {
 
     String ID_COLUMN_NAME = "id";
 
-    String DDL_CREATE_TABLE_TRANSPORTS = String.format(Locale.getDefault(),
+    String DDL_CREATE_TABLE_TRANSPORTS = String.format(Locale.ENGLISH,
             "CREATE TABLE %s (id integer primary key, %s text not null unique, %s text, " +
                     "%s text, %s text, %s text, %s text, %s text, " +
-                    "%s text, %s integer, %s integer, %s integer)",
+                    "%s text, %s integer, %s integer, %s integer, %s text)",
             TRANSPORTS_TABLE_NAME, T_TRANSPORT_ID_COLUMN_NAME, T_DRIVER_ID_COLUMN_NAME,
             T_VEHICLE_ID_COLUMN_NAME, T_PASSENGER_NAME_COLUMN_NAME, T_PASSENGER_PHONE_COLUMN_NAME,
             T_GENDER_COLUMN_NAME, T_REASON_COLUMN_NAME, T_DISTANCE_COLUMN_NAME,
-            T_STARTED_COLUMN_NAME, T_ENDED_COLUMN_NAME, T_DURATION_COLUMN_NAME);
+            T_STARTED_COLUMN_NAME, T_ENDED_COLUMN_NAME, T_DURATION_COLUMN_NAME, T_DEVICE_INFO);
 
-    String DDL_CREATE_TABLE_COORDS = String.format(Locale.getDefault(),
+    String DDL_CREATE_TABLE_COORDS = String.format(Locale.ENGLISH,
             "CREATE TABLE %s (id integer primary key, %s integer, %s text, %s text)",
             TRANSPORT_COORDS_TABLE_NAME, TC_TRANSPORT_ID_COLUMN_NAME,
             TC_LNG_COLUMN_NAME, TC_LAT_COLUMN_NAME);

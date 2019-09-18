@@ -7,6 +7,7 @@ import static com.eezer.eezer.service.provider.DbSchema.ID_COLUMN_NAME;
 import static com.eezer.eezer.service.provider.DbSchema.TC_LAT_COLUMN_NAME;
 import static com.eezer.eezer.service.provider.DbSchema.TC_LNG_COLUMN_NAME;
 import static com.eezer.eezer.service.provider.DbSchema.TC_TRANSPORT_ID_COLUMN_NAME;
+import static com.eezer.eezer.service.provider.DbSchema.T_DEVICE_INFO;
 import static com.eezer.eezer.service.provider.DbSchema.T_DISTANCE_COLUMN_NAME;
 import static com.eezer.eezer.service.provider.DbSchema.T_DRIVER_ID_COLUMN_NAME;
 import static com.eezer.eezer.service.provider.DbSchema.T_DURATION_COLUMN_NAME;
@@ -70,7 +71,7 @@ public final class EezerContract {
                 { ID_COLUMN_NAME, T_TRANSPORT_ID_COLUMN_NAME, T_DRIVER_ID_COLUMN_NAME, T_VEHICLE_ID_COLUMN_NAME,
                         T_PASSENGER_NAME_COLUMN_NAME, T_PASSENGER_PHONE_COLUMN_NAME, T_GENDER_COLUMN_NAME,
                         T_REASON_COLUMN_NAME, T_DISTANCE_COLUMN_NAME, T_STARTED_COLUMN_NAME,
-                        T_ENDED_COLUMN_NAME, T_DURATION_COLUMN_NAME };
+                        T_ENDED_COLUMN_NAME, T_DURATION_COLUMN_NAME, T_DEVICE_INFO };
 
         public static final String ID = ID_COLUMN_NAME;
         public static final String TRANSPORT_ID = T_TRANSPORT_ID_COLUMN_NAME;
@@ -84,6 +85,7 @@ public final class EezerContract {
         public static final String STARTED = T_STARTED_COLUMN_NAME;
         public static final String ENDED = T_ENDED_COLUMN_NAME;
         public static final String DURATION = T_DURATION_COLUMN_NAME;
+        public static final String DEVICE_INFO = T_DEVICE_INFO;
 
     }
 
@@ -111,7 +113,7 @@ public final class EezerContract {
                         "/vnd.se.eezer.coordinates_coordinates";
         /**
          * A projection of all columns
-         * in the transport table.
+         * in the coordinate table.
          */
         public static final String[] PROJECTION_ALL =
                 { ID_COLUMN_NAME, TC_TRANSPORT_ID_COLUMN_NAME, TC_LNG_COLUMN_NAME, TC_LAT_COLUMN_NAME };

@@ -150,6 +150,8 @@ public class PreLaunch extends AppCompatActivity {
         // Generate a globally unique id for this transport
         transport.setTransportId(UUID.randomUUID().toString());
         transport.setDriverId(driverId);
+        transport.setDeviceInfo(android.os.Build.DEVICE + ":"
+                + android.os.Build.MODEL + ":" + android.os.Build.VERSION.SDK);
 
         // We populate all the other values after the transport has been finished.
 

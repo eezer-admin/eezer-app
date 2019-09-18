@@ -1,7 +1,5 @@
 package com.eezer.eezer.service;
 
-import android.content.Context;
-
 import com.eezer.eezer.application.domain.valueobject.Coordinate;
 import com.eezer.eezer.application.domain.valueobject.Transport;
 

@@ -23,6 +23,7 @@ public class Transport implements Serializable {
     private Date startedTime;
     private Date endedTime;
     private Long duration;
+    private String deviceInfo;
 
     public Transport() {
         coordinates = new ArrayList<>();
@@ -123,6 +124,14 @@ public class Transport implements Serializable {
 
     public void setStartedTime(Date startedTime) {
         this.startedTime = startedTime;
+    }
+
+    public String getDeviceInfo() {
+        return deviceInfo;
+    }
+
+    public void setDeviceInfo(String deviceInfo) {
+        this.deviceInfo = deviceInfo;
     }
 
     public String getEndedTime() {

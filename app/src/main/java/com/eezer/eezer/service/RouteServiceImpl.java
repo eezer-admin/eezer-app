@@ -64,6 +64,7 @@ public class RouteServiceImpl implements RouteService {
             contentValues.put(Transports.STARTED, newTransport.getStartedTimeAsDate().getTime());
             contentValues.put(Transports.ENDED, 0L);
             contentValues.put(Transports.DURATION, newTransport.getDuration());
+            contentValues.put(Transports.DEVICE_INFO, newTransport.getDeviceInfo());
 
             Uri result = mContext.getContentResolver().insert(Transports.CONTENT_URI, contentValues);
 
@@ -143,6 +144,7 @@ public class RouteServiceImpl implements RouteService {
                 transport.setStartedTime(new Date(result.getLong(result.getColumnIndex(Transports.STARTED))));
                 transport.setEndedTime(new Date(result.getLong(result.getColumnIndex(Transports.ENDED))));
                 transport.setDuration(result.getLong(result.getColumnIndex(Transports.DURATION)));
+                transport.setDeviceInfo(result.getString(result.getColumnIndex(Transports.DEVICE_INFO)));
 
                 result.close();
 
@@ -278,7 +280,7 @@ public class RouteServiceImpl implements RouteService {
                 while(!result.isAfterLast()){
 
                     Long id = result.getLong(result.getColumnIndex(Transports.ID));
-                    Long ended = result.getLong(result.getColumnIndex(Transports.ENDED));
+                    long ended = result.getLong(result.getColumnIndex(Transports.ENDED));
 
                     if (ended == 0L) {
                         return id;

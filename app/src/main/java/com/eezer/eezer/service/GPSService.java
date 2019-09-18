@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import com.eezer.eezer.R;
 import com.eezer.eezer.application.util.Utils.GPSAccuracy;
@@ -84,8 +85,11 @@ public class GPSService extends Service {
         manager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
 
         if (manager != null) {
+            Log.i("GPSService", "Successfully started GPS service.");
             manager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
                     UPDATE_INTERVAL_IN_MS, MIN_DISTANCE, listener);
+        } else {
+            Log.e("GPSService", "Could not start GPS service.");
         }
     }
 

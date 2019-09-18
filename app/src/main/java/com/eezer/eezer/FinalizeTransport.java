@@ -41,21 +41,21 @@ public class FinalizeTransport extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_finalize);
 
-        btnFinalize = (Button) findViewById(R.id.btnFinalize);
+        btnFinalize = findViewById(R.id.btnFinalize);
 
-        vehicleId = (EditText) findViewById(R.id.vehicleId);
-        passengerName = (EditText) findViewById(R.id.passengerName);
-        gender = (RadioGroup) findViewById(R.id.radioGender);
-        passengerPhone = (EditText) findViewById(R.id.passengerPhone);
-        reason = (Spinner) findViewById(R.id.reason_spinner);
+        vehicleId = findViewById(R.id.vehicleId);
+        passengerName = findViewById(R.id.passengerName);
+        gender = findViewById(R.id.radioGender);
+        passengerPhone = findViewById(R.id.passengerPhone);
+        reason = findViewById(R.id.reason_spinner);
 
         this.populateSpinner(reason);
 
         /* Set default checked on radio buttons */
-        RadioButton radioMale = (RadioButton) findViewById(R.id.radioMale);
+        RadioButton radioMale = findViewById(R.id.radioMale);
         radioMale.setChecked(true);
 
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        Toolbar myToolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
         getSupportActionBar().setTitle(String.format(Locale.getDefault(), "%s",
                     getResources().getString(R.string.finalize_transport)));
