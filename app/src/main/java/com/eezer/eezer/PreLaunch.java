@@ -59,7 +59,7 @@ public class PreLaunch extends AppCompatActivity {
 
         btnStart = (Button) findViewById(R.id.btnStart);
         accuracy = getResources().getString(R.string.accuracy_not_available);
-        txtSignalGPS = (TextView) findViewById(R.id.txtSignalGPS);
+        txtSignalGPS = findViewById(R.id.txtSignalGPS);
 
         driverId = this.getDriverId();
 
@@ -75,7 +75,7 @@ public class PreLaunch extends AppCompatActivity {
             startService(transportService);
         }
 
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        Toolbar myToolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
         getSupportActionBar().setTitle(String.format(Locale.getDefault(), "%s",
                 getResources().getString(R.string.new_transport)));

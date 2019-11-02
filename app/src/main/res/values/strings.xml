@@ -76,6 +76,7 @@
         <item>Delivery</item>
         <item>Return after delivery</item>
         <item>Accident</item>
+        <item>Taxi</item>
         <item>Other</item>
     </array>
 
