@@ -1,0 +1,95 @@
+<resources>
+    <string name="app_name" translatable="false">Eezer</string>
+    <string name="driverId">Driver ID</string>
+    <string name="vehicleId">Vehicle ID</string>
+    <string name="passengerName">Passenger Name</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="passengerPhone">Passenger Phone</string>
+    <string name="transportReason">Reason for transport</string>
+    <string name="start">Start</string>
+    <string name="finalize">Finalize</string>
+    <string name="new_transport">New Transport</string>
+    <string name="sync">Sync data</string>
+    <string name="gpsSignalInitialText">GPS Signal: No signal.</string>
+
+    <string name="activity_login">Log in</string>
+    <string name="activity_settings">Settings</string>
+    <string name="activity_sync">Sync</string>
+    <string name="activity_prelaunch">Pre Launch</string>
+    <string name="activity_summary">Summary of transport</string>
+    <string name="activity_stop">Stop</string>
+    <string name="activity_finalize">Finalize Transport</string>
+
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+
+    <string name="accuracy_not_available">Not available.</string>
+    <string name="finalize_transport">Finalize Transport</string>
+    <string name="gps_signal">GPS Signal</string>
+    <string name="summary_of_transport">Summary of transport</string>
+
+    <string name="unexpected_error">An unexpected error occoured.</string>
+    <string name="input_user_and_pass">Please input username and password.</string>
+    <string name="invalid_user_or_pass">Invalid username and/or password.</string>
+
+    <string name="gps_poor">Poor.</string>
+    <string name="gps_good">Good.</string>
+    <string name="gps_excellent">Excellent.</string>
+
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="ok">Ok</string>
+
+    <!-- CURRENCY -->
+
+    <string name="currency">SEK</string>
+
+    <!-- STOP ACTIVITY -->
+
+    <string name="cancel_transport">Cancel transport?</string>
+    <string name="confirm_cancel_transport">"Are you sure you want to cancel transport?"</string>
+    <string name="stop">Stop</string>
+    <string name="accuracy">Accuracy:</string>
+    <string name="total_distance">Total distance:</string>
+
+    <!-- SUMMARY ACTIVITY -->
+
+    <string name="duration">Duration:</string>
+    <string name="distance">Distance:</string>
+    <string name="cost">Cost:</string>
+
+    <!-- SYNC ACTIVITY -->
+
+    <string name="nothing_to_sync">Nothing to sync, press back to return.</string>
+
+    <!-- PRE LAUNCH -->
+
+    <string name="start_new_header">Press START to start a new transport.</string>
+
+    <!-- /// -->
+
+    <array name="reason_items">
+        <item>-- Select reason --</item>
+        <item>Checkup</item>
+        <item>Delivery</item>
+        <item>Return after delivery</item>
+        <item>Accident</item>
+        <item>Taxi</item>
+        <item>Other</item>
+    </array>
+
+    <array name="pref">
+        <item>3G</item>
+        <item>Wifi</item>
+    </array>
+    <array name="pref2">
+        <item>item3</item>
+        <item>item4</item>
+    </array>
+    <string name="pref_def">item1</string>
+
+    <string name="sync_data">Synchronize data</string>
+    <string name="settings">Settings</string>
+</resources>
