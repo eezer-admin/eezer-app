@@ -3,7 +3,6 @@ package com.eezer.eezer;
 import android.app.ListActivity;
 import android.content.Context;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;

@@ -2,9 +2,9 @@ package com.eezer.eezer.application.util;
 
 import android.util.Log;
 
-import com.eezer.eezer.application.domain.valueobject.api.StoreTransportResponse;
 import com.eezer.eezer.application.domain.valueobject.api.ErrorResponse;
 import com.eezer.eezer.application.domain.valueobject.api.LoginResponse;
+import com.eezer.eezer.application.domain.valueobject.api.StoreTransportResponse;
 import com.google.gson.Gson;
 
 /**

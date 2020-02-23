@@ -6,7 +6,7 @@ package com.eezer.eezer.application.config;
 
 public class Config {
 
-    public static final String EEZER_BACKEND_URL = "https://mdcxqhwaz8.execute-api.eu-west-1.amazonaws.com/prod";
+    public static final String EEZER_BACKEND_URL = "http://192.168.1.2:8080";
 
     public static final String EEZER_RESOURCE_STORE = "/api/store";
     public static final String EEZER_RESOURCE_LOGIN = "/api/login";

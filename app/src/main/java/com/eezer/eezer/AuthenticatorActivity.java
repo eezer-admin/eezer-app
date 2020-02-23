@@ -8,8 +8,8 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.CardView;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.eezer.eezer.service.authenticator.AccountGeneral;
@@ -36,15 +36,15 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
     private String mAuthTokenType;
 
     TextView txtLoginErrorMessage;
-    Button loginButton;
+    CardView loginButton;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_authenticator);
-        loginButton = (Button) findViewById(R.id.btnLogin);
-        txtLoginErrorMessage = (TextView) findViewById(R.id.txtLoginErrorMessage);
+        loginButton = findViewById(R.id.btnLogin);
+        txtLoginErrorMessage = findViewById(R.id.txtLoginErrorMessage);
 
         mAccountManager = AccountManager.get(getBaseContext());
 
@@ -67,12 +67,24 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
     }
 
     public void submit() {
+        txtLoginErrorMessage.setText("");
+        // EditText Inputs
+        TextView usernameInput = findViewById(R.id.accountName);
+        TextView userPassInput = findViewById(R.id.accountPassword);
 
-        final String userName = ((TextView) findViewById(R.id.accountName)).getText().toString();
-        final String userPass = ((TextView) findViewById(R.id.accountPassword)).getText().toString();
+        final String userName = usernameInput.getText().toString().trim();
+        final String userPass = userPassInput.getText().toString().trim();
+
+
+        if (userName.isEmpty()) {
+            usernameInput.setError("Required");
+        }
+
+        if (userPass.isEmpty()) {
+            userPassInput.setError("Required");
+        }
 
         if (userName.isEmpty() || userPass.isEmpty()) {
-            txtLoginErrorMessage.setText(getResources().getString(R.string.input_user_and_pass));
             return;
         }
 
@@ -105,10 +117,9 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
             @Override
             protected void onPostExecute(Intent intent) {
 
-                loginButton.setEnabled(true);
-
                 if (intent.hasExtra(KEY_ERROR_MESSAGE)) {
-                    txtLoginErrorMessage.setText(getResources().getString(R.string.invalid_user_or_pass));
+                    txtLoginErrorMessage.setText(intent.getStringExtra(KEY_ERROR_MESSAGE));
+                    loginButton.setEnabled(true);
                 } else {
                     finishLogin(intent);
                 }
