@@ -1,7 +1,9 @@
 package com.eezer.eezer;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -15,10 +17,14 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 
+import com.eezer.eezer.application.config.Config;
 import com.eezer.eezer.service.RouteService;
 import com.eezer.eezer.service.RouteServiceImpl;
 
 import java.util.Locale;
+
+import io.sentry.Sentry;
+import io.sentry.event.UserBuilder;
 
 /**
  * FinalizeTransport activity. FinalizeTransport application activity.
@@ -61,6 +67,14 @@ public class FinalizeTransport extends AppCompatActivity {
                     getResources().getString(R.string.finalize_transport)));
     }
 
+    private String getDriverUsername() {
+
+        SharedPreferences sharedPrefs = this.getSharedPreferences(
+                Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+
+        return sharedPrefs.getString(USERNAME_KEY, "<no driver>");
+    }
+
     /**
      * Fetch an unfinished transport.
      *
@@ -84,7 +98,7 @@ public class FinalizeTransport extends AppCompatActivity {
 
         RouteService service = RouteServiceImpl.getInstance(getApplicationContext());
         Long transportId = this.getUnfinishedTransport();
-
+        Sentry.capture("User finalized a transport " + transportId);
         String genderValue = ((RadioButton)findViewById(gender.getCheckedRadioButtonId())).getText().toString();
 
         service.finalizeAndStoreTransport(transportId, vehicleId.getText().toString(),
@@ -116,6 +130,13 @@ public class FinalizeTransport extends AppCompatActivity {
         service.finalizeAndStoreTransport(transportId, "not specified",
                 "not specified", "not specified",
                 "not specified", "Cancelled by user.");
+
+
+        Sentry.getContext().setUser(
+                new UserBuilder().setUsername(getDriverUsername()).build()
+        );
+        Sentry.getContext().addExtra("Transport ID", transport.getTransportId());
+        Sentry.capture("User cancelled a transport");
 
         this.navigateToPreLaunch();
     }

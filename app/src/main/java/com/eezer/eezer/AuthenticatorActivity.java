@@ -12,6 +12,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import io.sentry.Sentry;
+import io.sentry.event.UserBuilder;
+
 import com.eezer.eezer.service.authenticator.AccountGeneral;
 
 import static com.eezer.eezer.service.authenticator.AccountGeneral.sServerAuthenticate;
@@ -76,6 +79,12 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
             return;
         }
 
+        // Set the user in the current context.
+        Sentry.getContext().setUser(
+            new UserBuilder().setUsername(userName).build()
+        );
+
+
         loginButton.setEnabled(false);
 
         final String accountType = getIntent().getStringExtra(ARG_ACCOUNT_TYPE);
@@ -110,6 +119,7 @@ public class AuthenticatorActivity extends AccountAuthenticatorActivity {
                 if (intent.hasExtra(KEY_ERROR_MESSAGE)) {
                     txtLoginErrorMessage.setText(getResources().getString(R.string.invalid_user_or_pass));
                 } else {
+                    Sentry.capture("User authenticated");
                     finishLogin(intent);
                 }
             }

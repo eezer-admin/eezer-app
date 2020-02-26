@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import io.sentry.Sentry;
 import okhttp3.Response;
 
 /**
@@ -100,7 +101,7 @@ public class EezerSyncAdapter extends AbstractThreadedSyncAdapter {
                 mAccountManager.invalidateAuthToken(account.type, authToken);
             }
         } catch (Exception e) {
-
+            Sentry.capture(e);
             Log.d("EezerSyncAdapter", "Sync failed.");
             e.printStackTrace();
         }

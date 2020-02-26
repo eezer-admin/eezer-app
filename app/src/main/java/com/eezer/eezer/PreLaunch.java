@@ -29,6 +29,10 @@ import com.eezer.eezer.service.TransportService;
 import java.util.Locale;
 import java.util.UUID;
 
+import io.sentry.Sentry;
+import io.sentry.event.UserBuilder;
+
+
 import static com.eezer.eezer.service.GPSService.LOCATION_COORDINATE_ACCURACY;
 import static com.eezer.eezer.service.GPSService.LOCATION_UPDATE_FILTER;
 import static com.eezer.eezer.service.TransportService.ACTION_KEY;
@@ -61,7 +65,7 @@ public class PreLaunch extends AppCompatActivity {
         accuracy = getResources().getString(R.string.accuracy_not_available);
         txtSignalGPS = findViewById(R.id.txtSignalGPS);
 
-        driverId = this.getDriverId();
+        driverId = this.getDriverUsername();
 
         if (!runtimePermissions()) {
             btnStart.setEnabled(true);
@@ -86,7 +90,6 @@ public class PreLaunch extends AppCompatActivity {
         Long unfinishedTransportId = service.getUnfinishedTransport();
 
         if (unfinishedTransportId != null) {
-
             Log.d("PreLaunch", "Found unfinished transport, resuming id " + unfinishedTransportId);
 
             // Navigate to the Stop activity.
@@ -143,7 +146,7 @@ public class PreLaunch extends AppCompatActivity {
 
     private Transport createNewTransport() {
 
-        driverId = this.getDriverId();
+        driverId = this.getDriverUsername();
 
         Transport transport = new Transport();
 
@@ -158,7 +161,7 @@ public class PreLaunch extends AppCompatActivity {
         return transport;
     }
 
-    private String getDriverId() {
+    private String getDriverUsername() {
 
         SharedPreferences sharedPrefs = this.getSharedPreferences(
                 Config.SHARED_PREF_NAME, Context.MODE_PRIVATE);
@@ -169,13 +172,23 @@ public class PreLaunch extends AppCompatActivity {
     public void btnStartOnClick(View v) {
 
         RouteServiceImpl service = RouteServiceImpl.getInstance(getApplicationContext());
-        Long transportId = service.createTransport(createNewTransport());
+        Transport transport  = createNewTransport();
+        Long transportId = service.createTransport(transport);
+
 
         // Send message to transport service to start the current transport.
         Intent startTransportIntent = new Intent(TRANSPORT_SERVICE_FILTER);
         startTransportIntent.putExtra(ACTION_KEY, ACTION_START_TRANSPORT);
         startTransportIntent.putExtra(TRANSPORT_KEY, transportId);
         sendBroadcast(startTransportIntent);
+        Sentry.getContext().setUser(
+                new UserBuilder().setUsername(getDriverUsername()).build()
+        );
+        Sentry.getContext().addExtra("Transport ID", transport.getTransportId());
+        Sentry.getContext().addExtra("GPS Accuracy", accuracy);
+
+        Sentry.capture("Transport started");
+
 
         // Navigate to the Stop activity.
         Intent intent = new Intent(this, Stop.class);

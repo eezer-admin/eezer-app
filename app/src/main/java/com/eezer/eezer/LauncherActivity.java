@@ -13,6 +13,8 @@ import android.util.Log;
 
 import com.eezer.eezer.application.config.Config;
 import com.eezer.eezer.service.authenticator.AccountGeneral;
+import io.sentry.Sentry;
+import io.sentry.android.AndroidSentryClientFactory;
 
 /**
  * This is the applications launcher activity.
@@ -30,7 +32,7 @@ public class LauncherActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        Sentry.init("https://5a542c3775774c75beb6c8d9af019a4e@sentry.io/2272179", new AndroidSentryClientFactory(this));
         mAccountManager = AccountManager.get(this);
 
         Account eezerAccount = findAccount();
