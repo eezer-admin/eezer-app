@@ -1,5 +1,6 @@
 export default {
   en: {
+    'Log in': 'Log in',
     Date: 'Date',
     Time: 'Time',
     Uploaded: 'Uploaded',
@@ -9,6 +10,9 @@ export default {
   },
   sv: {
     'Tab One': 'Flik ett',
-    Log: 'Logg'
+    Log: 'Logg',
+    'Log in': 'Logga in',
+    Username: 'Användarnamn',
+    Password: 'Lösenord'
   }
 }

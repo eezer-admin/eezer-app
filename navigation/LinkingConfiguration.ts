@@ -4,7 +4,7 @@
  * https://reactnavigation.org/docs/configuring-links
  */
 
-import * as Linking from 'expo-linking';
+import * as Linking from 'expo-linking'
 
 export default {
   prefixes: [Linking.makeUrl('/')],
@@ -12,24 +12,29 @@ export default {
     screens: {
       Root: {
         screens: {
+          Login: {
+            screens: {
+              LoginScreen: 'login'
+            }
+          },
           TabOne: {
             screens: {
-              TabOneScreen: 'one',
-            },
+              TabOneScreen: 'one'
+            }
           },
-          TabTwo: {
+          NewTransport: {
             screens: {
-              TabTwoScreen: 'two',
-            },
+              NewTransportScreen: 'transports/create'
+            }
           },
           Log: {
             screens: {
-              LogScreen: 'log',
-            },
-          },
-        },
+              LogScreen: 'log'
+            }
+          }
+        }
       },
-      NotFound: '*',
-    },
-  },
-};
+      NotFound: '*'
+    }
+  }
+}

@@ -12,13 +12,32 @@ import Colors from '../constants/Colors'
 import useColorScheme from '../hooks/useColorScheme'
 import LogScreen from '../screens/LogScreen'
 import TabOneScreen from '../screens/TabOneScreen'
-import TabTwoScreen from '../screens/TabTwoScreen'
-import { BottomTabParamList, LogTabParamList, TabOneParamList, TabTwoParamList } from '../types'
+import NewTransportScreen from '../screens/NewTransportScreen'
+import LoginScreen from '../screens/LoginScreen'
+import { BottomTabParamList, LogTabParamList, TabOneParamList, NewTransportParamList, LoginParamList } from '../types'
+import isLoggedIn from '../hooks/isLoggedIn'
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>()
 
 export default function BottomTabNavigator () {
   const colorScheme = useColorScheme()
+  const loggedIn = isLoggedIn()
+
+  if (!loggedIn) {
+    return (
+      <BottomTab.Navigator
+        initialRouteName="Login"
+        tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}>
+        <BottomTab.Screen
+          name="Login"
+          component={LoginScreenNavigator}
+          options={{
+            tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />
+          }}
+        />
+        </BottomTab.Navigator>
+    )
+  }
 
   return (
     <BottomTab.Navigator
@@ -32,8 +51,8 @@ export default function BottomTabNavigator () {
         }}
       />
       <BottomTab.Screen
-        name="TabTwo"
-        component={TabTwoNavigator}
+        name="NewTransport"
+        component={NewTransportNavigator}
         options={{
           tabBarIcon: ({ color }) => <TabBarIcon name="ios-code" color={color} />
         }}
@@ -57,6 +76,20 @@ function TabBarIcon (props: { name: React.ComponentProps<typeof Ionicons>['name'
 
 // Each tab has its own navigation stack, you can read more about this pattern here:
 // https://reactnavigation.org/docs/tab-based-navigation#a-stack-navigator-for-each-tab
+const LoginScreenStack = createStackNavigator<LoginParamList>()
+
+function LoginScreenNavigator () {
+  return (
+    <LoginScreenStack.Navigator>
+      <LoginScreenStack.Screen
+        name="LoginScreen"
+        component={LoginScreen}
+        options={{ headerShown: false }}
+      />
+    </LoginScreenStack.Navigator>
+  )
+}
+
 const TabOneStack = createStackNavigator<TabOneParamList>()
 
 function TabOneNavigator () {
@@ -71,17 +104,17 @@ function TabOneNavigator () {
   )
 }
 
-const TabTwoStack = createStackNavigator<TabTwoParamList>()
+const NewTransportStack = createStackNavigator<NewTransportParamList>()
 
-function TabTwoNavigator () {
+function NewTransportNavigator () {
   return (
-    <TabTwoStack.Navigator>
-      <TabTwoStack.Screen
-        name="TabTwoScreen"
-        component={TabTwoScreen}
+    <NewTransportStack.Navigator>
+      <NewTransportStack.Screen
+        name="NewTransportScreen"
+        component={NewTransportScreen}
         options={{ headerShown: false }}
       />
-    </TabTwoStack.Navigator>
+    </NewTransportStack.Navigator>
   )
 }
 

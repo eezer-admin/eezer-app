@@ -13,6 +13,8 @@ import { Provider } from 'react-redux'
 import * as Localization from 'expo-localization'
 import i18n from './assets/localization/Localization'
 import { setTransports } from './models/Transports'
+
+require('dotenv').config()
 i18n.locale = Localization.locale
 
 export default function App () {
