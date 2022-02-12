@@ -5,6 +5,7 @@ import { useContext } from 'react';
 
 import { AuthContext, AuthProvider } from './contexts/authContext';
 import { LanguageProvider } from './contexts/languageContext';
+import { TransportLogProvider } from './contexts/transportLogContext';
 import i18n, { __ } from './localization/Localization';
 import CreateTransportationScreen from './screens/CreateTransportationScreen';
 import LogScreen from './screens/LogScreen';
@@ -21,23 +22,25 @@ const Router = () => {
 
   return (
     <LanguageProvider language={Localization.locale}>
-      <NavigationContainer>
-        {auth.isLoggedIn() ? (
-          <Drawer.Navigator initialRouteName="CreateTransportation">
-            <Drawer.Screen
-              name={__('Select transportation')}
-              navigationKey="CreateTransportation"
-              component={CreateTransportationScreen}
-            />
-            <Drawer.Screen name={__('History')} navigationKey="History" component={LogScreen} />
-            <Drawer.Screen name="Profile" component={ProfileScreen} />
-          </Drawer.Navigator>
-        ) : (
-          <Drawer.Navigator initialRouteName="Login">
-            <Drawer.Screen name="Login" component={LoginScreen} />
-          </Drawer.Navigator>
-        )}
-      </NavigationContainer>
+      <TransportLogProvider>
+        <NavigationContainer>
+          {auth.isLoggedIn() ? (
+            <Drawer.Navigator initialRouteName="CreateTransportation">
+              <Drawer.Screen
+                name={__('Select transportation')}
+                navigationKey="CreateTransportation"
+                component={CreateTransportationScreen}
+              />
+              <Drawer.Screen name={__('History')} navigationKey="History" component={LogScreen} />
+              <Drawer.Screen name="Profile" component={ProfileScreen} />
+            </Drawer.Navigator>
+          ) : (
+            <Drawer.Navigator initialRouteName="Login">
+              <Drawer.Screen name="Login" component={LoginScreen} />
+            </Drawer.Navigator>
+          )}
+        </NavigationContainer>
+      </TransportLogProvider>
     </LanguageProvider>
   );
 };

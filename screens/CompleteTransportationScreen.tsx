@@ -1,16 +1,23 @@
 import * as React from 'react';
+import { useContext } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 
+import { TransportContext } from '../contexts/transportContext';
+import { Transport } from '../types/Transports';
+
 export default function CompleteTransportationScreen({ route, navigation }) {
-  const { transportation } = route.params;
+  const transport = useContext(TransportContext);
+
+  console.log('Complete transport!', transport.data);
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Complete transportation!</Text>
+      <Text>Complete transport!</Text>
 
       <TouchableOpacity
         onPress={() => {
-          // Todo: Complete the transport.
-          navigation.navigate('CreateTransportation');
+          transport.complete().then(() => {
+            navigation.navigate('CreateTransportation');
+          });
         }}>
         <Text>Back to start</Text>
       </TouchableOpacity>

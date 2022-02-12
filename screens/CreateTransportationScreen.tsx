@@ -1,10 +1,12 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import React, { useContext } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import React, { useContext, useEffect, useState } from 'react';
+import { View, Text, TouchableOpacity, ActivityIndicator } from 'react-native';
 
 import { AuthContext } from '../contexts/authContext';
 import { LanguageContext } from '../contexts/languageContext';
+import { TransportContext, TransportProvider } from '../contexts/transportContext';
 import { __ } from '../localization/Localization';
+import { Transport } from '../types/Transports';
 import CompleteTransportationScreen from './CompleteTransportationScreen';
 import StartTransportationScreen from './StartTransportationScreen';
 import StopTransportationScreen from './StopTransportationScreen';
@@ -14,6 +16,7 @@ const Stack = createNativeStackNavigator();
 function CreateTransportation({ navigation }) {
   const auth = useContext(AuthContext);
   const [language, setLanguage] = useContext(LanguageContext);
+
   return (
     <View>
       <Text>{__('Select your transportation')}</Text>
@@ -104,9 +107,27 @@ function CreateOtherTransportationScreen({ navigation }) {
   );
 }
 
-export default function CreateTransportationScreen() {
-  return (
-    <Stack.Navigator initialRouteName="CreateTransportation">
+const Router = () => {
+  const transport = useContext(TransportContext);
+  const [loaded, setLoaded] = useState(false);
+  const [initialRouteName, setInitialRouteName] = useState('CreateTransportation');
+
+  useEffect(() => {
+    transport.get().then((transport: Transport | null) => {
+      if (!transport) {
+        setInitialRouteName('CreateTransportation');
+      } else if (!transport.ended) {
+        setInitialRouteName('StopTransportation');
+      } else {
+        setInitialRouteName('CompleteTransportation');
+      }
+
+      setLoaded(true);
+    });
+  }, []);
+
+  return loaded ? (
+    <Stack.Navigator initialRouteName={initialRouteName}>
       <Stack.Screen name="CreateTransportation" component={CreateTransportation} />
       <Stack.Screen name="CreatePregnancyTransportation" component={CreatePregnancyTransportationScreen} />
       <Stack.Screen name="CreateOtherTransportation" component={CreateOtherTransportationScreen} />
@@ -114,5 +135,15 @@ export default function CreateTransportationScreen() {
       <Stack.Screen name="StopTransportation" component={StopTransportationScreen} />
       <Stack.Screen name="CompleteTransportation" component={CompleteTransportationScreen} />
     </Stack.Navigator>
+  ) : (
+    <ActivityIndicator />
+  );
+};
+
+export default function CreateTransportationScreen() {
+  return (
+    <TransportProvider>
+      <Router />
+    </TransportProvider>
   );
 }
