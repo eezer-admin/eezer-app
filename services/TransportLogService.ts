@@ -15,17 +15,14 @@ export async function get(): Promise<TransportLog> {
 
 export function add(transport: Transport): Promise<TransportLog> {
   return get().then((log: TransportLog) => {
-    console.log('Adding to the log', log);
     let data = log;
     if (data) {
-      console.log('Found existing log', log);
-      log.unshift(transport);
+      data.unshift(transport);
     } else {
-      console.log('Creating new log');
       data = [transport];
     }
 
-    return persist(log);
+    return persist(data);
   });
 }
 

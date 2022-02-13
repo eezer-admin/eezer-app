@@ -29,6 +29,7 @@ export class EezerClient {
   }
 
   public async getUser(token: string): Promise<GetUserResponse> {
+    // TODO: change email.
     const response = await axios.get(`${this.baseUrl}/api/v1/users/mattias@happypixels.se`, {
       headers: {
         Authorization: `Bearer ${token}`,

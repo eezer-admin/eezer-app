@@ -1,8 +1,7 @@
 import * as React from 'react';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { View, Text, FlatList, SafeAreaView } from 'react-native';
 
-import { TransportContext } from '../contexts/transportContext';
 import { TransportLogContext } from '../contexts/transportLogContext';
 import { Transport, TransportLog } from '../types/Transports';
 
@@ -19,15 +18,17 @@ const LogRow = (item: object) => {
 };
 
 export default function LogScreen() {
-  const log = useContext(TransportLogContext);
+  const [log] = useContext(TransportLogContext);
+  const [data, setData] = useState([]);
 
-  console.log(log);
-  // Todo: Add useEffect
+  useEffect(() => {
+    setData(log);
+  }, [log]);
 
   return (
     <SafeAreaView style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <FlatList
-        data={log.data as TransportLog}
+        data={data as TransportLog}
         keyExtractor={(item, index) => `transport-${item.identifier}-${index}`}
         renderItem={(item) => <LogRow item={item.item} />}
       />

@@ -32,6 +32,8 @@ export const TransportProvider = (props) => {
       reason,
     } as Transport;
 
+    setData(transport);
+
     return persist(transport);
   };
 
@@ -40,19 +42,17 @@ export const TransportProvider = (props) => {
       if (transport) {
         transport.ended = new Date().toISOString();
 
+        setData(transport);
+
         return persist(transport);
       }
     });
   };
 
-  /**
-   * Adds the transport to the log and removes it from the ongoing transport context.
-   */
   const complete = async (): Promise<void> => {
-    return add(data as Transport).then(() => {
-      console.log('Completed the transport!');
-      return remove();
-    });
+    setData(null);
+
+    return remove();
   };
 
   return (

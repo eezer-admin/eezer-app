@@ -16,5 +16,5 @@ export const TransportLogProvider = (props) => {
     });
   }, []);
 
-  return <TransportLogContext.Provider value={{ data }}>{props.children}</TransportLogContext.Provider>;
+  return <TransportLogContext.Provider value={[data, setData]}>{props.children}</TransportLogContext.Provider>;
 };
