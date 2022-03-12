@@ -1,4 +1,7 @@
-import axios from 'axios';
+import axios, { AxiosRequestHeaders } from 'axios';
+
+import { getAccessToken } from '../services/AuthService';
+import { ApiTransport } from '../types/Transports';
 
 export type LoginResponse = {
   access_token: string;
@@ -29,13 +32,42 @@ export class EezerClient {
   }
 
   public async getUser(token: string): Promise<GetUserResponse> {
-    // TODO: change email.
-    const response = await axios.get(`${this.baseUrl}/api/v1/users/mattias@happypixels.se`, {
+    const response = await axios.get(`${this.baseUrl}/api/v1/users/me`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     });
 
     return response.data;
+  }
+
+  public async syncTransports(transports: ApiTransport[]): Promise {
+    const headers = await this.getAuthenticatedHeaders();
+
+    console.log({
+      headers,
+    });
+
+    try {
+      const response = await axios.post(`${this.baseUrl}/api/v1/transport`, transports, {
+        headers,
+      });
+
+      console.log('Response from API:', response.data);
+
+      return response.data;
+    } catch (err) {
+      console.log(err.response);
+    }
+  }
+
+  protected async getAuthenticatedHeaders(): Promise<AxiosRequestHeaders> {
+    const token = await getAccessToken();
+
+    return {
+      Accept: 'applicaton/json',
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    };
   }
 }

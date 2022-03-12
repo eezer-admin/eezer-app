@@ -39,3 +39,19 @@ export function storeUser(user: User): Promise<User> {
 export async function deleteStoredUser(): Promise<void> {
   return AsyncStorage.removeItem(storageKey);
 }
+
+export async function getAccessToken(): Promise<string> {
+  return AsyncStorage.getItem(storageKey).then((user) => {
+    if (user) {
+      return JSON.parse(user).access_token;
+    }
+  });
+}
+
+export async function getUserId(): Promise<number> {
+  return AsyncStorage.getItem(storageKey).then((user) => {
+    if (user) {
+      return JSON.parse(user).id;
+    }
+  });
+}

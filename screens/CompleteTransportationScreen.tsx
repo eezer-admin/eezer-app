@@ -4,26 +4,27 @@ import { View, Text, TouchableOpacity } from 'react-native';
 
 import { TransportContext } from '../contexts/transportContext';
 import { TransportLogContext } from '../contexts/transportLogContext';
-import { add as addToLog } from '../services/TransportLogService';
+import TransportModel from '../models/TransportModel';
 
 export default function CompleteTransportationScreen({ route, navigation }) {
-  const transport = useContext(TransportContext);
+  const context = useContext(TransportContext);
+  const transport = context.data as TransportModel;
 
-  if (!transport.data) {
+  if (!transport) {
     return null;
   }
 
-  const [log, setLog] = useContext(TransportLogContext);
+  const log = useContext(TransportLogContext);
 
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Text>Complete transport!</Text>
+      <Text>Duration: {transport.getReadableDuration()}</Text>
 
       <TouchableOpacity
         onPress={() => {
-          addToLog(transport.data).then((log) => {
-            setLog(log);
-            transport.complete().then(() => {
+          log.add(transport).then(() => {
+            context.completeTransport().then(() => {
               navigation.navigate('CreateTransportation');
             });
           });

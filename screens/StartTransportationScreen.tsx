@@ -6,7 +6,7 @@ import { TransportContext } from '../contexts/transportContext';
 
 export default function StartTransportationScreen({ route, navigation }) {
   const { type } = route.params;
-  const transport = useContext(TransportContext);
+  const context = useContext(TransportContext);
 
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -15,7 +15,7 @@ export default function StartTransportationScreen({ route, navigation }) {
 
       <TouchableOpacity
         onPress={() => {
-          transport.start(type).then(() => {
+          context.start(type).then(() => {
             navigation.navigate('StopTransportation');
           });
         }}>

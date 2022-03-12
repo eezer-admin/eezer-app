@@ -1,6 +1,8 @@
 import { createContext, useEffect, useState } from 'react';
 
 import { getStoredUser, requestLogin, deleteStoredUser } from '../services/AuthService';
+import { remove as removeTransportLog } from '../services/TransportLogService';
+import { remove as removeCurrentTransport } from '../services/TransportService';
 import { AuthContextData, User } from '../types/Auth';
 
 export const AuthContext = createContext<AuthContextData>({} as AuthContextData);
@@ -30,9 +32,11 @@ export const AuthProvider = (props) => {
 
   // Removes the user from the local storage and context.
   const logout = async () => {
-    deleteStoredUser().then(() => {
-      setUser(null);
-    });
+    await removeTransportLog();
+    await removeCurrentTransport();
+    await deleteStoredUser();
+
+    setUser(null);
   };
 
   const isLoggedIn = (): boolean => {

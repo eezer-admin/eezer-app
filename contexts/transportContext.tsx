@@ -1,9 +1,9 @@
 import { createContext, useEffect, useState } from 'react';
 
-import { add } from '../services/TransportLogService';
-import { get as getFromStorage, persist, remove, storeCurrentTransport } from '../services/TransportService';
+import TransportModel from '../models/TransportModel';
+import { get as getFromStorage, persist, remove } from '../services/TransportService';
 import { generateUuid } from '../services/UuidService';
-import { Transport, TransportContextData } from '../types/Transports';
+import { TransportContextData, TransportCoordinate } from '../types/Transports';
 
 export const TransportContext = createContext<TransportContextData>({} as TransportContextData);
 
@@ -11,48 +11,37 @@ export const TransportProvider = (props) => {
   const [data, setData] = useState<TransportContextData>();
 
   useEffect(() => {
-    getFromStorage().then((transport: Transport) => {
+    getFromStorage().then((transport: TransportModel) => {
       if (transport) {
         setData(transport);
       }
     });
   }, []);
 
-  const get = async (): Promise<Transport | null> => {
+  const get = async (): Promise<TransportModel | null> => {
     return getFromStorage();
   };
 
-  const start = async (reason: string): Promise<Transport> => {
-    const transport = {
-      identifier: generateUuid(),
-      started: new Date().toISOString(),
-      ended: null,
-      distanceMeters: 0,
-      durationSeconds: 0,
-      reason,
-    } as Transport;
-
+  const start = async (reason: string): Promise<TransportModel> => {
+    const transport = new TransportModel(null);
+    transport.start(reason);
     setData(transport);
 
     return persist(transport);
   };
 
-  const stop = async (): Promise<Transport> => {
-    return get().then((transport: Transport | null) => {
-      if (transport) {
-        transport.ended = new Date().toISOString();
-
-        setData(transport);
-
-        return persist(transport);
-      }
-    });
-  };
-
-  const complete = async (): Promise<void> => {
+  const completeTransport = async (): Promise<void> => {
     setData(null);
 
     return remove();
+  };
+
+  const save = async (transport: TransportModel): Promise<TransportModel> => {
+    return persist(transport).then(() => {
+      setData(transport);
+
+      return transport;
+    });
   };
 
   return (
@@ -60,9 +49,9 @@ export const TransportProvider = (props) => {
       value={{
         data,
         get,
-        stop,
+        save,
         start,
-        complete,
+        completeTransport,
       }}>
       {props.children}
     </TransportContext.Provider>

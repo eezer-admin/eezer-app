@@ -1,18 +1,23 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+import TransportModel from '../models/TransportModel';
 import { Transport } from '../types/Transports';
 
 const storageKey = 'EEZER::TRANSPORT';
 
-export async function get(): Promise<Transport> {
+export async function get(): Promise<TransportModel> {
   return AsyncStorage.getItem(storageKey).then((transport: string | null) => {
     if (transport) {
-      return JSON.parse(transport);
+      transport = JSON.parse(transport);
+
+      return new TransportModel(transport?.data || transport);
+    } else {
+      return new TransportModel(null);
     }
   });
 }
 
-export function persist(transport: Transport): Promise<Transport> {
+export function persist(transport: Transport): Promise<TransportModel> {
   return AsyncStorage.setItem(storageKey, JSON.stringify(transport)).then(() => {
     return transport;
   });

@@ -1,6 +1,7 @@
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
 import * as Localization from 'expo-localization';
+import * as TaskManager from 'expo-task-manager';
 import { useContext } from 'react';
 
 import { AuthContext, AuthProvider } from './contexts/authContext';

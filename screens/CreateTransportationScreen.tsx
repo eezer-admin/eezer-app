@@ -6,6 +6,7 @@ import { AuthContext } from '../contexts/authContext';
 import { LanguageContext } from '../contexts/languageContext';
 import { TransportContext, TransportProvider } from '../contexts/transportContext';
 import { __ } from '../localization/Localization';
+import TransportModel from '../models/TransportModel';
 import { Transport } from '../types/Transports';
 import CompleteTransportationScreen from './CompleteTransportationScreen';
 import StartTransportationScreen from './StartTransportationScreen';
@@ -113,10 +114,10 @@ const Router = () => {
   const [initialRouteName, setInitialRouteName] = useState('CreateTransportation');
 
   useEffect(() => {
-    transport.get().then((transport: Transport | null) => {
-      if (!transport) {
+    transport.get().then((transport: TransportModel | null) => {
+      if (!transport || (!transport.isStarted() && !transport.isEnded())) {
         setInitialRouteName('CreateTransportation');
-      } else if (!transport.ended) {
+      } else if (transport.isOngoing()) {
         setInitialRouteName('StopTransportation');
       } else {
         setInitialRouteName('CompleteTransportation');
