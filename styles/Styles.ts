@@ -12,7 +12,7 @@ const fontSizes = {
 const colors = {
   gray: '#DCDCDC',
   grayDark: '#D2D2D2',
-  green: '',
+  green: '#6FD25F',
   red: '',
   white: 'white',
 };
@@ -23,7 +23,8 @@ export default {
   fontSizes,
 
   container: {
-    paddingHorizontal: margins.medium,
+    paddingHorizontal: margins.large,
+    width: '100%',
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
@@ -50,7 +51,7 @@ export default {
       textTransform: 'uppercase',
     },
     green: {
-      backgroundColor: '#019566',
+      backgroundColor: colors.green,
     },
     red: {
       backgroundColor: '#AD2A43',

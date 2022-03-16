@@ -5,6 +5,14 @@ import translations from './Translations';
 i18n.translations = translations;
 i18n.fallbacks = true;
 
+export function supportedLanguages(): string[] {
+  return ['en', 'fr', 'rn', 'sw'];
+}
+
+export function defaultLanguage(): string {
+  return 'en';
+}
+
 export function __(string: string): string {
   const translated = i18n.t(string);
 

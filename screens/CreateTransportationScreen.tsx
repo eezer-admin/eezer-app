@@ -3,7 +3,6 @@ import React, { useContext, useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, ActivityIndicator, Image } from 'react-native';
 
 import Logo from '../components/Logo';
-import { AuthContext } from '../contexts/authContext';
 import { LanguageContext } from '../contexts/languageContext';
 import { TransportContext, TransportProvider } from '../contexts/transportContext';
 import { __ } from '../localization/Localization';
@@ -16,8 +15,7 @@ import StopTransportationScreen from './StopTransportationScreen';
 const Stack = createNativeStackNavigator();
 
 function CreateTransportation({ navigation }) {
-  const auth = useContext(AuthContext);
-  const [language, setLanguage] = useContext(LanguageContext);
+  useContext(LanguageContext);
 
   return (
     <View style={Styles.container}>
@@ -60,31 +58,13 @@ function CreateTransportation({ navigation }) {
           <Text>{__('Other')}</Text>
         </TouchableOpacity>
       </View>
-
-      <TouchableOpacity
-        onPress={() => {
-          auth.logout();
-        }}>
-        <Text>{__('Logout')}</Text>
-      </TouchableOpacity>
-
-      <TouchableOpacity
-        onPress={() => {
-          setLanguage('en');
-        }}>
-        <Text>{__('English')}</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => {
-          setLanguage('sv');
-        }}>
-        <Text>{__('Swedish')}</Text>
-      </TouchableOpacity>
     </View>
   );
 }
 
 function CreatePregnancyTransportationScreen({ navigation }) {
+  useContext(LanguageContext);
+
   return (
     <View style={Styles.container}>
       <Logo />
@@ -144,6 +124,8 @@ function CreatePregnancyTransportationScreen({ navigation }) {
 }
 
 function CreateOtherTransportationScreen({ navigation }) {
+  useContext(LanguageContext);
+
   return (
     <View style={Styles.container}>
       <Logo />
@@ -201,6 +183,7 @@ function CreateOtherTransportationScreen({ navigation }) {
 }
 
 const Router = () => {
+  useContext(LanguageContext);
   const context = useContext(TransportContext);
   const [loaded, setLoaded] = useState(false);
   const [transport, setTransport] = useState(null);

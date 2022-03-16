@@ -4,6 +4,7 @@ import { View, Text, TouchableOpacity, TextInput } from 'react-native';
 
 import Logo from '../components/Logo';
 import { AuthContext } from '../contexts/authContext';
+import { LanguageContext } from '../contexts/languageContext';
 import { __ } from '../localization/Localization';
 import Styles from '../styles/Styles';
 
@@ -12,6 +13,7 @@ export default function LoginScreen() {
   const [password, onChangePassword] = React.useState('');
 
   const auth = useContext(AuthContext);
+  useContext(LanguageContext);
 
   return (
     <View style={Styles.container}>
@@ -39,6 +41,7 @@ export default function LoginScreen() {
         style={{
           ...Styles.button,
           ...Styles.button.green,
+          width: '100%',
         }}
         onPress={() => {
           auth.login(username, password).catch((error) => {

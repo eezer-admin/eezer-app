@@ -1,7 +1,9 @@
 import i18n from 'i18n-js';
 import { createContext, useState, useMemo } from 'react';
 
-export const LanguageContext = createContext<string>('en');
+import { defaultLanguage } from '../localization/Localization';
+
+export const LanguageContext = createContext<string>(defaultLanguage());
 
 export const LanguageProvider = (props) => {
   const [language, setLanguage] = useState(props.language);

@@ -1,10 +1,18 @@
 export default {
-  sv: {
-    'Log in': 'Logga in',
-    Pregnancy: 'Graviditet',
-    'Select transportation': 'Välj transporttyp',
-    History: 'Historik',
-    Checkup: 'Undersökning',
-    Other: 'Övrigt',
+  en: {
+    'Log in': 'Log in',
+    Username: 'Username',
+    Password: 'Password',
+    History: 'History',
+    Pregnancy: 'Pregnancy',
+    Other: 'Other',
+  },
+  fr: {
+    'Log in': 'Connexion',
+    Username: "Nom d'utilisateur",
+    Password: 'Mot de passe',
+    History: 'Histoire',
+    Pregnancy: 'Grossesse',
+    Other: 'Autre',
   },
 };

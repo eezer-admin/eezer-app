@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from 'react';
 import { View, Text, FlatList, SafeAreaView, TouchableOpacity, Image } from 'react-native';
 
 import { AuthContext } from '../contexts/authContext';
+import { LanguageContext } from '../contexts/languageContext';
 import { TransportLogContext } from '../contexts/transportLogContext';
 import { __ } from '../localization/Localization';
 import TransportModel from '../models/TransportModel';
@@ -72,6 +73,7 @@ const LogRow = (item: object) => {
 };
 
 export default function LogScreen() {
+  useContext(LanguageContext);
   const log = useContext(TransportLogContext);
   const [data, setData] = useState([]);
 

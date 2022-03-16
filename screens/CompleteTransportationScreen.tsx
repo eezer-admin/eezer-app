@@ -3,12 +3,14 @@ import { useContext } from 'react';
 import { View, Text, TouchableOpacity, Image } from 'react-native';
 
 import Logo from '../components/Logo';
+import { LanguageContext } from '../contexts/languageContext';
 import { TransportContext } from '../contexts/transportContext';
 import { TransportLogContext } from '../contexts/transportLogContext';
 import TransportModel from '../models/TransportModel';
 import Styles from '../styles/Styles';
 
 export default function CompleteTransportationScreen({ route, navigation }) {
+  useContext(LanguageContext);
   const context = useContext(TransportContext);
   const transport = context.data as TransportModel;
 
