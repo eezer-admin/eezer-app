@@ -3,6 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import * as Localization from 'expo-localization';
 import * as TaskManager from 'expo-task-manager';
 import { useContext } from 'react';
+import { View } from 'react-native';
 
 import { AuthContext, AuthProvider } from './contexts/authContext';
 import { LanguageProvider } from './contexts/languageContext';
@@ -12,6 +13,7 @@ import CreateTransportationScreen from './screens/CreateTransportationScreen';
 import LogScreen from './screens/LogScreen';
 import LoginScreen from './screens/LoginScreen';
 import ProfileScreen from './screens/ProfileScreen';
+import Styles from './styles/Styles';
 
 // require('dotenv').config()
 

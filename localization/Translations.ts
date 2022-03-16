@@ -4,5 +4,7 @@ export default {
     Pregnancy: 'Graviditet',
     'Select transportation': 'Välj transporttyp',
     History: 'Historik',
+    Checkup: 'Undersökning',
+    Other: 'Övrigt',
   },
 };

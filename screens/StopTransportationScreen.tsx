@@ -4,8 +4,10 @@ import * as React from 'react';
 import { useContext, useEffect, useState } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 
+import Logo from '../components/Logo';
 import { TransportContext } from '../contexts/transportContext';
 import TransportModel from '../models/TransportModel';
+import Styles from '../styles/Styles';
 import { TransportCoordinate } from '../types/Transports';
 
 let locationService;
@@ -60,10 +62,11 @@ export default function StopTransportationScreen({ route, navigation }) {
   }, []);
 
   return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>{transport.data.reason}</Text>
+    <View style={Styles.container}>
+      <Logo />
 
       <TouchableOpacity
+        style={{ ...Styles.button, ...Styles.button.red }}
         onPress={() => {
           context.save(transport.stop());
           locationService?.remove();
@@ -73,8 +76,12 @@ export default function StopTransportationScreen({ route, navigation }) {
         <Text>Stop</Text>
       </TouchableOpacity>
 
-      <Text>Duration: {duration}</Text>
-      <Text>Distance: {transport.getReadableDistance()}</Text>
+      <View style={{ ...Styles.input, marginVertical: Styles.margins.medium }}>
+        <Text>{transport.getReadableDuration()}</Text>
+      </View>
+      <View style={{ ...Styles.input }}>
+        <Text>{transport.getReadableDistance()}</Text>
+      </View>
     </View>
   );
 }

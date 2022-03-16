@@ -26,8 +26,6 @@ export function add(transport: TransportModel): Promise<TransportLog> {
       data = [transport];
     }
 
-    console.log('Adding to log!', data);
-
     return persist(data);
   });
 }

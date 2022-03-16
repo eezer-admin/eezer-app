@@ -1,5 +1,6 @@
 import { format } from 'date-fns';
 
+import { __ } from '../localization/Localization';
 import { formatDuration } from '../services/TimeService';
 import { persist } from '../services/TransportService';
 import { generateUuid } from '../services/UuidService';
@@ -106,8 +107,7 @@ export default class TransportModel implements Transport {
       return formatDuration(this.data.started, this.data.ended);
     }
     if (!this.isStarted() && !this.isEnded()) {
-      console.log(this);
-      return '';
+      return '00:00';
     }
 
     return formatDuration(this.data.started, new Date().toISOString());
