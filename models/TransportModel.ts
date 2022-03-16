@@ -1,4 +1,6 @@
 import { format } from 'date-fns';
+import { getPreciseDistance } from 'geolib';
+import getDistance from 'geolib/es/getPreciseDistance';
 
 import { __ } from '../localization/Localization';
 import { formatDuration } from '../services/TimeService';
@@ -94,6 +96,13 @@ export default class TransportModel implements Transport {
     }
 
     if (this.data.coordinates) {
+      const previousLocation = this.data.coordinates[this.data.coordinates.length - 1];
+      try {
+        this.data.distanceMeters += getDistance(previousLocation, coordinates);
+      } catch (err) {
+        console.warn('Unable to get distance.', err);
+      }
+
       this.data.coordinates.push(coordinates);
     } else {
       this.data.coordinates = [coordinates];
@@ -114,7 +123,11 @@ export default class TransportModel implements Transport {
   }
 
   getReadableDistance(): string {
-    return 'to be implemented';
+    if (this.data.distanceMeters < 1000) {
+      return `${this.data.distanceMeters} m`;
+    }
+
+    return `${Math.round((this.data.distanceMeters / 1000) * 100) / 100} km`;
   }
 
   getReadableStartDate(): string {

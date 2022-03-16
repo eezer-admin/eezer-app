@@ -2,8 +2,7 @@ import { createContext, useEffect, useState } from 'react';
 
 import TransportModel from '../models/TransportModel';
 import { get as getFromStorage, persist, remove } from '../services/TransportService';
-import { generateUuid } from '../services/UuidService';
-import { TransportContextData, TransportCoordinate } from '../types/Transports';
+import { TransportContextData } from '../types/Transports';
 
 export const TransportContext = createContext<TransportContextData>({} as TransportContextData);
 

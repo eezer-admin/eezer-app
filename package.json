@@ -21,6 +21,7 @@
     "expo-location": "~14.0.1",
     "expo-status-bar": "~1.2.0",
     "expo-task-manager": "~10.1.0",
+    "geolib": "^3.3.3",
     "i18n-js": "^3.8.0",
     "react": "17.0.1",
     "react-dom": "17.0.1",

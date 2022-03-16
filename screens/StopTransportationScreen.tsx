@@ -1,5 +1,6 @@
 import * as Location from 'expo-location';
 import { LocationAccuracy, LocationObject, LocationOptions } from 'expo-location';
+import { LocationSubscription } from 'expo-location/src/Location.types';
 import * as React from 'react';
 import { useContext, useEffect, useState } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
@@ -10,7 +11,7 @@ import TransportModel from '../models/TransportModel';
 import Styles from '../styles/Styles';
 import { TransportCoordinate } from '../types/Transports';
 
-let locationService;
+let locationService: LocationSubscription;
 
 export default function StopTransportationScreen({ route, navigation }) {
   const context = useContext(TransportContext);
@@ -33,22 +34,20 @@ export default function StopTransportationScreen({ route, navigation }) {
 
       locationService = await Location.watchPositionAsync(
         {
-          accuracy: LocationAccuracy.BestForNavigation,
-          distanceInterval: 10,
+          accuracy: LocationAccuracy.Highest,
+          distanceInterval: 5,
         } as LocationOptions,
         (location: LocationObject) => {
           if (transport.isNotOngoing()) {
             return;
           }
 
-          context.save(
-            transport.addCoordinates({
-              latitude: location.coords.latitude,
-              longitude: location.coords.longitude,
-              altitude: location.coords.altitude,
-              timestamp: new Date(location.timestamp).toISOString(),
-            } as TransportCoordinate)
-          );
+          transport.addCoordinates({
+            latitude: location.coords.latitude,
+            longitude: location.coords.longitude,
+            altitude: location.coords.altitude,
+            timestamp: new Date(location.timestamp).toISOString(),
+          } as TransportCoordinate);
         }
       );
     })();
@@ -68,8 +67,8 @@ export default function StopTransportationScreen({ route, navigation }) {
       <TouchableOpacity
         style={{ ...Styles.button, ...Styles.button.red }}
         onPress={() => {
+          locationService.remove();
           context.save(transport.stop());
-          locationService?.remove();
 
           navigation.navigate('CompleteTransportation');
         }}>
@@ -77,7 +76,7 @@ export default function StopTransportationScreen({ route, navigation }) {
       </TouchableOpacity>
 
       <View style={{ ...Styles.input, marginVertical: Styles.margins.medium }}>
-        <Text>{transport.getReadableDuration()}</Text>
+        <Text>{duration}</Text>
       </View>
       <View style={{ ...Styles.input }}>
         <Text>{transport.getReadableDistance()}</Text>

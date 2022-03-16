@@ -1,12 +1,29 @@
+const margins = {
+  small: 5,
+  medium: 10,
+  large: 15,
+};
+
+const fontSizes = {
+  small: 12,
+  medium: 14,
+};
+
+const colors = {
+  gray: '#DCDCDC',
+  grayDark: '#D2D2D2',
+  green: '',
+  red: '',
+  white: 'white',
+};
+
 export default {
-  margins: {
-    small: 5,
-    medium: 10,
-    large: 20,
-  },
+  margins,
+  colors,
+  fontSizes,
 
   container: {
-    width: '90%',
+    paddingHorizontal: margins.medium,
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
@@ -15,7 +32,7 @@ export default {
   },
 
   input: {
-    backgroundColor: 'white',
+    backgroundColor: colors.white,
     borderRadius: 8,
     paddingVertical: 10,
     paddingHorizontal: 25,

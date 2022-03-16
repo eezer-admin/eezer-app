@@ -9,7 +9,7 @@ import TransportModel from '../models/TransportModel';
 import Styles from '../styles/Styles';
 
 export default function StartTransportationScreen({ route, navigation }) {
-  const { type } = route.params;
+  const { reason } = route.params;
   const context = useContext(TransportContext);
   const transport = new TransportModel(null);
 
@@ -20,8 +20,10 @@ export default function StartTransportationScreen({ route, navigation }) {
       <TouchableOpacity
         style={{ ...Styles.button, ...Styles.button.green }}
         onPress={() => {
-          context.start(type).then(() => {
-            navigation.navigate('StopTransportation', { reason: route.params.reason });
+          context.start(reason).then((transport: TransportModel) => {
+            context.save(transport).then(() => {
+              navigation.navigate('StopTransportation', { reason: route.params.reason });
+            });
           });
         }}>
         <Text>{__('Start')}</Text>
