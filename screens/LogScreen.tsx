@@ -113,7 +113,9 @@ export default function LogScreen() {
             ...Styles.button,
             flex: 1,
           }}
-          onPress={log.refresh}>
+          onPress={() => {
+            log.refresh();
+          }}>
           <Text>Refresh</Text>
         </TouchableOpacity>
       </View>

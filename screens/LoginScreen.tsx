@@ -11,6 +11,12 @@ import Styles from '../styles/Styles';
 export default function LoginScreen() {
   const [username, onChangeUsername] = React.useState('');
   const [password, onChangePassword] = React.useState('');
+  const [loginFailed, setLoginFailed] = React.useState(false);
+
+  const inputStyle = {
+    ...Styles.input,
+    marginBottom: Styles.margins.medium,
+  };
 
   const auth = useContext(AuthContext);
   useContext(LanguageContext);
@@ -25,7 +31,7 @@ export default function LoginScreen() {
         placeholder={__('Username')}
         keyboardType="email-address"
         textContentType="emailAddress"
-        style={{ ...Styles.input, marginBottom: Styles.margins.medium }}
+        style={[inputStyle, loginFailed ? { ...Styles.inputWithError } : null]}
       />
 
       <TextInput
@@ -34,7 +40,7 @@ export default function LoginScreen() {
         placeholder={__('Password')}
         keyboardType="default"
         secureTextEntry={true}
-        style={{ ...Styles.input, marginBottom: Styles.margins.medium }}
+        style={[inputStyle, loginFailed ? { ...Styles.inputWithError } : null]}
       />
 
       <TouchableOpacity
@@ -44,9 +50,13 @@ export default function LoginScreen() {
           width: '100%',
         }}
         onPress={() => {
-          auth.login(username, password).catch((error) => {
-            console.log('Login failed!', error);
-          });
+          if (!username || !password) {
+            setLoginFailed(true);
+          } else {
+            auth.login(username, password).catch((error) => {
+              setLoginFailed(true);
+            });
+          }
         }}>
         <Text style={Styles.button.text}>{__('Log in')}</Text>
       </TouchableOpacity>

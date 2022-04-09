@@ -8,6 +8,7 @@ import { AuthContext, AuthProvider } from './contexts/authContext';
 import { LanguageContext, LanguageProvider } from './contexts/languageContext';
 import { TransportLogProvider } from './contexts/transportLogContext';
 import i18n, { __, defaultLanguage, supportedLanguages } from './localization/Localization';
+import AppLoadingScreen from './screens/AppLoadingScreen';
 import CreateTransportationScreen from './screens/CreateTransportationScreen';
 import LogScreen from './screens/LogScreen';
 import LoginScreen from './screens/LoginScreen';
@@ -21,6 +22,10 @@ i18n.locale = Localization.locale;
 const Router = () => {
   const auth = useContext(AuthContext);
   useContext(LanguageContext);
+
+  if (!auth.authLoaded) {
+    return <AppLoadingScreen />;
+  }
 
   return (
     <TransportLogProvider>

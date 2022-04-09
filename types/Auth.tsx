@@ -12,5 +12,6 @@ export type AuthContextData = {
   logout(): Promise<void>;
   isLoggedIn(): boolean;
   loggedIn: boolean;
+  authLoaded: boolean;
   user: User | null | undefined;
 };

@@ -3,14 +3,17 @@ import { useContext } from 'react';
 import { View, Text } from 'react-native';
 
 import { AuthContext } from '../contexts/authContext';
+import Styles from '../styles/Styles';
 
 export default function ProfileScreen() {
   const auth = useContext(AuthContext);
 
   return (
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Profile!</Text>
-      <Text>
+      <Text
+        style={{
+          marginBottom: Styles.margins.medium,
+        }}>
         {auth.user.first_name} {auth.user.last_name}
       </Text>
       <Text>{auth.user.email}</Text>

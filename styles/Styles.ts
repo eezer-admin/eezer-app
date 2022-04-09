@@ -12,8 +12,11 @@ const fontSizes = {
 const colors = {
   gray: '#DCDCDC',
   grayDark: '#D2D2D2',
-  green: '#6FD25F',
-  red: '',
+  greenLight: '#86efac',
+  green: '#10b981',
+  greenDark: '#059669',
+  red: '#b91c1c',
+  redLight: '#fca5a5',
   white: 'white',
 };
 
@@ -41,6 +44,12 @@ export default {
     textAlign: 'center',
   },
 
+  inputWithError: {
+    backgroundColor: colors.redLight,
+    color: colors.red,
+    fontWeight: 'bold',
+  },
+
   button: {
     paddingVertical: 20,
     paddingHorizontal: 25,
@@ -49,9 +58,11 @@ export default {
     alignItems: 'center',
     text: {
       textTransform: 'uppercase',
+      fontWeight: 'bold',
+      color: colors.greenDark,
     },
     green: {
-      backgroundColor: colors.green,
+      backgroundColor: colors.greenLight,
     },
     red: {
       backgroundColor: '#AD2A43',

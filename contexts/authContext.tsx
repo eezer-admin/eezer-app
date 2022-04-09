@@ -9,6 +9,7 @@ export const AuthContext = createContext<AuthContextData>({} as AuthContextData)
 
 export const AuthProvider = (props) => {
   const [user, setUser] = useState<AuthContextData>();
+  const [authLoaded, setAuthLoaded] = useState(false);
 
   // Determine if the user is already logged in when the app loads.
   // If there's a user in the local storage, assign it to the context
@@ -18,6 +19,7 @@ export const AuthProvider = (props) => {
       if (user) {
         setUser(user);
       }
+      setAuthLoaded(true);
     });
   }, []);
 
@@ -43,5 +45,9 @@ export const AuthProvider = (props) => {
     return !!user?.access_token;
   };
 
-  return <AuthContext.Provider value={{ user, login, logout, isLoggedIn }}>{props.children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={{ user, authLoaded, login, logout, isLoggedIn }}>
+      {props.children}
+    </AuthContext.Provider>
+  );
 };

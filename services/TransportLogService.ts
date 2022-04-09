@@ -18,6 +18,7 @@ export async function getFromStorage(): Promise<TransportLog> {
 }
 
 export async function getFromApi(): Promise<TransportLog> {
+  console.log('Getting data from API');
   const eezerClient = new EezerClient();
 
   return eezerClient

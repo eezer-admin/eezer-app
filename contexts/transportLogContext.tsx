@@ -15,11 +15,8 @@ export const TransportLogContext = createContext<TransportLogContextData>({} as 
 export const TransportLogProvider = (props) => {
   const [data, setData] = useState<TransportLogContextData>();
 
-  useEffect(() => {
-    refresh();
-  }, []);
-
   const refresh = async (): Promise<void> => {
+    console.log('Refreshing log');
     let log = [] as TransportLog;
     const apiTransports = await getFromApi();
     const localTransports = await getFromStorage();
