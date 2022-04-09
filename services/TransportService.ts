@@ -16,7 +16,7 @@ export async function get(): Promise<TransportModel> {
   });
 }
 
-export function persist(transport: Transport): Promise<TransportModel> {
+export function persist(transport: TransportModel): Promise<TransportModel> {
   return AsyncStorage.setItem(storageKey, JSON.stringify(transport)).then(() => {
     return transport;
   });

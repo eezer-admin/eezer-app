@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useContext, useEffect, useState } from 'react';
-import { View, Text, FlatList, SafeAreaView, TouchableOpacity, Image } from 'react-native';
+import { View, Text, FlatList, SafeAreaView, TouchableOpacity, Image, RefreshControl } from 'react-native';
 
 import { AuthContext } from '../contexts/authContext';
 import { LanguageContext } from '../contexts/languageContext';
@@ -76,9 +76,11 @@ export default function LogScreen() {
   useContext(LanguageContext);
   const log = useContext(TransportLogContext);
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setData(log.data);
+    setLoading(false);
   }, [log.data]);
 
   return (
@@ -105,6 +107,15 @@ export default function LogScreen() {
             }}
           />
         </TouchableOpacity>
+
+        <TouchableOpacity
+          style={{
+            ...Styles.button,
+            flex: 1,
+          }}
+          onPress={log.refresh}>
+          <Text>Refresh</Text>
+        </TouchableOpacity>
       </View>
 
       <View
@@ -123,7 +134,7 @@ export default function LogScreen() {
       <FlatList
         style={{ width: '100%' }}
         data={data as TransportLog}
-        keyExtractor={(item, index) => `transport-${item.identifier}-${index}`}
+        keyExtractor={(item, index) => `transport-${item?.identifier || item?.id}-${index}`}
         renderItem={(item) => <LogRow item={item.item} />}
       />
     </SafeAreaView>

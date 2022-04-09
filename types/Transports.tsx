@@ -60,7 +60,7 @@ export type TransportContextData = {
 
 export type TransportLogContextData = {
   data: TransportLog;
+  refresh(): void;
   add(transport: TransportModel): Promise<void>;
   syncLocalTransports(): Promise<void>;
-  clear(): Promise<void>;
 };

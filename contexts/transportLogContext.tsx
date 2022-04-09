@@ -2,12 +2,13 @@ import { createContext, useEffect, useState } from 'react';
 
 import TransportModel from '../models/TransportModel';
 import {
-  get as getFromStorage,
+  getFromStorage,
   syncLocalTransports as syncTransports,
-  remove,
+  removeFromStorage,
   add as addToLog,
+  getFromApi,
 } from '../services/TransportLogService';
-import { Transport, TransportLog, TransportLogContextData } from '../types/Transports';
+import { TransportLog, TransportLogContextData } from '../types/Transports';
 
 export const TransportLogContext = createContext<TransportLogContextData>({} as TransportLogContextData);
 
@@ -15,38 +16,65 @@ export const TransportLogProvider = (props) => {
   const [data, setData] = useState<TransportLogContextData>();
 
   useEffect(() => {
-    getFromStorage().then((log: TransportLog) => {
-      if (log) {
-        setData(log);
-      }
-    });
+    refresh();
   }, []);
+
+  const refresh = async (): Promise<void> => {
+    let log = [] as TransportLog;
+    const apiTransports = await getFromApi();
+    const localTransports = await getFromStorage();
+
+    if (apiTransports) {
+      log = log.concat(apiTransports);
+    }
+
+    if (localTransports) {
+      log = log.concat(localTransports);
+    }
+
+    setData(sortLog(log));
+  };
 
   const add = async (transport: TransportModel): Promise<void> => {
     return addToLog(transport).then((log: TransportLog) => {
-      setData(log);
+      if (data) {
+        data.unshift(transport);
+        setData(data);
+      } else {
+        setData([transport]);
+      }
     });
   };
 
   const syncLocalTransports = async (): Promise<void> => {
     const localTransports = data?.filter((transport: TransportModel) => transport.isNotSynced());
 
-    syncTransports(localTransports);
+    if (localTransports.length === 0) {
+      return new Promise(() => {});
+    }
+
+    syncTransports(localTransports).then((success) => {
+      if (success) {
+        removeFromStorage().then(() => {
+          refresh();
+        });
+      }
+    });
   };
 
-  const clear = async (): Promise<void> => {
-    setData(null);
-
-    return remove();
+  const sortLog = (log: TransportLog): TransportLog => {
+    return log.sort(
+      (a: TransportModel, b: TransportModel) => b.getStartDateAsDateFormat() - a.getStartDateAsDateFormat()
+    );
   };
 
   return (
     <TransportLogContext.Provider
       value={{
         data,
+        refresh,
         add,
         syncLocalTransports,
-        clear,
       }}>
       {props.children}
     </TransportLogContext.Provider>

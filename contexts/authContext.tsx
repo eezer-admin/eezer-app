@@ -1,7 +1,7 @@
 import { createContext, useEffect, useState } from 'react';
 
 import { getStoredUser, requestLogin, deleteStoredUser } from '../services/AuthService';
-import { remove as removeTransportLog } from '../services/TransportLogService';
+import { removeFromStorage as removeTransportLog } from '../services/TransportLogService';
 import { remove as removeCurrentTransport } from '../services/TransportService';
 import { AuthContextData, User } from '../types/Auth';
 

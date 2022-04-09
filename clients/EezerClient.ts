@@ -41,23 +41,25 @@ export class EezerClient {
     return response.data;
   }
 
-  public async syncTransports(transports: ApiTransport[]): Promise {
+  public async getTransports(): Promise {
     const headers = await this.getAuthenticatedHeaders();
 
-    console.log({
+    return await axios.get(`${this.baseUrl}/api/v1/transport/`, {
       headers,
     });
+  }
 
+  public async syncTransports(transports: ApiTransport[]): Promise<boolean> {
+    const headers = await this.getAuthenticatedHeaders();
     try {
-      const response = await axios.post(`${this.baseUrl}/api/v1/transport`, transports, {
+      const response = await axios.post(`${this.baseUrl}/api/v1/transport/`, transports, {
         headers,
       });
 
-      console.log('Response from API:', response.data);
-
-      return response.data;
+      return !!response.data?.success;
     } catch (err) {
       console.log(err.response);
+      return false;
     }
   }
 

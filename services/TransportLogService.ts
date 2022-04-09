@@ -1,13 +1,13 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { EezerClient } from '../clients';
-import TransportModel from '../models/TransportModel';
-import { TransportLog } from '../types/Transports';
+import TransportModel, { TransportData } from '../models/TransportModel';
+import { ApiTransport, TransportCoordinate, TransportLog } from '../types/Transports';
 import { getUserId } from './AuthService';
 
 const storageKey = 'EEZER::TRANSPORT_LOG';
 
-export async function get(): Promise<TransportLog> {
+export async function getFromStorage(): Promise<TransportLog> {
   return AsyncStorage.getItem(storageKey).then((log: string | null) => {
     if (log) {
       return JSON.parse(log).map((item) => {
@@ -17,8 +17,24 @@ export async function get(): Promise<TransportLog> {
   });
 }
 
+export async function getFromApi(): Promise<TransportLog> {
+  const eezerClient = new EezerClient();
+
+  return eezerClient
+    .getTransports()
+    .then((response) => {
+      return response.data.map((apiTransport: ApiTransport) => {
+        return new TransportModel(null).fromApiFormat(apiTransport);
+      });
+    })
+    .catch((err) => {
+      console.log('Error!');
+      console.log(err);
+    });
+}
+
 export function add(transport: TransportModel): Promise<TransportLog> {
-  return get().then((log: TransportLog) => {
+  return getFromStorage().then((log: TransportLog) => {
     let data = log;
     if (data) {
       data.unshift(transport);
@@ -36,20 +52,16 @@ export function persist(log: TransportLog): Promise<TransportLog> {
   });
 }
 
-export function remove(): Promise<void> {
+export function removeFromStorage(): Promise<void> {
   return AsyncStorage.removeItem(storageKey);
 }
 
-export async function syncLocalTransports(transports: TransportLog): Promise<TransportLog> {
+export async function syncLocalTransports(transports: TransportLog): Promise<boolean> {
   const userId = await getUserId();
   const localTransports = transports.map((transport: TransportModel) => {
     return transport.toApiFormat(userId);
   });
 
-  console.log(localTransports);
-
   const eezerClient = new EezerClient();
-  const response = await eezerClient.syncTransports(localTransports);
-
-  console.log('Got response from the client!', response);
+  return await eezerClient.syncTransports(localTransports);
 }

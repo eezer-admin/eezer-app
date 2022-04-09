@@ -1,20 +1,18 @@
-import { format } from 'date-fns';
-import { getPreciseDistance } from 'geolib';
+import { format, parse, parseISO } from 'date-fns';
 import getDistance from 'geolib/es/getPreciseDistance';
 
-import { __ } from '../localization/Localization';
 import { formatDuration } from '../services/TimeService';
-import { persist } from '../services/TransportService';
 import { generateUuid } from '../services/UuidService';
 import { ApiTransport, TransportCoordinate } from '../types/Transports';
 
-type TransportData = {
+export type TransportData = {
   id: number | null;
-  identifier: string;
+  identifier: string | null;
   started: string | null; // Timestamp.
   ended: string | null; // Timestamp.
   durationSeconds: number;
   distanceMeters: number;
+  distance: string | null;
   reason: string;
   coordinates: TransportCoordinate[];
 };
@@ -123,6 +121,10 @@ export default class TransportModel implements Transport {
   }
 
   getReadableDistance(): string {
+    if (this.data.distance) {
+      return this.data.distance;
+    }
+
     if (this.data.distanceMeters < 1000) {
       return `${this.data.distanceMeters} m`;
     }
@@ -135,7 +137,19 @@ export default class TransportModel implements Transport {
       return '';
     }
 
-    return format(new Date(this.data.started), 'yyyy.MM.dd');
+    try {
+      return format(parseISO(this.data.started), 'yyyy.MM.dd');
+    } catch (err) {
+      return '-';
+    }
+  }
+
+  getStartDateAsDateFormat(): Date | null {
+    if (!this.data.started) {
+      return null;
+    }
+
+    return new Date(parseISO(this.data.started));
   }
 
   toApiFormat(userId: number): ApiTransport {
@@ -143,8 +157,8 @@ export default class TransportModel implements Transport {
       started: this.data.started || '',
       ended: this.data.ended || '',
       duration: this.getReadableDuration(),
-      distance: 'string', // Todo: implement
-      reason: 'string', // Todo: implement
+      distance: this.getReadableDistance(),
+      reason: this.data.reason,
       coordinates: {
         type: 'FeatureCollection',
         features: [
@@ -168,5 +182,19 @@ export default class TransportModel implements Transport {
       vehicle_id: 1,
       user_id: userId,
     } as ApiTransport;
+  }
+
+  fromApiFormat(apiTransport: ApiTransport): TransportModel {
+    this.data = {
+      id: apiTransport.id,
+      identifier: null,
+      started: apiTransport.started,
+      ended: apiTransport.ended,
+      distance: apiTransport.distance,
+      reason: apiTransport.reason,
+      coordinates: [],
+    } as TransportData;
+
+    return this;
   }
 }
