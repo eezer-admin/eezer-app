@@ -40,7 +40,7 @@ export const DrawerNavigation = (props) => {
             <Text
               style={{
                 marginLeft: Styles.margins.medium,
-                color: language === 's' ? '#007AFF' : Styles.colors.grayDarker,
+                color: language === 'sw' ? '#007AFF' : Styles.colors.grayDarker,
               }}>
               {__('Kiswahili')}
             </Text>
