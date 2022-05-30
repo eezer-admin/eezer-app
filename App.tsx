@@ -1,7 +1,11 @@
+import Bugsnag from '@bugsnag/expo';
 import { createDrawerNavigator, DrawerContentComponentProps } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
 import * as Localization from 'expo-localization';
-import { useContext } from 'react';
+import * as Location from 'expo-location';
+import * as Updates from 'expo-updates';
+import React, { useContext, useEffect } from 'react';
+import { Text, TouchableOpacity, View } from 'react-native';
 
 import { DrawerNavigation } from './components/DrawerNavigation';
 import { AuthContext, AuthProvider } from './contexts/authContext';
@@ -13,8 +17,10 @@ import CreateTransportationScreen from './screens/CreateTransportationScreen';
 import LogScreen from './screens/LogScreen';
 import LoginScreen from './screens/LoginScreen';
 import ProfileScreen from './screens/ProfileScreen';
+import Styles from './styles/Styles';
 
 // require('dotenv').config()
+Bugsnag.start();
 
 const Drawer = createDrawerNavigator();
 i18n.locale = Localization.locale;
@@ -27,8 +33,10 @@ const Router = () => {
     return <AppLoadingScreen />;
   }
 
+  Location.requestForegroundPermissionsAsync();
+
   return (
-    <TransportLogProvider>
+    <TransportLogProvider style={{ flex: 1 }}>
       <NavigationContainer>
         {auth.isLoggedIn() ? (
           <Drawer.Navigator
@@ -54,17 +62,41 @@ const Router = () => {
   );
 };
 
+const ErrorView = () => (
+  <View
+    style={{
+      height: '100%',
+      width: '100%',
+      justifyContent: 'center',
+      alignItems: 'center',
+      padding: Styles.margins.large,
+    }}>
+    <Text style={{ textAlign: 'center' }}>An unexpected error occurred. Please restart the app and try again.</Text>
+    <TouchableOpacity
+      style={{ marginTop: Styles.margins.large, ...Styles.button, ...Styles.button.green }}
+      onPress={() => {
+        Updates.reloadAsync();
+      }}>
+      <Text style={Styles.button.text}>Restart</Text>
+    </TouchableOpacity>
+  </View>
+);
+
 export default function App() {
+  const ErrorBoundary = Bugsnag.getPlugin('react');
+
   let initialLanguage = Localization.locale;
   if (supportedLanguages().indexOf(Localization.locale) < 0) {
     initialLanguage = defaultLanguage();
   }
 
   return (
-    <LanguageProvider language={initialLanguage}>
-      <AuthProvider>
-        <Router />
-      </AuthProvider>
-    </LanguageProvider>
+    <ErrorBoundary FallbackComponent={ErrorView}>
+      <LanguageProvider language={initialLanguage}>
+        <AuthProvider>
+          <Router />
+        </AuthProvider>
+      </LanguageProvider>
+    </ErrorBoundary>
   );
 }

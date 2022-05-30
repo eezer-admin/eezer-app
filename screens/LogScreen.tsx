@@ -116,7 +116,7 @@ export default function LogScreen() {
           onPress={() => {
             log.refresh();
           }}>
-          <Text>Refresh</Text>
+          <Text style={{ ...Styles.text.default }}>{__('Refresh')}</Text>
         </TouchableOpacity>
       </View>
 
@@ -129,9 +129,9 @@ export default function LogScreen() {
           alignItems: 'center',
           justifyContent: 'space-between',
         }}>
-        <Text style={{ width: '33%' }}>{__('Date')}</Text>
-        <Text style={{ width: '33%', textAlign: 'center' }}>{__('Time')}</Text>
-        <Text style={{ width: '33%', textAlign: 'right' }}>{__('Uploaded')}</Text>
+        <Text style={{ width: '33%', ...Styles.text.default }}>{__('Date')}</Text>
+        <Text style={{ width: '33%', textAlign: 'center', ...Styles.text.default }}>{__('Time')}</Text>
+        <Text style={{ width: '33%', textAlign: 'right', ...Styles.text.default }}>{__('Uploaded')}</Text>
       </View>
       <FlatList
         style={{ width: '100%' }}

@@ -6,6 +6,7 @@ import Logo from '../components/Logo';
 import { LanguageContext } from '../contexts/languageContext';
 import { TransportContext } from '../contexts/transportContext';
 import { TransportLogContext } from '../contexts/transportLogContext';
+import { __ } from '../localization/Localization';
 import TransportModel from '../models/TransportModel';
 import Styles from '../styles/Styles';
 
@@ -25,10 +26,10 @@ export default function CompleteTransportationScreen({ route, navigation }) {
       <Logo />
 
       <View style={{ ...Styles.input, marginVertical: Styles.margins.medium }}>
-        <Text>{transport.getReadableDuration()}</Text>
+        <Text style={{ ...Styles.text.default }}>{transport.getReadableDuration()}</Text>
       </View>
       <View style={{ ...Styles.input }}>
-        <Text>{transport.getReadableDistance()}</Text>
+        <Text style={{ ...Styles.text.default }}>{transport.getReadableDistance()}</Text>
       </View>
 
       <TouchableOpacity
@@ -47,7 +48,7 @@ export default function CompleteTransportationScreen({ route, navigation }) {
             height: 75,
           }}
         />
-        <Text>Back to start</Text>
+        <Text style={{ ...Styles.text.default }}>{__('Back to start')}</Text>
       </TouchableOpacity>
     </View>
   );
