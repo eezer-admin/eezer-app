@@ -37,7 +37,11 @@ export const DrawerNavigation = (props) => {
           }}>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
             <Image style={{ width: 20, height: 13 }} source={require('../assets/flag-tz.png')} />
-            <Text style={{ marginLeft: Styles.margins.medium, color: language === 's' ? '#007AFF' : null }}>
+            <Text
+              style={{
+                marginLeft: Styles.margins.medium,
+                color: language === 's' ? '#007AFF' : Styles.colors.grayDarker,
+              }}>
               {__('Kiswahili')}
             </Text>
           </View>
@@ -54,7 +58,11 @@ export const DrawerNavigation = (props) => {
           }}>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
             <Image style={{ width: 20, height: 13 }} source={require('../assets/flag-en.png')} />
-            <Text style={{ marginLeft: Styles.margins.medium, color: language === 'en' ? '#007AFF' : null }}>
+            <Text
+              style={{
+                marginLeft: Styles.margins.medium,
+                color: language === 'en' ? '#007AFF' : Styles.colors.grayDarker,
+              }}>
               {__('English')}
             </Text>
           </View>
@@ -71,7 +79,11 @@ export const DrawerNavigation = (props) => {
           }}>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
             <Image style={{ width: 20, height: 13 }} source={require('../assets/flag-fr.png')} />
-            <Text style={{ marginLeft: Styles.margins.medium, color: language === 'fr' ? '#007AFF' : null }}>
+            <Text
+              style={{
+                marginLeft: Styles.margins.medium,
+                color: language === 'fr' ? '#007AFF' : Styles.colors.grayDarker,
+              }}>
               {__('French')}
             </Text>
           </View>
@@ -88,7 +100,11 @@ export const DrawerNavigation = (props) => {
           }}>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
             <Image style={{ width: 20, height: 13 }} source={require('../assets/flag-rn.png')} />
-            <Text style={{ marginLeft: Styles.margins.medium, color: language === 'rn' ? '#007AFF' : null }}>
+            <Text
+              style={{
+                marginLeft: Styles.margins.medium,
+                color: language === 'rn' ? '#007AFF' : Styles.colors.grayDarker,
+              }}>
               {__('Kirundi')}
             </Text>
           </View>
@@ -112,7 +128,7 @@ export const DrawerNavigation = (props) => {
                 props.navigation.closeDrawer();
               });
             }}>
-            <Text>{__('Logout')}</Text>
+            <Text style={{ ...Styles.text.default }}>{__('Logout')}</Text>
           </TouchableOpacity>
         </View>
       ) : null}

@@ -7,11 +7,13 @@ const margins = {
 const fontSizes = {
   small: 12,
   medium: 14,
+  default: 18,
 };
 
 const colors = {
   gray: '#DCDCDC',
   grayDark: '#D2D2D2',
+  grayDarker: '#777777',
   greenLight: '#86efac',
   green: '#10b981',
   greenDark: '#059669',
@@ -65,7 +67,17 @@ export default {
       backgroundColor: colors.greenLight,
     },
     red: {
-      backgroundColor: '#AD2A43',
+      backgroundColor: colors.redLight,
+
+      text: {
+        color: colors.red,
+      },
+    },
+  },
+
+  text: {
+    default: {
+      fontSize: fontSizes.default,
     },
   },
 };

@@ -7,6 +7,7 @@ import { Text, TouchableOpacity, View } from 'react-native';
 
 import Logo from '../components/Logo';
 import { TransportContext } from '../contexts/transportContext';
+import { __ } from '../localization/Localization';
 import TransportModel from '../models/TransportModel';
 import Styles from '../styles/Styles';
 import { TransportCoordinate } from '../types/Transports';
@@ -56,7 +57,7 @@ export default function StopTransportationScreen({ route, navigation }) {
   useEffect(() => {
     const interval = setInterval(() => {
       setDuration(transport.getReadableDuration());
-    }, 5000);
+    }, 1000);
     return () => clearInterval(interval);
   }, []);
 
@@ -72,14 +73,14 @@ export default function StopTransportationScreen({ route, navigation }) {
 
           navigation.navigate('CompleteTransportation');
         }}>
-        <Text>Stop</Text>
+        <Text style={{ ...Styles.text.default, ...Styles.button.red.text }}>{__('Stop')}</Text>
       </TouchableOpacity>
 
       <View style={{ ...Styles.input, marginVertical: Styles.margins.medium }}>
-        <Text>{duration}</Text>
+        <Text style={{ ...Styles.text.default }}>{duration}</Text>
       </View>
       <View style={{ ...Styles.input }}>
-        <Text>{transport.getReadableDistance()}</Text>
+        <Text style={{ ...Styles.text.default }}>{transport.getReadableDistance()}</Text>
       </View>
     </View>
   );

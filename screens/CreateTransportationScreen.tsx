@@ -21,7 +21,7 @@ function CreateTransportation({ navigation }) {
     <View style={Styles.container}>
       <Logo />
 
-      <Text>{__('Select your transportation')}</Text>
+      <Text style={{ ...Styles.text.default }}>{__('Select your transportation')}</Text>
 
       <View
         style={{
@@ -40,7 +40,7 @@ function CreateTransportation({ navigation }) {
               height: 208.21,
             }}
           />
-          <Text>{__('Pregnancy')}</Text>
+          <Text style={{ ...Styles.text.default }}>{__('Pregnancy')}</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -55,7 +55,7 @@ function CreateTransportation({ navigation }) {
               height: 208.21,
             }}
           />
-          <Text>{__('Other')}</Text>
+          <Text style={{ ...Styles.text.default }}>{__('Other')}</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -86,7 +86,7 @@ function CreatePregnancyTransportationScreen({ navigation }) {
               height: 65,
             }}
           />
-          <Text>{__('Delivery')}</Text>
+          <Text style={{ ...Styles.text.default }}>{__('Delivery')}</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -101,7 +101,7 @@ function CreatePregnancyTransportationScreen({ navigation }) {
               height: 65,
             }}
           />
-          <Text>Check up</Text>
+          <Text style={{ ...Styles.text.default }}>{__('Check up')}</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -116,7 +116,7 @@ function CreatePregnancyTransportationScreen({ navigation }) {
               height: 65,
             }}
           />
-          <Text>{__('Other')}</Text>
+          <Text style={{ ...Styles.text.default }}>{__('Other')}</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -208,7 +208,7 @@ const Router = () => {
   }, []);
 
   return loaded ? (
-    <Stack.Navigator initialRouteName={initialRouteName}>
+    <Stack.Navigator initialRouteName={initialRouteName} screenOptions={{ headerShown: false }}>
       <Stack.Screen name="CreateTransportation" component={CreateTransportation} options={{ headerLeft: null }} />
       <Stack.Screen name="CreatePregnancyTransportation" component={CreatePregnancyTransportationScreen} />
       <Stack.Screen name="CreateOtherTransportation" component={CreateOtherTransportationScreen} />

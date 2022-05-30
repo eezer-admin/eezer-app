@@ -1,6 +1,6 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios, { AxiosRequestHeaders } from 'axios';
 
-import { getAccessToken } from '../services/AuthService';
 import { ApiTransport } from '../types/Transports';
 
 export type LoginResponse = {
@@ -64,12 +64,20 @@ export class EezerClient {
   }
 
   protected async getAuthenticatedHeaders(): Promise<AxiosRequestHeaders> {
-    const token = await getAccessToken();
+    const token = await this.getAccessToken();
 
     return {
       Accept: 'applicaton/json',
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     };
+  }
+
+  protected async getAccessToken(): Promise<string> {
+    return AsyncStorage.getItem('EEZER::USER').then((user) => {
+      if (user) {
+        return JSON.parse(user).access_token;
+      }
+    });
   }
 }
