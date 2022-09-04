@@ -4,7 +4,7 @@ const margins = {
   large: 15,
 };
 
-const fontSizes = {
+export const fontSizes = {
   small: 12,
   medium: 14,
   default: 18,

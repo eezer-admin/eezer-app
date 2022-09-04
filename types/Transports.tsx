@@ -35,17 +35,11 @@ type ApiTransportFeature = {
 
 // The format of the transport when sent to or from the backend API.
 export type ApiTransport = {
-  started: string;
-  ended: string;
-  duration: string;
-  distance: string;
+  id: number;
+  started_at: string;
+  ended_at: string;
+  distance_meters: string;
   reason: string;
-  coordinates: {
-    type: string;
-    features: ApiTransportFeature[];
-  };
-  vehicle_id: number;
-  user_id: number;
 };
 
 export type TransportLog = TransportModel[];
@@ -54,7 +48,7 @@ export type TransportContextData = {
   data: TransportModel | null | undefined;
   get(): Promise<TransportModel | null>;
   save(transport: TransportModel): Promise<TransportModel>;
-  start(reason: string): Promise<TransportModel>;
+  start(reason: string, vehicle_id: number): Promise<TransportModel>;
   completeTransport(): Promise<void>;
 };
 

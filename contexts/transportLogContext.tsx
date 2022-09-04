@@ -16,7 +16,6 @@ export const TransportLogProvider = (props) => {
   const [data, setData] = useState<TransportLogContextData>();
 
   const refresh = async (): Promise<void> => {
-    console.log('Refreshing log');
     let log = [] as TransportLog;
     const apiTransports = await getFromApi();
     const localTransports = await getFromStorage();
@@ -50,10 +49,10 @@ export const TransportLogProvider = (props) => {
       return new Promise(() => {});
     }
 
-    syncTransports(localTransports).then((success) => {
-      if (success) {
+    syncTransports(localTransports).then((response: TransportLog) => {
+      if (response) {
         removeFromStorage().then(() => {
-          refresh();
+          setData(sortLog(response));
         });
       }
     });

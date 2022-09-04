@@ -5,6 +5,12 @@ export type User = {
   email: string;
   phone: string | null;
   access_token: string;
+  vehicles: [
+    {
+      id: number;
+      name: string;
+    }
+  ];
 };
 
 export type AuthContextData = {

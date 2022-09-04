@@ -7,6 +7,7 @@ import { LanguageContext } from '../contexts/languageContext';
 import { TransportLogContext } from '../contexts/transportLogContext';
 import { __ } from '../localization/Localization';
 import TransportModel from '../models/TransportModel';
+import { removeFromStorage } from '../services/TransportLogService';
 import Styles from '../styles/Styles';
 import { TransportLog } from '../types/Transports';
 

@@ -10,11 +10,12 @@ export type TransportData = {
   identifier: string | null;
   started: string | null; // Timestamp.
   ended: string | null; // Timestamp.
-  durationSeconds: number;
+  durationSeconds: number | null;
   distanceMeters: number;
   distance: string | null;
   reason: string;
   coordinates: TransportCoordinate[];
+  vehicle_id: number | null;
 };
 
 interface Transport {
@@ -27,6 +28,7 @@ interface Transport {
   isNotSynced(): boolean;
   start(reason: string): TransportModel;
   stop(): TransportModel;
+  setVehicleId(vehicleId: number): TransportModel;
   addCoordinates(coordinates: TransportCoordinate): TransportModel;
   getReadableStartDate(): string;
   getReadableDuration(): string;
@@ -43,6 +45,7 @@ export default class TransportModel implements Transport {
     distanceMeters: 0,
     reason: '',
     coordinates: [],
+    vehicle_id: null,
   };
 
   constructor(data: TransportData | null) {
@@ -84,6 +87,12 @@ export default class TransportModel implements Transport {
 
   stop(): TransportModel {
     this.data.ended = new Date().toISOString();
+
+    return this;
+  }
+
+  setVehicleId(vehicleId: number): TransportModel {
+    this.data.vehicle_id = vehicleId;
 
     return this;
   }
@@ -152,35 +161,21 @@ export default class TransportModel implements Transport {
     return new Date(parseISO(this.data.started));
   }
 
-  toApiFormat(userId: number): ApiTransport {
+  toApiFormat(): ApiTransport {
     return {
-      started: this.data.started || '',
-      ended: this.data.ended || '',
-      duration: this.getReadableDuration(),
-      distance: this.getReadableDistance(),
+      vehicle_id: this.data.vehicle_id,
+      started_at: this.data.started || '',
+      ended_at: this.data.ended || '',
+      distance_meters: this.data.distanceMeters,
       reason: this.data.reason,
-      coordinates: {
-        type: 'FeatureCollection',
-        features: [
-          {
-            type: 'Feature',
-            properties: {
-              name: 'Move',
-              coordTimes: this.data.coordinates?.map((coordinate: TransportCoordinate) => {
-                return coordinate.timestamp;
-              }),
-            },
-            geometry: {
-              type: 'LineString',
-              coordinates: this.data.coordinates?.map((coordinate: TransportCoordinate) => {
-                return [coordinate.latitude, coordinate.longitude, coordinate.altitude];
-              }),
-            },
-          },
-        ],
-      },
-      vehicle_id: 1,
-      user_id: userId,
+      coordinates: this.data.coordinates?.map((coordinate: TransportCoordinate) => {
+        return {
+          latitude: coordinate.latitude,
+          longitude: coordinate.longitude,
+          altitude: coordinate.altitude,
+          logged_at: coordinate.timestamp,
+        };
+      }),
     } as ApiTransport;
   }
 
@@ -188,9 +183,11 @@ export default class TransportModel implements Transport {
     this.data = {
       id: apiTransport.id,
       identifier: null,
-      started: apiTransport.started,
-      ended: apiTransport.ended,
-      distance: apiTransport.distance,
+      started: apiTransport.started_at,
+      ended: apiTransport.ended_at,
+      durationSeconds: null,
+      distanceMeters: apiTransport.distance_meters,
+      distance: null,
       reason: apiTransport.reason,
       coordinates: [],
     } as TransportData;

@@ -5,19 +5,18 @@ import { User } from '../types/Auth';
 
 const storageKey = 'EEZER::USER';
 
-export async function requestLogin(username: string, password: string): Promise<User> {
+export async function requestLogin(username: string, password: string): Promise<User | null> {
   const eezerClient = new EezerClient();
 
   return eezerClient.login(username, password).then((response: LoginResponse) => {
-    return eezerClient.getUser(response.access_token).then((userResponse: GetUserResponse): Promise<User> => {
-      return storeUser({
-        id: userResponse.id,
-        first_name: userResponse.first_name,
-        last_name: userResponse.last_name,
-        email: userResponse.email,
-        phone: userResponse.phone,
-        access_token: response.access_token,
-      });
+    return storeUser({
+      id: response.data.id,
+      first_name: response.data.first_name,
+      last_name: response.data.last_name,
+      email: response.data.email,
+      phone: response.data.phone,
+      access_token: response.token,
+      vehicles: response.data.vehicles,
     });
   });
 }

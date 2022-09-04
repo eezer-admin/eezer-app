@@ -21,9 +21,10 @@ export const TransportProvider = (props) => {
     return getFromStorage();
   };
 
-  const start = async (reason: string): Promise<TransportModel> => {
+  const start = async (reason: string, vehicle_id: number): Promise<TransportModel> => {
     const transport = new TransportModel(null);
     transport.start(reason);
+    transport.setVehicleId(vehicle_id);
     setData(transport);
 
     return persist(transport);

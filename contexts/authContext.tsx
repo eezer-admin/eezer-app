@@ -24,11 +24,15 @@ export const AuthProvider = (props) => {
   }, []);
 
   // Makes an actual login request towards the backend API.
-  const login = async (username: string, password: string): Promise<User> => {
-    return requestLogin(username, password).then((user: User) => {
-      setUser(user);
+  const login = async (username: string, password: string): Promise<User | null> => {
+    return requestLogin(username, password).then((user: User | null) => {
+      if (user) {
+        setUser(user);
 
-      return user;
+        return user;
+      }
+
+      return null;
     });
   };
 

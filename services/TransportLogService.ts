@@ -18,7 +18,6 @@ export async function getFromStorage(): Promise<TransportLog> {
 }
 
 export async function getFromApi(): Promise<TransportLog> {
-  console.log('Getting data from API');
   const eezerClient = new EezerClient();
 
   return eezerClient
@@ -29,7 +28,6 @@ export async function getFromApi(): Promise<TransportLog> {
       });
     })
     .catch((err) => {
-      console.log('Error!');
       console.log(err);
     });
 }
@@ -57,10 +55,9 @@ export function removeFromStorage(): Promise<void> {
   return AsyncStorage.removeItem(storageKey);
 }
 
-export async function syncLocalTransports(transports: TransportLog): Promise<boolean> {
-  const userId = await getUserId();
+export async function syncLocalTransports(transports: TransportLog): Promise<TransportLog> {
   const localTransports = transports.map((transport: TransportModel) => {
-    return transport.toApiFormat(userId);
+    return transport.toApiFormat();
   });
 
   const eezerClient = new EezerClient();
