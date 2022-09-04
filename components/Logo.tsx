@@ -5,8 +5,8 @@ export default function Logo() {
   return (
     <Image
       style={{
-        width: 250,
-        height: 77.16,
+        width: 240,
+        height: 60,
         marginBottom: 50,
       }}
       source={require('../assets/logo.png')}
