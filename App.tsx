@@ -3,8 +3,9 @@ import { createDrawerNavigator, DrawerContentComponentProps } from '@react-navig
 import { NavigationContainer } from '@react-navigation/native';
 import * as Localization from 'expo-localization';
 import * as Location from 'expo-location';
+import * as SplashScreen from 'expo-splash-screen';
 import * as Updates from 'expo-updates';
-import React, { useContext, useEffect } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 
 import { DrawerNavigation } from './components/DrawerNavigation';
@@ -21,6 +22,7 @@ import Styles from './styles/Styles';
 
 // require('dotenv').config()
 Bugsnag.start();
+SplashScreen.preventAutoHideAsync();
 
 const Drawer = createDrawerNavigator();
 i18n.locale = Localization.locale;
@@ -83,6 +85,7 @@ const ErrorView = () => (
 );
 
 export default function App() {
+  const [appIsReady, setAppIsReady] = useState(false);
   const ErrorBoundary = Bugsnag.getPlugin('react');
 
   let initialLanguage = Localization.locale;
@@ -90,11 +93,27 @@ export default function App() {
     initialLanguage = defaultLanguage();
   }
 
+  useEffect(() => {
+    setAppIsReady(true);
+  }, []);
+
+  const onLayoutRootView = useCallback(async () => {
+    if (appIsReady) {
+      await SplashScreen.hideAsync();
+    }
+  }, [appIsReady]);
+
+  if (!appIsReady) {
+    return null;
+  }
+
   return (
     <ErrorBoundary FallbackComponent={ErrorView}>
       <LanguageProvider language={initialLanguage}>
         <AuthProvider>
-          <Router />
+          <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
+            <Router />
+          </View>
         </AuthProvider>
       </LanguageProvider>
     </ErrorBoundary>
