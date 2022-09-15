@@ -15,7 +15,7 @@ type VehicleSelectorProps = {
 export default function VehicleSelector(props: VehicleSelectorProps) {
   const auth = useContext(AuthContext);
 
-  if (!auth.user?.vehicles.length) {
+  if (!auth.user?.vehicles?.length) {
     props.onNoVehiclesAvailable();
 
     return (
