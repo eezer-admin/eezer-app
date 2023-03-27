@@ -2,7 +2,7 @@
   "expo": {
     "name": "eezer",
     "slug": "eezer",
-    "version": "1.1.1",
+    "version": "1.7.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -27,6 +27,7 @@
       }
     },
     "android": {
+      "versionCode": 7,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
@@ -39,6 +40,9 @@
     "extra": {
       "bugsnag": {
         "apiKey": "cfeeaf62172ca69652e1a6728833623e"
+      },
+      "eas": {
+        "projectId": "1d5e9549-3c17-4f77-b851-cd23b7d8656d"
       }
     },
     "hooks": {
