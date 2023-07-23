@@ -52,6 +52,9 @@
           "config": {}
         }
       ]
-    }
+    },
+    "plugins": [
+      "expo-localization"
+    ]
   }
 }
