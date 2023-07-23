@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useContext } from 'react';
-import { View, Text, TouchableOpacity, TextInput } from 'react-native';
+import { Text, TextInput, TouchableOpacity, View } from 'react-native';
 
 import Logo from '../components/Logo';
 import { AuthContext } from '../contexts/authContext';
