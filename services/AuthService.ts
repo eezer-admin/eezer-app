@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { EezerClient, GetUserResponse, LoginResponse } from '../clients';
+import { EezerClient, LoginResponse } from '../clients';
 import { User } from '../types/Auth';
 
 const storageKey = 'EEZER::USER';

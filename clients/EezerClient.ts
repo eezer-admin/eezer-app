@@ -41,16 +41,6 @@ export class EezerClient {
     return response.data;
   }
 
-  public async getUser(token: string): Promise<GetUserResponse> {
-    const response = await axios.get(`${this.baseUrl}/api/v1/user/profile`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    return response.data;
-  }
-
   public async getTransports(): Promise {
     const headers = await this.getAuthenticatedHeaders();
     const response = await axios.get(`${this.baseUrl}/api/v1/user/transports`, { headers });

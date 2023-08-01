@@ -1,9 +1,10 @@
+import { User } from '@interfaces/User';
 import { createContext, useEffect, useState } from 'react';
 
-import { getStoredUser, requestLogin, deleteStoredUser } from '../services/AuthService';
+import { deleteStoredUser, getStoredUser, requestLogin } from '../services/AuthService';
 import { removeFromStorage as removeTransportLog } from '../services/TransportLogService';
 import { remove as removeCurrentTransport } from '../services/TransportService';
-import { AuthContextData, User } from '../types/Auth';
+import { AuthContextData } from '../types/Auth';
 
 export const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
