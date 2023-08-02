@@ -23,13 +23,9 @@ export class ApiAuthRepository implements AuthRepository {
 
     const response = await rawResponse.json();
 
-    return new User(
-      response.data.id,
-      response.data.first_name,
-      response.data.last_name,
-      response.data.email,
-      response.data.phone,
-      response.token
-    );
+    return new User({
+      ...response.data,
+      access_token: response.token,
+    });
   }
 }

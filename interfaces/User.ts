@@ -1,14 +1,14 @@
-export type User = {
+export type Vehicle = {
+  id: number;
+  name: string;
+};
+
+export type UserData = {
   id: number;
   first_name: string | null;
   last_name: string | null;
   email: string;
-  phone: string | null;
+  phone?: string | null;
   access_token: string;
-  vehicles: [
-    {
-      id: number;
-      name: string;
-    }
-  ];
+  vehicles?: Vehicle[];
 };

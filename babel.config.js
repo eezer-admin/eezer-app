@@ -13,6 +13,8 @@ module.exports = function (api) {
             '@usecases': './src/domain/usecases',
             '@entities': './src/domain/entities',
             '@repositories': './src/data/repositories',
+            '@presentation': './src/presentation',
+            '@screens': './src/presentation/screens',
             '@src': './src',
             '@tests': './__tests__',
             '@interfaces': './interfaces',

@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { View, ActivityIndicator } from 'react-native';
+import { ActivityIndicator, View } from 'react-native';
 
-import Styles from '../styles/Styles';
+import Styles from '../../../../styles/Styles';
 
 export default function AppLoadingScreen() {
   return (

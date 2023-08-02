@@ -22,11 +22,18 @@ export class MockDatabaseRepository implements DatabaseRepository {
   }
 }
 
-export const mockUser = new User('userId', 'John', 'Doe', 'johndoe@example.org', '1234567890', 'testToken');
+export const mockUser = new User({
+  id: 1,
+  first_name: 'John',
+  last_name: 'Doe',
+  email: 'johndoe@example.org',
+  phone: '1234567890',
+  access_token: 'testToken',
+});
 
 export const mockLoginApiResponse = {
   data: {
-    id: 'userId',
+    id: 1,
     first_name: 'John',
     last_name: 'Doe',
     email: 'johndoe@example.org',

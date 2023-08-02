@@ -1,6 +1,10 @@
 import Bugsnag from '@bugsnag/expo';
+import { DrawerNavigation } from '@presentation/ui/DrawerNavigation';
 import { createDrawerNavigator, DrawerContentComponentProps } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
+import AppLoadingScreen from '@screens/app/AppLoadingScreen';
+import LoginScreen from '@screens/auth/LoginScreen';
+import { container } from '@src/di/Container';
 import * as Localization from 'expo-localization';
 import * as Location from 'expo-location';
 import * as SplashScreen from 'expo-splash-screen';
@@ -8,15 +12,11 @@ import * as Updates from 'expo-updates';
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 
-import { container } from '@src/di/Container';
-import { DrawerNavigation } from './components/DrawerNavigation';
 import { AuthContext, AuthProvider } from './contexts/authContext';
 import { LanguageContext, LanguageProvider } from './contexts/languageContext';
 import { TransportLogProvider } from './contexts/transportLogContext';
 import i18n, { __, defaultLanguage, supportedLanguages } from './localization/Localization';
-import AppLoadingScreen from './screens/AppLoadingScreen';
 import CreateTransportationScreen from './screens/CreateTransportationScreen';
-import LoginScreen from './screens/LoginScreen';
 import LogScreen from './screens/LogScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import Styles from './styles/Styles';

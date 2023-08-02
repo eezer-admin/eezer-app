@@ -1,9 +1,9 @@
-import { createContext, useEffect, useState } from 'react';
-
 import { User } from '@src/domain/entities/User';
 import { ClearUserUseCase } from '@usecases/user/ClearUserUseCase';
 import { GetUserUseCase } from '@usecases/user/GetUserUseCase';
 import { LoginUseCase } from '@usecases/user/LoginUseCase';
+import { createContext, useEffect, useState } from 'react';
+
 import { removeFromStorage as removeTransportLog } from '../services/TransportLogService';
 import { remove as removeCurrentTransport } from '../services/TransportService';
 import { AuthContextData } from '../types/Auth';

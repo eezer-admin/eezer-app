@@ -3,10 +3,10 @@ import * as React from 'react';
 import { useContext } from 'react';
 import { Text, TextInput, TouchableOpacity, View } from 'react-native';
 
-import { AuthContext } from '../contexts/authContext';
-import { LanguageContext } from '../contexts/languageContext';
-import { __ } from '../localization/Localization';
-import Styles from '../styles/Styles';
+import { AuthContext } from '../../../../contexts/authContext';
+import { LanguageContext } from '../../../../contexts/languageContext';
+import { __ } from '../../../../localization/Localization';
+import Styles from '../../../../styles/Styles';
 
 export default function LoginScreen() {
   const [username, onChangeUsername] = React.useState('');
@@ -32,6 +32,7 @@ export default function LoginScreen() {
         placeholderTextColor={'gray'}
         keyboardType="email-address"
         textContentType="emailAddress"
+        secureTextEntry={false}
         style={[inputStyle, loginFailed ? { ...Styles.inputWithError } : null]}
       />
 

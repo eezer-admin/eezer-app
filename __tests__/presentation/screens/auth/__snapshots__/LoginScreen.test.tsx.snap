@@ -1,0 +1,139 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LoginScreen renders correctly 1`] = `
+<View
+  style={
+    {
+      "alignItems": "center",
+      "alignSelf": "center",
+      "flex": 1,
+      "justifyContent": "center",
+      "justifySelf": "center",
+      "paddingHorizontal": 15,
+      "width": "100%",
+    }
+  }
+>
+  <Image
+    source={1}
+    style={
+      {
+        "height": 60,
+        "marginBottom": 50,
+        "width": 240,
+      }
+    }
+  />
+  <TextInput
+    keyboardType="email-address"
+    onChangeText={[Function]}
+    placeholder="Username"
+    placeholderTextColor="gray"
+    style={
+      [
+        {
+          "backgroundColor": "white",
+          "borderRadius": 8,
+          "marginBottom": 10,
+          "paddingHorizontal": 25,
+          "paddingVertical": 10,
+          "textAlign": "center",
+          "width": "100%",
+        },
+        null,
+      ]
+    }
+    textContentType="emailAddress"
+    value=""
+  />
+  <TextInput
+    keyboardType="default"
+    onChangeText={[Function]}
+    placeholder="Password"
+    placeholderTextColor="gray"
+    secureTextEntry={true}
+    style={
+      [
+        {
+          "backgroundColor": "white",
+          "borderRadius": 8,
+          "marginBottom": 10,
+          "paddingHorizontal": 25,
+          "paddingVertical": 10,
+          "textAlign": "center",
+          "width": "100%",
+        },
+        null,
+      ]
+    }
+    value=""
+  />
+  <View
+    accessibilityState={
+      {
+        "busy": undefined,
+        "checked": undefined,
+        "disabled": undefined,
+        "expanded": undefined,
+        "selected": undefined,
+      }
+    }
+    accessibilityValue={
+      {
+        "max": undefined,
+        "min": undefined,
+        "now": undefined,
+        "text": undefined,
+      }
+    }
+    accessible={true}
+    collapsable={false}
+    focusable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      {
+        "alignItems": "center",
+        "backgroundColor": "#86efac",
+        "borderRadius": 8,
+        "green": {
+          "backgroundColor": "#86efac",
+        },
+        "justifyContent": "center",
+        "opacity": 1,
+        "paddingHorizontal": 25,
+        "paddingVertical": 20,
+        "red": {
+          "backgroundColor": "#fca5a5",
+          "text": {
+            "color": "#b91c1c",
+          },
+        },
+        "text": {
+          "color": "#059669",
+          "fontWeight": "bold",
+          "textTransform": "uppercase",
+        },
+        "width": "100%",
+      }
+    }
+  >
+    <Text
+      style={
+        {
+          "color": "#059669",
+          "fontWeight": "bold",
+          "textTransform": "uppercase",
+        }
+      }
+    >
+      Log in
+    </Text>
+  </View>
+</View>
+`;

@@ -1,7 +1,7 @@
-import { User } from '@interfaces/User';
+import { User } from '@src/domain/entities/User';
 
 export type AuthContextData = {
-  login(username: string, password: string): Promise<User>;
+  login(username: string, password: string): Promise<User | null>;
   logout(): Promise<void>;
   isLoggedIn(): boolean;
   loggedIn: boolean;
