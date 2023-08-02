@@ -1,5 +1,6 @@
 import { AuthRepository } from '@interfaces/AuthRepository';
 import { DatabaseRepository } from '@interfaces/DatabaseRepository';
+import { STORAGE_KEYS } from '@src/Constants';
 import { container } from '@src/di/Container';
 import { User } from '@src/domain/entities/User';
 import { GetDeviceNameUseCase } from '@usecases/app/GetDeviceNameUseCase';
@@ -17,7 +18,7 @@ export class LoginUseCase {
     const deviceName = new GetDeviceNameUseCase().execute();
     const user = await this.authRepository.login(email, password, deviceName);
 
-    await this.databaseRepository.store('USER', user);
+    await this.databaseRepository.store(STORAGE_KEYS.USER, user);
 
     return user;
   }

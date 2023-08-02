@@ -1,4 +1,5 @@
 import { AuthRepository } from '@interfaces/AuthRepository';
+import { ERROR_CODES } from '@src/Constants';
 import { User } from '@src/domain/entities/User';
 import fetch from 'node-fetch';
 
@@ -17,7 +18,7 @@ export class ApiAuthRepository implements AuthRepository {
     });
 
     if (!rawResponse.ok) {
-      throw new Error('Login failed', rawResponse as ErrorOptions);
+      throw new Error(ERROR_CODES.LOGIN_FAILED, rawResponse as ErrorOptions);
     }
 
     const response = await rawResponse.json();

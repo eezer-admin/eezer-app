@@ -1,8 +1,8 @@
+import Logo from '@src/presentation/ui/Logo';
 import * as React from 'react';
 import { useContext } from 'react';
 import { Text, TextInput, TouchableOpacity, View } from 'react-native';
 
-import Logo from '../components/Logo';
 import { AuthContext } from '../contexts/authContext';
 import { LanguageContext } from '../contexts/languageContext';
 import { __ } from '../localization/Localization';
@@ -29,6 +29,7 @@ export default function LoginScreen() {
         onChangeText={onChangeUsername}
         value={username}
         placeholder={__('Username')}
+        placeholderTextColor={'gray'}
         keyboardType="email-address"
         textContentType="emailAddress"
         style={[inputStyle, loginFailed ? { ...Styles.inputWithError } : null]}
@@ -37,6 +38,7 @@ export default function LoginScreen() {
       <TextInput
         onChangeText={onChangePassword}
         value={password}
+        placeholderTextColor={'gray'}
         placeholder={__('Password')}
         keyboardType="default"
         secureTextEntry={true}
@@ -53,7 +55,7 @@ export default function LoginScreen() {
           if (!username || !password) {
             setLoginFailed(true);
           } else {
-            auth.login(username, password).catch((error) => {
+            auth.login(username, password).catch(() => {
               setLoginFailed(true);
             });
           }

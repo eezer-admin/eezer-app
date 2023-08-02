@@ -36,7 +36,7 @@ describe('ApiAuthRepository', () => {
         const repo = new ApiAuthRepository();
         await repo.login('johndoe@example.org', 'password', 'My Device');
       } catch (err) {
-        expect(err).toEqual(new Error('Login failed'));
+        expect(err).toEqual(new Error('login_failed'));
       }
     });
 

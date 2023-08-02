@@ -37,7 +37,7 @@ describe('AsyncStorageDatabaseRepository', () => {
     const user = await repo.get('MOCK_USER');
 
     expect(AsyncStorage.getItem).toHaveBeenCalledWith('EEZER::MOCK_USER');
-    expect(user).toEqual(mockUser);
+    expect(JSON.parse(user)).toEqual(mockUser);
   });
 
   it('returns null if the value does not exist', async () => {

@@ -21,28 +21,8 @@ export async function requestLogin(username: string, password: string): Promise<
   });
 }
 
-export async function getStoredUser(): Promise<User> {
-  return AsyncStorage.getItem(storageKey).then((user) => {
-    if (user) {
-      return JSON.parse(user);
-    }
-  });
-}
-
 export function storeUser(user: User): Promise<User> {
   return AsyncStorage.setItem(storageKey, JSON.stringify(user)).then(() => {
     return user;
-  });
-}
-
-export async function deleteStoredUser(): Promise<void> {
-  return AsyncStorage.removeItem(storageKey);
-}
-
-export async function getUserId(): Promise<number> {
-  return AsyncStorage.getItem(storageKey).then((user) => {
-    if (user) {
-      return JSON.parse(user).id;
-    }
   });
 }

@@ -8,6 +8,7 @@ import * as Updates from 'expo-updates';
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 
+import { container } from '@src/di/Container';
 import { DrawerNavigation } from './components/DrawerNavigation';
 import { AuthContext, AuthProvider } from './contexts/authContext';
 import { LanguageContext, LanguageProvider } from './contexts/languageContext';
@@ -15,8 +16,8 @@ import { TransportLogProvider } from './contexts/transportLogContext';
 import i18n, { __, defaultLanguage, supportedLanguages } from './localization/Localization';
 import AppLoadingScreen from './screens/AppLoadingScreen';
 import CreateTransportationScreen from './screens/CreateTransportationScreen';
-import LogScreen from './screens/LogScreen';
 import LoginScreen from './screens/LoginScreen';
+import LogScreen from './screens/LogScreen';
 import ProfileScreen from './screens/ProfileScreen';
 import Styles from './styles/Styles';
 
@@ -26,6 +27,8 @@ SplashScreen.preventAutoHideAsync();
 
 const Drawer = createDrawerNavigator();
 i18n.locale = Localization.locale;
+
+container.register();
 
 const Router = () => {
   const auth = useContext(AuthContext);

@@ -1,8 +1,8 @@
+import Logo from '@src/presentation/ui/Logo';
 import * as React from 'react';
 import { useContext } from 'react';
-import { View, Text, TouchableOpacity, Image } from 'react-native';
+import { Image, Text, TouchableOpacity, View } from 'react-native';
 
-import Logo from '../components/Logo';
 import { LanguageContext } from '../contexts/languageContext';
 import { TransportContext } from '../contexts/transportContext';
 import { TransportLogContext } from '../contexts/transportLogContext';

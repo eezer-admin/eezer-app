@@ -1,10 +1,9 @@
+import Logo from '@src/presentation/ui/Logo';
 import * as React from 'react';
 import { useContext, useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity, Image } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 
-import Logo from '../components/Logo';
 import VehicleSelector from '../components/VehicleSelector';
-import { AuthContext } from '../contexts/authContext';
 import { TransportContext } from '../contexts/transportContext';
 import { __ } from '../localization/Localization';
 import TransportModel from '../models/TransportModel';

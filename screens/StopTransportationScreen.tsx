@@ -1,3 +1,4 @@
+import Logo from '@src/presentation/ui/Logo';
 import * as Location from 'expo-location';
 import { LocationAccuracy, LocationObject, LocationOptions } from 'expo-location';
 import { LocationSubscription } from 'expo-location/src/Location.types';
@@ -5,7 +6,6 @@ import * as React from 'react';
 import { useContext, useEffect, useState } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 
-import Logo from '../components/Logo';
 import { TransportContext } from '../contexts/transportContext';
 import { __ } from '../localization/Localization';
 import TransportModel from '../models/TransportModel';

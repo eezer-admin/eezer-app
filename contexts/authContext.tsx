@@ -1,7 +1,9 @@
-import { User } from '@interfaces/User';
 import { createContext, useEffect, useState } from 'react';
 
-import { deleteStoredUser, getStoredUser, requestLogin } from '../services/AuthService';
+import { User } from '@src/domain/entities/User';
+import { ClearUserUseCase } from '@usecases/user/ClearUserUseCase';
+import { GetUserUseCase } from '@usecases/user/GetUserUseCase';
+import { LoginUseCase } from '@usecases/user/LoginUseCase';
 import { removeFromStorage as removeTransportLog } from '../services/TransportLogService';
 import { remove as removeCurrentTransport } from '../services/TransportService';
 import { AuthContextData } from '../types/Auth';
@@ -16,7 +18,7 @@ export const AuthProvider = (props) => {
   // If there's a user in the local storage, assign it to the context
   // to make the app recognize it.
   useEffect(() => {
-    getStoredUser().then((user: User) => {
+    new GetUserUseCase().execute().then((user: User | null) => {
       if (user) {
         setUser(user);
       }
@@ -26,7 +28,7 @@ export const AuthProvider = (props) => {
 
   // Makes an actual login request towards the backend API.
   const login = async (username: string, password: string): Promise<User | null> => {
-    return requestLogin(username, password).then((user: User | null) => {
+    return new LoginUseCase().execute(username, password).then((user: User) => {
       if (user) {
         setUser(user);
 
@@ -41,7 +43,7 @@ export const AuthProvider = (props) => {
   const logout = async () => {
     await removeTransportLog();
     await removeCurrentTransport();
-    await deleteStoredUser();
+    await new ClearUserUseCase().execute();
 
     setUser(null);
   };

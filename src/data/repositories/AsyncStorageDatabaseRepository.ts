@@ -10,12 +10,10 @@ export class AsyncStorageDatabaseRepository implements DatabaseRepository {
     return true;
   }
 
-  async get(key: string): Promise<string | object | any[] | null> {
+  async get(key: string): Promise<string | null> {
     const data = await AsyncStorage.getItem(this.storageKeyPrefix + key);
 
-    if (!data) return null;
-
-    return JSON.parse(data);
+    return data || null;
   }
 
   async delete(key: string): Promise<boolean> {

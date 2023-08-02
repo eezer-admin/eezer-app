@@ -13,7 +13,7 @@ export class MockDatabaseRepository implements DatabaseRepository {
     return Promise.resolve(true);
   }
 
-  async get(key: string): Promise<string | object | any[] | null> {
+  async get(key: string): Promise<string | null> {
     return Promise.resolve(null);
   }
 

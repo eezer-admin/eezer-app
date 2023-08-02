@@ -1,9 +1,8 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { EezerClient } from '../clients';
-import TransportModel, { TransportData } from '../models/TransportModel';
-import { ApiTransport, TransportCoordinate, TransportLog } from '../types/Transports';
-import { getUserId } from './AuthService';
+import TransportModel from '../models/TransportModel';
+import { ApiTransport, TransportLog } from '../types/Transports';
 
 const storageKey = 'EEZER::TRANSPORT_LOG';
 
