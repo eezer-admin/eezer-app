@@ -1,18 +1,18 @@
 import { DatabaseRepository } from '@interfaces/DatabaseRepository';
 import { STORAGE_KEYS } from '@src/Constants';
 import { container } from '@src/di/Container';
-import { User } from '@src/domain/entities/User';
+import { Transport } from '@src/domain/entities/Transport';
 
-export class GetUserUseCase {
+export class GetTransportUseCase {
   private databaseRepository: DatabaseRepository;
 
   constructor() {
     this.databaseRepository = container.resolve('DatabaseRepository');
   }
 
-  async execute(): Promise<User | null> {
-    const user = await this.databaseRepository.get(STORAGE_KEYS.USER);
+  async execute(): Promise<Transport | null> {
+    const transport = await this.databaseRepository.get(STORAGE_KEYS.TRANSPORT);
 
-    return user ? (JSON.parse(user) as User) : null;
+    return transport ? (JSON.parse(transport) as Transport) : null;
   }
 }

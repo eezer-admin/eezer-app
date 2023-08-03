@@ -29,6 +29,7 @@ exports[`LoginScreen renders correctly 1`] = `
     onChangeText={[Function]}
     placeholder="Username"
     placeholderTextColor="gray"
+    secureTextEntry={false}
     style={
       [
         {

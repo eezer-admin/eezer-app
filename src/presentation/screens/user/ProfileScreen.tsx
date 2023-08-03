@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { useContext } from 'react';
-import { View, Text } from 'react-native';
+import { Text, View } from 'react-native';
 
-import { AuthContext } from '../contexts/authContext';
-import Styles from '../styles/Styles';
+import { AuthContext } from '../../../../contexts/authContext';
+import Styles from '../../../../styles/Styles';
 
 export default function ProfileScreen() {
   const auth = useContext(AuthContext);

@@ -45,7 +45,9 @@ export type ApiTransport = {
 export type TransportLog = TransportModel[];
 
 export type TransportContextData = {
-  data: TransportModel | null | undefined;
+  transport: Transport | null;
+  setTransport: React.Dispatch<React.SetStateAction<Transport | null>>;
+  data: Transport | null | undefined;
   get(): Promise<TransportModel | null>;
   save(transport: TransportModel): Promise<TransportModel>;
   start(reason: string, vehicle_id: number): Promise<TransportModel>;

@@ -4,6 +4,7 @@ import { createDrawerNavigator, DrawerContentComponentProps } from '@react-navig
 import { NavigationContainer } from '@react-navigation/native';
 import AppLoadingScreen from '@screens/app/AppLoadingScreen';
 import LoginScreen from '@screens/auth/LoginScreen';
+import ProfileScreen from '@screens/user/ProfileScreen';
 import { container } from '@src/di/Container';
 import * as Localization from 'expo-localization';
 import * as Location from 'expo-location';
@@ -18,7 +19,6 @@ import { TransportLogProvider } from './contexts/transportLogContext';
 import i18n, { __, defaultLanguage, supportedLanguages } from './localization/Localization';
 import CreateTransportationScreen from './screens/CreateTransportationScreen';
 import LogScreen from './screens/LogScreen';
-import ProfileScreen from './screens/ProfileScreen';
 import Styles from './styles/Styles';
 
 // require('dotenv').config()

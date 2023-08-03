@@ -1,5 +1,7 @@
 import { AuthRepository } from '@interfaces/AuthRepository';
 import { DatabaseRepository } from '@interfaces/DatabaseRepository';
+import { TRANSPORT_REASON } from '@src/Constants';
+import { Transport } from '@src/domain/entities/Transport';
 import { User } from '@src/domain/entities/User';
 
 export class MockAuthRepository implements AuthRepository {
@@ -29,6 +31,15 @@ export const mockUser = new User({
   email: 'johndoe@example.org',
   phone: '1234567890',
   access_token: 'testToken',
+});
+
+export const mockTransport = new Transport({
+  started: new Date().toISOString(),
+  ended: null,
+  durationSeconds: null,
+  distance: null,
+  reason: TRANSPORT_REASON.DELIVERY,
+  vehicle_id: null,
 });
 
 export const mockLoginApiResponse = {

@@ -1,8 +1,8 @@
-import { format, parse, parseISO } from 'date-fns';
+import { format, parseISO } from 'date-fns';
 import getDistance from 'geolib/es/getPreciseDistance';
 
+import { uuid } from '@src/Utils';
 import { formatDuration } from '../services/TimeService';
-import { generateUuid } from '../services/UuidService';
 import { ApiTransport, TransportCoordinate } from '../types/Transports';
 
 export type TransportData = {
@@ -38,7 +38,7 @@ interface Transport {
 export default class TransportModel implements Transport {
   data = {
     id: null,
-    identifier: generateUuid(),
+    identifier: uuid(),
     started: null,
     ended: null,
     durationSeconds: 0,
