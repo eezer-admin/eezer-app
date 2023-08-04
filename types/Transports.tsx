@@ -47,11 +47,11 @@ export type TransportLog = TransportModel[];
 export type TransportContextData = {
   transport: Transport | null;
   setTransport: React.Dispatch<React.SetStateAction<Transport | null>>;
-  data: Transport | null | undefined;
-  get(): Promise<TransportModel | null>;
-  save(transport: TransportModel): Promise<TransportModel>;
-  start(reason: string, vehicle_id: number): Promise<TransportModel>;
-  completeTransport(): Promise<void>;
+  // data: Transport | null | undefined;
+  // get(): Promise<TransportModel | null>;
+  // save(transport: TransportModel): Promise<TransportModel>;
+  // start(reason: string, vehicle_id: number): Promise<TransportModel>;
+  // completeTransport(): Promise<void>;
 };
 
 export type TransportLogContextData = {

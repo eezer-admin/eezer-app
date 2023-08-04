@@ -24,7 +24,7 @@ export class Transport {
     this.distance = data.distance || '0 m';
     this.reason = data.reason || null;
     this.coordinates = data.coordinates || [];
-    this.vehicleId = data.vehicle_id || null;
+    this.vehicleId = data.vehicleId || null;
   }
 
   isOngoing(): boolean {

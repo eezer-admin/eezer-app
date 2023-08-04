@@ -1,25 +1,33 @@
 import Logo from '@src/presentation/ui/Logo';
 import * as React from 'react';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useState } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 
+import { StartTransportUseCase } from '@usecases/transport/StartTransportUseCase';
 import VehicleSelector from '../components/VehicleSelector';
 import { TransportContext } from '../contexts/transportContext';
 import { __ } from '../localization/Localization';
-import TransportModel from '../models/TransportModel';
 import Styles from '../styles/Styles';
 
 export default function StartTransportationScreen({ route, navigation }) {
   const { reason } = route.params;
   const context = useContext(TransportContext);
   const [vehicleId, setVehicleId] = useState(null);
-  const transport = new TransportModel(null);
 
-  useEffect(() => {
-    if (vehicleId) {
-      transport.setVehicleId(vehicleId);
+  const startTransport = async () => {
+    if (!vehicleId) {
+      return null;
     }
-  }, [vehicleId]);
+
+    context.transport.reason = reason;
+    context.transport.vehicleId = vehicleId;
+
+    const transport = await new StartTransportUseCase().execute(context.transport);
+
+    context.setTransport(transport);
+
+    navigation.navigate('StopTransportation', { reason });
+  };
 
   return (
     <View style={Styles.container}>
@@ -45,10 +53,10 @@ export default function StartTransportationScreen({ route, navigation }) {
       {vehicleId && (
         <View style={{ ...Styles.container, flex: 0 }}>
           <View style={{ ...Styles.input, marginVertical: Styles.margins.medium }}>
-            <Text>{transport.getReadableDuration()}</Text>
+            <Text>{context.transport?.getReadableDuration()}</Text>
           </View>
           <View style={{ ...Styles.input }}>
-            <Text>{transport.getReadableDistance()}</Text>
+            <Text>{context.transport?.getReadableDistance()}</Text>
           </View>
 
           <TouchableOpacity
@@ -59,11 +67,7 @@ export default function StartTransportationScreen({ route, navigation }) {
               marginBottom: Styles.margins.large,
             }}
             onPress={() => {
-              context.start(reason, vehicleId).then((transport: TransportModel) => {
-                context.save(transport).then(() => {
-                  navigation.navigate('StopTransportation', { reason: route.params.reason });
-                });
-              });
+              startTransport();
             }}>
             <Text>{__('Start')}</Text>
           </TouchableOpacity>

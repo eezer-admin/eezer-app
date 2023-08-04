@@ -1,4 +1,7 @@
+import { TransportCoordinate } from '@interfaces/Transport';
 import Logo from '@src/presentation/ui/Logo';
+import { AddCoordinatesToTransportUseCase } from '@usecases/transport/AddCoordinatesToTransportUseCase';
+import { StopTransportUseCase } from '@usecases/transport/StopTransportUseCase';
 import * as Location from 'expo-location';
 import { LocationAccuracy, LocationObject, LocationOptions } from 'expo-location';
 import { LocationSubscription } from 'expo-location/src/Location.types';
@@ -8,21 +11,28 @@ import { Text, TouchableOpacity, View } from 'react-native';
 
 import { TransportContext } from '../contexts/transportContext';
 import { __ } from '../localization/Localization';
-import TransportModel from '../models/TransportModel';
 import Styles from '../styles/Styles';
-import { TransportCoordinate } from '../types/Transports';
 
 let locationService: LocationSubscription;
 
 export default function StopTransportationScreen({ route, navigation }) {
   const context = useContext(TransportContext);
-  const transport = context.data as TransportModel;
 
-  if (!transport) {
+  if (!context.transport.isNotOngoing()) {
     return null;
   }
 
-  const [duration, setDuration] = useState(transport.getReadableDuration());
+  const [duration, setDuration] = useState(context.transport.getReadableDuration());
+
+  const stopTransport = async () => {
+    locationService.remove();
+
+    const transport = await new StopTransportUseCase().execute(context.transport);
+
+    context.setTransport(transport);
+
+    navigation.navigate('CompleteTransportation');
+  };
 
   useEffect(() => {
     (async () => {
@@ -38,17 +48,15 @@ export default function StopTransportationScreen({ route, navigation }) {
           accuracy: LocationAccuracy.Highest,
           distanceInterval: 5,
         } as LocationOptions,
-        (location: LocationObject) => {
-          if (transport.isNotOngoing()) {
-            return;
-          }
-
-          transport.addCoordinates({
+        async (location: LocationObject) => {
+          const transport = await new AddCoordinatesToTransportUseCase().execute(context.transport, {
             latitude: location.coords.latitude,
             longitude: location.coords.longitude,
             altitude: location.coords.altitude,
             timestamp: new Date(location.timestamp).toISOString(),
           } as TransportCoordinate);
+
+          context.setTransport(transport);
         }
       );
     })();
@@ -56,7 +64,7 @@ export default function StopTransportationScreen({ route, navigation }) {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setDuration(transport.getReadableDuration());
+      setDuration(context.transport.getReadableDuration());
     }, 1000);
     return () => clearInterval(interval);
   }, []);
@@ -68,10 +76,7 @@ export default function StopTransportationScreen({ route, navigation }) {
       <TouchableOpacity
         style={{ ...Styles.button, ...Styles.button.red }}
         onPress={() => {
-          locationService.remove();
-          context.save(transport.stop());
-
-          navigation.navigate('CompleteTransportation');
+          stopTransport();
         }}>
         <Text style={{ ...Styles.text.default, ...Styles.button.red.text }}>{__('Stop')}</Text>
       </TouchableOpacity>
@@ -80,7 +85,7 @@ export default function StopTransportationScreen({ route, navigation }) {
         <Text style={{ ...Styles.text.default }}>{duration}</Text>
       </View>
       <View style={{ ...Styles.input }}>
-        <Text style={{ ...Styles.text.default }}>{transport.getReadableDistance()}</Text>
+        <Text style={{ ...Styles.text.default }}>{context.transport.getReadableDistance()}</Text>
       </View>
     </View>
   );

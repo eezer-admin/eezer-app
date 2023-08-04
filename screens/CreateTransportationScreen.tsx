@@ -6,7 +6,6 @@ import { ActivityIndicator, Image, Text, TouchableOpacity, View } from 'react-na
 import { LanguageContext } from '../contexts/languageContext';
 import { TransportContext, TransportProvider } from '../contexts/transportContext';
 import { __ } from '../localization/Localization';
-import TransportModel from '../models/TransportModel';
 import Styles from '../styles/Styles';
 import CompleteTransportationScreen from './CompleteTransportationScreen';
 import StartTransportationScreen from './StartTransportationScreen';
@@ -186,26 +185,23 @@ const Router = () => {
   useContext(LanguageContext);
   const context = useContext(TransportContext);
   const [loaded, setLoaded] = useState(false);
-  const [transport, setTransport] = useState(null);
   const [initialRouteName, setInitialRouteName] = useState('CreateTransportation');
 
+  const determineInitialRoute = async () => {
+    if (!context.transport || (!context.transport.isStarted() && !context.transport.isEnded())) {
+      setInitialRouteName('CreateTransportation');
+    } else if (context.transport.isOngoing()) {
+      setInitialRouteName('StopTransportation');
+    } else {
+      setInitialRouteName('CompleteTransportation');
+    }
+
+    setLoaded(true);
+  };
+
   useEffect(() => {
-    context.get().then((transport: TransportModel | null) => {
-      if (!transport || (!transport.isStarted() && !transport.isEnded())) {
-        setInitialRouteName('CreateTransportation');
-      } else if (transport.isOngoing()) {
-        setInitialRouteName('StopTransportation');
-      } else {
-        setInitialRouteName('CompleteTransportation');
-      }
-
-      setLoaded(true);
-
-      if (transport) {
-        setTransport(transport);
-      }
-    });
-  }, []);
+    determineInitialRoute();
+  }, [context.transport]);
 
   return loaded ? (
     <Stack.Navigator initialRouteName={initialRouteName} screenOptions={{ headerShown: false }}>
@@ -221,7 +217,7 @@ const Router = () => {
         name="StopTransportation"
         component={StopTransportationScreen}
         options={({ route }) => ({
-          title: transport ? __(transport.data.reason) : __('Stop transport'),
+          title: context.transport ? __(context.transport.reason) : __('Stop transport'),
           headerLeft: (props) => null,
         })}
       />
@@ -229,7 +225,7 @@ const Router = () => {
         name="CompleteTransportation"
         component={CompleteTransportationScreen}
         options={({ route }) => ({
-          title: transport ? __(transport.data.reason) : __('Complete transport'),
+          title: context.transport ? __(context.transport.reason) : __('Complete transport'),
           headerLeft: null,
         })}
       />

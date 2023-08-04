@@ -30,7 +30,7 @@ export type NewTransportData = {
   distance?: string | null;
   reason?: string;
   coordinates?: TransportCoordinate[];
-  vehicle_id?: number | null;
+  vehicleId?: number | null;
 };
 
 export type TransportContextData = {

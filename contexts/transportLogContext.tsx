@@ -1,12 +1,11 @@
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useState } from 'react';
 
 import TransportModel from '../models/TransportModel';
 import {
-  getFromStorage,
-  syncLocalTransports as syncTransports,
-  removeFromStorage,
-  add as addToLog,
   getFromApi,
+  getFromStorage,
+  removeFromStorage,
+  syncLocalTransports as syncTransports,
 } from '../services/TransportLogService';
 import { TransportLog, TransportLogContextData } from '../types/Transports';
 
@@ -31,16 +30,16 @@ export const TransportLogProvider = (props) => {
     setData(sortLog(log));
   };
 
-  const add = async (transport: TransportModel): Promise<void> => {
-    return addToLog(transport).then((log: TransportLog) => {
-      if (data) {
-        data.unshift(transport);
-        setData(data);
-      } else {
-        setData([transport]);
-      }
-    });
-  };
+  // const add = async (transport: TransportModel): Promise<void> => {
+  //   return addToLog(transport).then((log: TransportLog) => {
+  //     if (data) {
+  //       data.unshift(transport);
+  //       setData(data);
+  //     } else {
+  //       setData([transport]);
+  //     }
+  //   });
+  // };
 
   const syncLocalTransports = async (): Promise<void> => {
     const localTransports = data?.filter((transport: TransportModel) => transport.isNotSynced());
@@ -69,7 +68,7 @@ export const TransportLogProvider = (props) => {
       value={{
         data,
         refresh,
-        add,
+        // add,
         syncLocalTransports,
       }}>
       {props.children}

@@ -1,25 +1,29 @@
+import { Transport } from '@src/domain/entities/Transport';
 import Logo from '@src/presentation/ui/Logo';
+import { CompleteTransportUseCase } from '@usecases/transport/CompleteTransportUseCase';
 import * as React from 'react';
 import { useContext } from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
 
 import { LanguageContext } from '../contexts/languageContext';
 import { TransportContext } from '../contexts/transportContext';
-import { TransportLogContext } from '../contexts/transportLogContext';
 import { __ } from '../localization/Localization';
-import TransportModel from '../models/TransportModel';
 import Styles from '../styles/Styles';
 
 export default function CompleteTransportationScreen({ route, navigation }) {
   useContext(LanguageContext);
   const context = useContext(TransportContext);
-  const transport = context.data as TransportModel;
+  const transport = context.transport as Transport;
 
   if (!transport) {
     return null;
   }
 
-  const log = useContext(TransportLogContext);
+  const completeTransport = async () => {
+    await new CompleteTransportUseCase().execute(transport);
+
+    navigation.navigate('CreateTransportation');
+  };
 
   return (
     <View style={Styles.container}>
@@ -35,11 +39,7 @@ export default function CompleteTransportationScreen({ route, navigation }) {
       <TouchableOpacity
         style={{ ...Styles.button, ...Styles.button.green, marginTop: Styles.margins.medium }}
         onPress={() => {
-          log.add(transport).then(() => {
-            context.completeTransport().then(() => {
-              navigation.navigate('CreateTransportation');
-            });
-          });
+          completeTransport();
         }}>
         <Image
           source={require('../assets/icon-check.png')}
