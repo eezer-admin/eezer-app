@@ -14,11 +14,11 @@ import * as Updates from 'expo-updates';
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import i18n, { __, defaultLanguage, supportedLanguages } from './localization/Localization';
-import CreateTransportationScreen from './screens/CreateTransportationScreen';
 
 import { AuthContext, AuthProvider } from './contexts/authContext';
 import { LanguageContext, LanguageProvider } from './contexts/languageContext';
 
+import CreateTransportationScreen from '@presentation/screens/transport/CreateTransportationScreen';
 import Styles from './styles/Styles';
 
 // require('dotenv').config()
@@ -41,7 +41,6 @@ const Router = () => {
   Location.requestForegroundPermissionsAsync();
 
   return (
-    // <TransportLogProvider>
     <NavigationContainer style={{ flex: 1 }}>
       {auth.isLoggedIn() ? (
         <Drawer.Navigator
@@ -63,7 +62,6 @@ const Router = () => {
         </Drawer.Navigator>
       )}
     </NavigationContainer>
-    // </TransportLogProvider>
   );
 };
 

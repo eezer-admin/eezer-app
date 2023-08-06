@@ -33,7 +33,7 @@ function CreateTransportation({ navigation }) {
             navigation.navigate('CreatePregnancyTransportation');
           }}>
           <Image
-            source={require('../assets/pin-transport-pregnancy-large.png')}
+            source={require('../../../../assets/pin-transport-pregnancy-large.png')}
             style={{
               width: 130,
               height: 208.21,
@@ -48,7 +48,7 @@ function CreateTransportation({ navigation }) {
             navigation.navigate('CreateOtherTransportation');
           }}>
           <Image
-            source={require('../assets/pin-transport-other-large.png')}
+            source={require('../../../../assets/pin-transport-other-large.png')}
             style={{
               width: 130,
               height: 208.21,
@@ -79,7 +79,7 @@ function CreatePregnancyTransportationScreen({ navigation }) {
             navigation.navigate('StartTransportation', { reason: 'Delivery' });
           }}>
           <Image
-            source={require('../assets/pin-transport-delivery-small.png')}
+            source={require('../../../../assets/pin-transport-delivery-small.png')}
             style={{
               width: 65,
               height: 65,
@@ -94,7 +94,7 @@ function CreatePregnancyTransportationScreen({ navigation }) {
             navigation.navigate('StartTransportation', { reason: 'Checkup' });
           }}>
           <Image
-            source={require('../assets/pin-transport-checkup-small.png')}
+            source={require('../../../../assets/pin-transport-checkup-small.png')}
             style={{
               width: 65,
               height: 65,
@@ -109,7 +109,7 @@ function CreatePregnancyTransportationScreen({ navigation }) {
             navigation.navigate('StartTransportation', { reason: 'Other' });
           }}>
           <Image
-            source={require('../assets/pin-transport-other-small.png')}
+            source={require('../../../../assets/pin-transport-other-small.png')}
             style={{
               width: 65,
               height: 65,
@@ -140,7 +140,7 @@ function CreateOtherTransportationScreen({ navigation }) {
             navigation.navigate('StartTransportation', { reason: 'Accident' });
           }}>
           <Image
-            source={require('../assets/pin-transport-accident-small.png')}
+            source={require('../../../../assets/pin-transport-accident-small.png')}
             style={{
               width: 65,
               height: 65,
@@ -154,7 +154,7 @@ function CreateOtherTransportationScreen({ navigation }) {
             navigation.navigate('StartTransportation', { reason: 'Sickness' });
           }}>
           <Image
-            source={require('../assets/pin-transport-sickness-small.png')}
+            source={require('../../../../assets/pin-transport-sickness-small.png')}
             style={{
               width: 65,
               height: 65,
@@ -168,7 +168,7 @@ function CreateOtherTransportationScreen({ navigation }) {
             navigation.navigate('StartTransportation', { reason: 'Misc' });
           }}>
           <Image
-            source={require('../assets/pin-transport-misc-small.png')}
+            source={require('../../../../assets/pin-transport-misc-small.png')}
             style={{
               width: 65,
               height: 65,

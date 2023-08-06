@@ -44,7 +44,7 @@ export default function CompleteTransportationScreen({ route, navigation }) {
           completeTransport();
         }}>
         <Image
-          source={require('../assets/icon-check.png')}
+          source={require('../../../../assets/icon-check.png')}
           style={{
             width: 75,
             height: 75,

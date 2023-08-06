@@ -10,7 +10,7 @@ import { LanguageContext } from '../../../../contexts/languageContext';
 import { __ } from '../../../../localization/Localization';
 import Styles from '../../../../styles/Styles';
 
-const LogRow = (item: Transport) => {
+const LogRow = (item: object) => {
   const auth = useContext(AuthContext);
   const transport = item.item as Transport;
   const [showDetails, setShowDetails] = useState(false);
@@ -105,7 +105,7 @@ export default function LogScreen() {
             syncTransports();
           }}>
           <Image
-            source={require('../assets/icon-upload.png')}
+            source={require('../../../../assets/icon-upload.png')}
             style={{
               width: 32,
               height: 32,
