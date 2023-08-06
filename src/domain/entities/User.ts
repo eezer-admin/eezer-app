@@ -6,7 +6,7 @@ export class User {
   private last_name: string | null;
   private email: string;
   private phone: string | null;
-  private access_token: string;
+  public access_token: string;
   private vehicles: Vehicle[];
 
   constructor(data: UserData) {

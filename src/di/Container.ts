@@ -1,6 +1,6 @@
-import { AuthRepository } from '@interfaces/AuthRepository';
+import { BackendRepository } from '@interfaces/BackendRepository';
 import { DatabaseRepository } from '@interfaces/DatabaseRepository';
-import { ApiAuthRepository } from '@repositories/ApiAuthRepository';
+import { ApiBackendRepository } from '@repositories/ApiBackendRepository';
 import { AsyncStorageDatabaseRepository } from '@repositories/AsyncStorageDatabaseRepository';
 
 class Container {
@@ -16,7 +16,7 @@ class Container {
 
   register(): void {
     this.bind<DatabaseRepository>('DatabaseRepository', new AsyncStorageDatabaseRepository());
-    this.bind<AuthRepository>('AuthRepository', new ApiAuthRepository());
+    this.bind<BackendRepository>('BackendRepository', new ApiBackendRepository());
   }
 }
 

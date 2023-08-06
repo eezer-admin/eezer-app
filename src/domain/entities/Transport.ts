@@ -1,6 +1,11 @@
-import { NewTransportData, TransportCoordinate } from '@interfaces/Transport';
-import { uuid } from '@src/Utils';
-import { format, formatDuration, parseISO } from 'date-fns';
+import {
+  GetBackendTransport,
+  NewTransportData,
+  PostBackendTransport,
+  TransportCoordinate,
+} from '@interfaces/Transport';
+import { formatDuration, uuid } from '@src/Utils';
+import { format, parseISO } from 'date-fns';
 
 export class Transport {
   public id: number | null;
@@ -44,7 +49,7 @@ export class Transport {
   }
 
   isSynced(): boolean {
-    return !!this.id;
+    return this.id !== null;
   }
 
   isNotSynced(): boolean {
@@ -58,10 +63,10 @@ export class Transport {
   }
 
   getReadableDuration(): string {
-    if (this.isStarted() && this.isEnded()) {
+    if (this.started && this.ended) {
       return formatDuration(this.started, this.ended);
     }
-    if (!this.isStarted() && !this.isEnded()) {
+    if (!this.started) {
       return '00:00';
     }
 
@@ -100,37 +105,30 @@ export class Transport {
     return new Date(parseISO(this.started));
   }
 
-  //   toApiFormat(): ApiTransport {
-  //     return {
-  //       vehicle_id: this.data.vehicle_id,
-  //       started_at: this.data.started || '',
-  //       ended_at: this.data.ended || '',
-  //       distance_meters: this.data.distanceMeters,
-  //       reason: this.data.reason,
-  //       coordinates: this.data.coordinates?.map((coordinate: TransportCoordinate) => {
-  //         return {
-  //           latitude: coordinate.latitude,
-  //           longitude: coordinate.longitude,
-  //           altitude: coordinate.altitude,
-  //           logged_at: coordinate.timestamp,
-  //         };
-  //       }),
-  //     } as ApiTransport;
-  //   }
+  toApiFormat(): PostBackendTransport {
+    return {
+      id: this.id,
+      vehicle_id: this.vehicleId,
+      started_at: this.started || '',
+      ended_at: this.ended || '',
+      distance_meters: this.distanceMeters,
+      reason: this.reason,
+      coordinates: this.coordinates.map((coordinate: TransportCoordinate) => {
+        return {
+          ...coordinate,
+          logged_at: coordinate.timestamp,
+        };
+      }),
+    } as PostBackendTransport;
+  }
 
-  //   fromApiFormat(apiTransport: ApiTransport): TransportModel {
-  //     this.data = {
-  //       id: apiTransport.id,
-  //       identifier: null,
-  //       started: apiTransport.started_at,
-  //       ended: apiTransport.ended_at,
-  //       durationSeconds: null,
-  //       distanceMeters: apiTransport.distance_meters,
-  //       distance: null,
-  //       reason: apiTransport.reason,
-  //       coordinates: [],
-  //     } as TransportData;
+  fromApiFormat(data: GetBackendTransport): Transport {
+    this.id = data.id;
+    this.started = data.started_at;
+    this.ended = data.ended_at;
+    this.distanceMeters = data.distance_meters;
+    this.reason = data.reason;
 
-  //     return this;
-  //   }
+    return this;
+  }
 }

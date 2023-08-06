@@ -2,7 +2,7 @@ import { Transport } from '@src/domain/entities/Transport';
 import { GetTransportUseCase } from '@usecases/transport/GetTransportUseCase';
 import { createContext, useEffect, useState } from 'react';
 
-import { TransportContextData } from '../types/Transports';
+import { TransportContextData } from '@interfaces/Transport';
 
 export const TransportContext = createContext<TransportContextData>({} as TransportContextData);
 

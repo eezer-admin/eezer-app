@@ -3,7 +3,8 @@ import { STORAGE_KEYS } from '@src/Constants';
 import { container } from '@src/di/Container';
 import { Transport } from '@src/domain/entities/Transport';
 
-import { GetTransportLogUseCase } from './GetTransportLogUseCase';
+import { GetLocalTransportLogUseCase } from './GetLocalTransportLogUseCase';
+import { StoreTransportLogUseCase } from './StoreTransportLogUseCase';
 
 export class CompleteTransportUseCase {
   private databaseRepository: DatabaseRepository;
@@ -13,12 +14,12 @@ export class CompleteTransportUseCase {
   }
 
   async execute(transport: Transport): Promise<Transport[]> {
-    const log = await new GetTransportLogUseCase().execute();
+    const log = await new GetLocalTransportLogUseCase().execute();
 
     log.unshift(transport);
 
     // Persist the log and remove the current transport from local storage, making room for a new one.
-    await this.databaseRepository.store(STORAGE_KEYS.TRANSPORT_LOG, log);
+    await new StoreTransportLogUseCase().execute(log);
     await this.databaseRepository.delete(STORAGE_KEYS.TRANSPORT);
 
     return log;

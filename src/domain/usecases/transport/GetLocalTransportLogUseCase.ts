@@ -3,7 +3,9 @@ import { STORAGE_KEYS } from '@src/Constants';
 import { container } from '@src/di/Container';
 import { Transport } from '@src/domain/entities/Transport';
 
-export class GetTransportLogUseCase {
+import { SortTransportLogUseCase } from './SortTransportLogUseCase';
+
+export class GetLocalTransportLogUseCase {
   private databaseRepository: DatabaseRepository;
 
   constructor() {
@@ -19,13 +21,10 @@ export class GetTransportLogUseCase {
 
     const parsedLog = JSON.parse(log) as Transport[];
 
-    return parsedLog
-      .map((transportData) => {
+    return new SortTransportLogUseCase().execute(
+      parsedLog.map((transportData) => {
         return new Transport(transportData);
       })
-      .filter((transport: Transport) => {
-        return transport.getStartDateAsDateFormat() !== null;
-      })
-      .sort((a: Transport, b: Transport) => b.getStartDateAsDateFormat() - a.getStartDateAsDateFormat());
+    );
   }
 }

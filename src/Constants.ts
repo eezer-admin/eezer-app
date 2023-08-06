@@ -1,5 +1,7 @@
 export const ERROR_CODES = {
   LOGIN_FAILED: 'login_failed',
+  FAILED_GETTING_USER_TRANSPORTS: 'failed_getting_user_transports',
+  FAILED_SYNCING_USER_TRANSPORTS: 'failed_syncing_user_transports',
 };
 
 export const STORAGE_KEYS = {

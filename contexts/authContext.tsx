@@ -1,12 +1,11 @@
+import { AuthContextData } from '@interfaces/User';
 import { User } from '@src/domain/entities/User';
+import { ClearTransportLogUseCase } from '@usecases/transport/ClearTransportLogUseCase';
+import { ClearTransportUseCase } from '@usecases/transport/ClearTransportUseCase';
 import { ClearUserUseCase } from '@usecases/user/ClearUserUseCase';
 import { GetUserUseCase } from '@usecases/user/GetUserUseCase';
 import { LoginUseCase } from '@usecases/user/LoginUseCase';
 import { createContext, useEffect, useState } from 'react';
-
-import { removeFromStorage as removeTransportLog } from '../services/TransportLogService';
-import { remove as removeCurrentTransport } from '../services/TransportService';
-import { AuthContextData } from '../types/Auth';
 
 export const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
@@ -41,8 +40,8 @@ export const AuthProvider = (props) => {
 
   // Removes the user from the local storage and context.
   const logout = async () => {
-    await removeTransportLog();
-    await removeCurrentTransport();
+    await new ClearTransportLogUseCase().execute();
+    await new ClearTransportUseCase().execute();
     await new ClearUserUseCase().execute();
 
     setUser(null);

@@ -1,18 +1,17 @@
 import { DatabaseRepository } from '@interfaces/DatabaseRepository';
 import { STORAGE_KEYS } from '@src/Constants';
 import { container } from '@src/di/Container';
-import { Transport } from '@src/domain/entities/Transport';
 
-export class GetTransportUseCase {
+export class ClearTransportLogUseCase {
   private databaseRepository: DatabaseRepository;
 
   constructor() {
     this.databaseRepository = container.resolve('DatabaseRepository');
   }
 
-  async execute(): Promise<Transport | null> {
-    const transport = await this.databaseRepository.get(STORAGE_KEYS.TRANSPORT);
+  async execute(): Promise<boolean> {
+    const result = await this.databaseRepository.delete(STORAGE_KEYS.TRANSPORT_LOG);
 
-    return transport ? new Transport(JSON.parse(transport)) : null;
+    return result;
   }
 }
