@@ -54,7 +54,7 @@ export class ApiBackendRepository implements BackendRepository {
 
   async postUserTransports(user: User, transports: Transport[]): Promise<Transport[]> {
     const rawResponse = await fetch(`${this.baseUrl}/api/v1/user/transports`, {
-      method: 'GET',
+      method: 'POST',
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
