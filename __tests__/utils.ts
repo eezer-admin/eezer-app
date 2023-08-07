@@ -48,7 +48,7 @@ export const mockTransport = new Transport({
   durationSeconds: null,
   distance: null,
   reason: TRANSPORT_REASON.DELIVERY,
-  vehicle_id: null,
+  vehicleId: null,
 });
 
 export const mockLoginApiResponse = {

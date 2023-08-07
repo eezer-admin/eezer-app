@@ -56,12 +56,6 @@ export class Transport {
     return !this.isSynced();
   }
 
-  setVehicleId(vehicleId: number): Transport {
-    this.vehicleId = vehicleId;
-
-    return this;
-  }
-
   getReadableDuration(): string {
     if (this.started && this.ended) {
       return formatDuration(this.started, this.ended);
@@ -111,7 +105,9 @@ export class Transport {
       reason: this.reason,
       coordinates: this.coordinates.map((coordinate: TransportCoordinate) => {
         return {
-          ...coordinate,
+          latitude: coordinate.latitude,
+          longitude: coordinate.longitude,
+          altitude: coordinate.altitude,
           logged_at: coordinate.timestamp,
         };
       }),

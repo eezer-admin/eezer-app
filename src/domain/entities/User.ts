@@ -1,13 +1,13 @@
 import { UserData, Vehicle } from '@interfaces/User';
 
 export class User {
-  private id: number;
-  private first_name: string | null;
-  private last_name: string | null;
-  private email: string;
-  private phone: string | null;
+  public id: number;
+  public first_name: string | null;
+  public last_name: string | null;
+  public email: string;
+  public phone: string | null;
   public access_token: string;
-  private vehicles: Vehicle[];
+  public vehicles: Vehicle[];
 
   constructor(data: UserData) {
     this.id = data.id;
