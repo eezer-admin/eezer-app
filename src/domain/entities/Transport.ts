@@ -74,10 +74,6 @@ export class Transport {
   }
 
   getReadableDistance(): string {
-    if (this.distance) {
-      return this.distance;
-    }
-
     if (this.distanceMeters < 1000) {
       return `${this.distanceMeters} m`;
     }

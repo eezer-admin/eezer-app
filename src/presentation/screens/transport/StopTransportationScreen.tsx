@@ -7,7 +7,7 @@ import { LocationAccuracy, LocationObject, LocationOptions } from 'expo-location
 import { LocationSubscription } from 'expo-location/src/Location.types';
 import * as React from 'react';
 import { useContext, useEffect, useState } from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { Image, Text, TouchableOpacity, View } from 'react-native';
 
 import { TransportContext } from '../../../../contexts/transportContext';
 import { __ } from '../../../../localization/Localization';
@@ -25,8 +25,6 @@ export default function StopTransportationScreen({ route, navigation }) {
     const transport = await new StopTransportUseCase().execute(context.transport);
 
     context.setTransport(transport);
-
-    navigation.navigate('CompleteTransportation');
   };
 
   useEffect(() => {
@@ -68,13 +66,30 @@ export default function StopTransportationScreen({ route, navigation }) {
     <View style={Styles.container}>
       <Logo />
 
-      <TouchableOpacity
-        style={{ ...Styles.button, ...Styles.button.red }}
-        onPress={() => {
-          stopTransport();
-        }}>
-        <Text style={{ ...Styles.text.default, ...Styles.button.red.text }}>{__('Stop')}</Text>
-      </TouchableOpacity>
+      {context.transport.isEnded() ? (
+        <TouchableOpacity
+          style={{ ...Styles.button, ...Styles.button.green, marginTop: Styles.margins.medium }}
+          onPress={() => {
+            navigation.navigate('CreateTransportation');
+          }}>
+          <Image
+            source={require('../../../../assets/icon-check.png')}
+            style={{
+              width: 75,
+              height: 75,
+            }}
+          />
+          <Text style={{ ...Styles.text.default }}>{__('Back to start')}</Text>
+        </TouchableOpacity>
+      ) : (
+        <TouchableOpacity
+          style={{ ...Styles.button, ...Styles.button.red }}
+          onPress={() => {
+            stopTransport();
+          }}>
+          <Text style={{ ...Styles.text.default, ...Styles.button.red.text }}>{__('Stop')}</Text>
+        </TouchableOpacity>
+      )}
 
       <View style={{ ...Styles.input, marginVertical: Styles.margins.medium }}>
         <Text style={{ ...Styles.text.default }}>{duration}</Text>
