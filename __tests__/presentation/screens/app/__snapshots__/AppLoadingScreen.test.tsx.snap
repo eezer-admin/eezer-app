@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AppLoadingScreen renders correctly 1`] = `
+<View
+  style={
+    {
+      "alignItems": "center",
+      "alignSelf": "center",
+      "flex": 1,
+      "justifyContent": "center",
+      "justifySelf": "center",
+      "paddingHorizontal": 15,
+      "width": "100%",
+    }
+  }
+>
+  <ActivityIndicator />
+</View>
+`;

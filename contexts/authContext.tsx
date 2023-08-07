@@ -1,9 +1,11 @@
+import { AuthContextData } from '@interfaces/User';
+import { User } from '@src/domain/entities/User';
+import { ClearTransportLogUseCase } from '@usecases/transport/ClearTransportLogUseCase';
+import { ClearTransportUseCase } from '@usecases/transport/ClearTransportUseCase';
+import { ClearUserUseCase } from '@usecases/user/ClearUserUseCase';
+import { GetUserUseCase } from '@usecases/user/GetUserUseCase';
+import { LoginUseCase } from '@usecases/user/LoginUseCase';
 import { createContext, useEffect, useState } from 'react';
-
-import { getStoredUser, requestLogin, deleteStoredUser } from '../services/AuthService';
-import { removeFromStorage as removeTransportLog } from '../services/TransportLogService';
-import { remove as removeCurrentTransport } from '../services/TransportService';
-import { AuthContextData, User } from '../types/Auth';
 
 export const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
@@ -15,7 +17,7 @@ export const AuthProvider = (props) => {
   // If there's a user in the local storage, assign it to the context
   // to make the app recognize it.
   useEffect(() => {
-    getStoredUser().then((user: User) => {
+    new GetUserUseCase().execute().then((user: User | null) => {
       if (user) {
         setUser(user);
       }
@@ -25,7 +27,7 @@ export const AuthProvider = (props) => {
 
   // Makes an actual login request towards the backend API.
   const login = async (username: string, password: string): Promise<User | null> => {
-    return requestLogin(username, password).then((user: User | null) => {
+    return new LoginUseCase().execute(username, password).then((user: User) => {
       if (user) {
         setUser(user);
 
@@ -38,9 +40,9 @@ export const AuthProvider = (props) => {
 
   // Removes the user from the local storage and context.
   const logout = async () => {
-    await removeTransportLog();
-    await removeCurrentTransport();
-    await deleteStoredUser();
+    await new ClearTransportLogUseCase().execute();
+    await new ClearTransportUseCase().execute();
+    await new ClearUserUseCase().execute();
 
     setUser(null);
   };
