@@ -35,7 +35,7 @@ eas login && eas build -p android --profile preview
 eas login && eas build --platform android
 ```
 
-The Android credentials are uploaded and configured in the [Expo dashboard](https://expo.dev/accounts/eezer/projects/eezer/credentials). These will automatically be used when running the command above. Note that for production builds that will be used to upload to the Play store, ` .aab`` is recommended (the default format when running  `eas build`).
+The Android credentials are uploaded and configured in the [Expo dashboard](https://expo.dev/accounts/eezer/projects/eezer/credentials). These will automatically be used when running the command above. Note that for production builds that will be used to upload to the Play store, ` .aab` is recommended (the default format when running `eas build`).
 
 ## Technical guidelines
 
