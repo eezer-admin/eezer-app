@@ -15,7 +15,11 @@ export default function TransportLogRow(props: TransportLogRowProps) {
   const [showDetails, setShowDetails] = useState(false);
 
   return (
-    <View>
+    <View
+      style={{
+        borderBottomColor: Styles.colors.white,
+        borderBottomWidth: 5,
+      }}>
       <TouchableOpacity
         onPress={() => {
           setShowDetails(!showDetails);

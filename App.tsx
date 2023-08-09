@@ -18,6 +18,7 @@ import i18n, { __, defaultLanguage, supportedLanguages } from './localization/Lo
 import { AuthContext, AuthProvider } from './contexts/authContext';
 import { LanguageContext, LanguageProvider } from './contexts/languageContext';
 
+import RequestLocationPermissionModal from '@presentation/location/RequestLocationPermissionModal';
 import CreateTransportationScreen from '@presentation/screens/transport/CreateTransportationScreen';
 import Styles from './styles/Styles';
 
@@ -114,6 +115,7 @@ export default function App() {
         <AuthProvider>
           <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
             <Router />
+            <RequestLocationPermissionModal />
           </View>
         </AuthProvider>
       </LanguageProvider>
