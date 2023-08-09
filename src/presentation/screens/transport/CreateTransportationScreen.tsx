@@ -1,4 +1,3 @@
-import RequestLocationPermissionModal from '@presentation/location/RequestLocationPermissionModal';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Logo from '@src/presentation/ui/Logo';
 import { ClearTransportUseCase } from '@usecases/transport/ClearTransportUseCase';
@@ -237,7 +236,6 @@ export default function CreateTransportationScreen() {
   return (
     <TransportProvider>
       <Router />
-      <RequestLocationPermissionModal />
     </TransportProvider>
   );
 }

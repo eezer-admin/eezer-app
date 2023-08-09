@@ -12,10 +12,6 @@ export default class RequestBackgroundLocationPermissionUseCase {
     }
 
     // User needs to be asked permission again.
-    if (response.status === Location.PermissionStatus.UNDETERMINED) {
-      return await Location.requestBackgroundPermissionsAsync();
-    }
-
-    return response;
+    return await Location.requestBackgroundPermissionsAsync();
   }
 }
