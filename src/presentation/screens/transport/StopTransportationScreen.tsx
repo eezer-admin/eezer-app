@@ -22,8 +22,6 @@ export default function StopTransportationScreen({ route, navigation }) {
 
     const transport = await new StopTransportUseCase().execute(context.transport);
 
-    console.log('Saving stopped transport', transport);
-
     context.setTransport(transport);
 
     navigation.navigate('TransportationSummary', {
