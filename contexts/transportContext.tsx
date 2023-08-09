@@ -1,8 +1,8 @@
+import { TransportContextData } from '@interfaces/Transport';
 import { Transport } from '@src/domain/entities/Transport';
+import { ClearTransportUseCase } from '@usecases/transport/ClearTransportUseCase';
 import { GetTransportUseCase } from '@usecases/transport/GetTransportUseCase';
 import { createContext, useEffect, useState } from 'react';
-
-import { TransportContextData } from '@interfaces/Transport';
 
 export const TransportContext = createContext<TransportContextData>({} as TransportContextData);
 
@@ -19,11 +19,17 @@ export const TransportProvider = (props) => {
     });
   }, []);
 
+  const resetTransport = async (): Promise<void> => {
+    await new ClearTransportUseCase().execute();
+    setTransport(new Transport());
+  };
+
   return (
     <TransportContext.Provider
       value={{
         transport,
         setTransport,
+        resetTransport,
       }}>
       {props.children}
     </TransportContext.Provider>

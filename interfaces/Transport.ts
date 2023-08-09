@@ -23,6 +23,7 @@ export type NewTransportData = {
 export type TransportContextData = {
   transport: Transport;
   setTransport: React.Dispatch<React.SetStateAction<Transport>>;
+  resetTransport: () => Promise<void>;
 };
 
 export type PostBackendTransport = {
