@@ -1,7 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`TransportLogRow renders correctly 1`] = `
-<View>
+<View
+  style={
+    {
+      "borderBottomColor": "white",
+      "borderBottomWidth": 5,
+    }
+  }
+>
   <View
     accessibilityState={
       {
