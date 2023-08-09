@@ -25,10 +25,15 @@ exports[`LoginScreen renders correctly 1`] = `
     }
   />
   <TextInput
+    blurOnSubmit={false}
+    enterKeyHint="next"
     keyboardType="email-address"
     onChangeText={[Function]}
+    onFocus={[Function]}
+    onSubmitEditing={[Function]}
     placeholder="Username"
     placeholderTextColor="gray"
+    returnKeyType="next"
     secureTextEntry={false}
     style={
       [
@@ -50,6 +55,7 @@ exports[`LoginScreen renders correctly 1`] = `
   <TextInput
     keyboardType="default"
     onChangeText={[Function]}
+    onFocus={[Function]}
     placeholder="Password"
     placeholderTextColor="gray"
     secureTextEntry={true}
