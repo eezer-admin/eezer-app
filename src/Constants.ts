@@ -18,3 +18,5 @@ export const TRANSPORT_REASON = {
   SICKNESS: 'Sickness',
   MISC: 'Misc',
 };
+
+export const BACKGROUND_LOCATION_TASK_NAME = 'watch-background-location';

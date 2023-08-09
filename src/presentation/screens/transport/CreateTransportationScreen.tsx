@@ -1,5 +1,7 @@
+import RequestLocationPermissionModal from '@presentation/location/RequestLocationPermissionModal';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Logo from '@src/presentation/ui/Logo';
+import { ClearTransportUseCase } from '@usecases/transport/ClearTransportUseCase';
 import React, { useContext, useEffect, useState } from 'react';
 import { ActivityIndicator, Image, Text, TouchableOpacity, View } from 'react-native';
 
@@ -7,9 +9,9 @@ import { LanguageContext } from '../../../../contexts/languageContext';
 import { TransportContext, TransportProvider } from '../../../../contexts/transportContext';
 import { __ } from '../../../../localization/Localization';
 import Styles from '../../../../styles/Styles';
-import CompleteTransportationScreen from './CompleteTransportationScreen';
 import StartTransportationScreen from './StartTransportationScreen';
 import StopTransportationScreen from './StopTransportationScreen';
+import TransportationSummaryScreen from './TransportationSummaryScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -187,12 +189,11 @@ const Router = () => {
   const [initialRouteName, setInitialRouteName] = useState<string | null>(null);
 
   const determineInitialRoute = async () => {
-    if (!context.transport || (!context.transport.isStarted() && !context.transport.isEnded())) {
-      setInitialRouteName('CreateTransportation');
-    } else if (context.transport.isOngoing()) {
+    if (context.transport.isOngoing()) {
       setInitialRouteName('StopTransportation');
     } else {
-      setInitialRouteName('CompleteTransportation');
+      await new ClearTransportUseCase().execute();
+      setInitialRouteName('CreateTransportation');
     }
   };
 
@@ -219,11 +220,11 @@ const Router = () => {
         })}
       />
       <Stack.Screen
-        name="CompleteTransportation"
-        component={CompleteTransportationScreen}
+        name="TransportationSummary"
+        component={TransportationSummaryScreen}
         options={({ route }) => ({
-          title: context.transport ? __(context.transport.reason) : __('Complete transport'),
-          headerLeft: null,
+          title: context.transport ? __(context.transport.reason) : __('Summary'),
+          headerLeft: (props) => null,
         })}
       />
     </Stack.Navigator>
@@ -236,6 +237,7 @@ export default function CreateTransportationScreen() {
   return (
     <TransportProvider>
       <Router />
+      <RequestLocationPermissionModal />
     </TransportProvider>
   );
 }
