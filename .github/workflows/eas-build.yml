@@ -40,4 +40,4 @@ jobs:
         run: npx expo prebuild
 
       - name: Build and submit on EAS
-        run: eas build --platform ${{ github.event.inputs.platform }} --non-interactive --profile preview --commit ${{ github.sha }}
+        run: eas build --platform ${{ github.event.inputs.platform }} --non-interactive --auto-submit --no-wait --clear-cache
