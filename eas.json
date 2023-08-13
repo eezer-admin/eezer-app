@@ -26,13 +26,11 @@
   "submit": {
     "production": {
       "android": {
-        "serviceAccountKeyPath": "./credentials/google-services-account-keys.json",
         "track": "internal"
       }
     },
     "staging": {
       "android": {
-        "serviceAccountKeyPath": "./credentials/google-services-account-keys.json",
         "track": "internal"
       }
     }
