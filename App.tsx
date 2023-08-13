@@ -8,7 +8,6 @@ import LoginScreen from '@screens/auth/LoginScreen';
 import ProfileScreen from '@screens/user/ProfileScreen';
 import { container } from '@src/di/Container';
 import * as Localization from 'expo-localization';
-import * as Location from 'expo-location';
 import * as SplashScreen from 'expo-splash-screen';
 import * as Updates from 'expo-updates';
 import React, { useCallback, useContext, useEffect, useState } from 'react';
@@ -38,8 +37,6 @@ const Router = () => {
   if (!auth.authLoaded) {
     return <AppLoadingScreen />;
   }
-
-  Location.requestForegroundPermissionsAsync();
 
   return (
     <NavigationContainer style={{ flex: 1 }}>
@@ -96,7 +93,9 @@ export default function App() {
   }
 
   useEffect(() => {
-    setAppIsReady(true);
+    setTimeout(() => {
+      setAppIsReady(true);
+    }, 500);
   }, []);
 
   const onLayoutRootView = useCallback(async () => {
