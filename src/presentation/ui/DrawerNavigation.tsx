@@ -3,6 +3,7 @@ import * as React from 'react';
 import { useContext } from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
 
+import Constants from 'expo-constants';
 import { AuthContext } from '../../../contexts/authContext';
 import { LanguageContext } from '../../../contexts/languageContext';
 import { __ } from '../../../localization/Localization';
@@ -109,6 +110,16 @@ export const DrawerNavigation = (props) => {
             </Text>
           </View>
         </TouchableOpacity>
+
+        <Text
+          style={{
+            fontSize: Styles.fontSizes.small,
+            color: Styles.colors.grayDarker,
+            marginTop: Styles.margins.medium,
+            textAlign: 'right',
+          }}>
+          v{Constants.expoConfig?.version}-{Constants.expoConfig?.android?.versionCode || null}
+        </Text>
       </View>
 
       {auth.isLoggedIn() ? (
