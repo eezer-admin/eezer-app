@@ -23,12 +23,14 @@
       }
     },
     "android": {
-      "versionCode": 10,
+      "versionCode": 11,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.eezer.eezer"
+      "package": "com.eezer.eezer",
+      "permissions": ["ACCESS_BACKGROUND_LOCATION"],
+      "blockedPermissions": ["android.permission.RECORD_AUDIO"]
     },
     "web": {
       "favicon": "./assets/favicon.png"
