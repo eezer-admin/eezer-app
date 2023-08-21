@@ -56,7 +56,7 @@ const Router = () => {
         <Drawer.Navigator
           drawerContent={(props: DrawerContentComponentProps) => <DrawerNavigation {...props} />}
           initialRouteName="Login">
-          <Drawer.Screen name="Login" component={LoginScreen} />
+          <Drawer.Screen name={__('Log in')} navigationKey="Login" component={LoginScreen} />
         </Drawer.Navigator>
       )}
     </NavigationContainer>
