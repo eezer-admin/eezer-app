@@ -71,8 +71,6 @@ export default {
       permission_heading: 'We need access to your location',
       permission_description:
         'Eezer uses your location to log the distance you travel when you have an ongoing transport. This is used for analysis and statistics.',
-      notification_title: 'Eezer is reading your position',
-      notification_body: 'Eezer uses your location to log the distance for your transport.',
     },
     actions: {
       agree: 'Agree',
@@ -112,8 +110,6 @@ export default {
       permission_heading: 'We need access to your location',
       permission_description:
         'Eezer uses your location to log the distance you travel when you have an ongoing transport. This is used for analysis and statistics.',
-      notification_title: 'Eezer is reading your position',
-      notification_body: 'Eezer uses your location to log the distance for your transport.',
     },
     actions: {
       agree: 'Agree',
@@ -153,8 +149,6 @@ export default {
       permission_heading: 'We need access to your location',
       permission_description:
         'Eezer uses your location to log the distance you travel when you have an ongoing transport. This is used for analysis and statistics.',
-      notification_title: 'Eezer is reading your position',
-      notification_body: 'Eezer uses your location to log the distance for your transport.',
     },
     actions: {
       agree: 'Agree',
