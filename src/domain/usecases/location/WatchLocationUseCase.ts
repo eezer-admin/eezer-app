@@ -1,7 +1,6 @@
 import { BACKGROUND_LOCATION_TASK_NAME } from '@src/Constants';
 import * as Location from 'expo-location';
 
-import { __ } from '../../../../localization/Localization';
 import GetBackgroundLocationPermissionUseCase from './GetBackgroundLocationPermissionUseCase';
 
 export default class WatchLocationUseCase {
@@ -18,8 +17,8 @@ export default class WatchLocationUseCase {
       timeInterval: 30000,
       showsBackgroundLocationIndicator: true,
       foregroundService: {
-        notificationTitle: __('location.notification_title'),
-        notificationBody: __('location.notification_body'),
+        notificationTitle: 'Eezer is reading your position',
+        notificationBody: 'Eezer uses your location to log the distance for your transport.',
       },
     });
   }
