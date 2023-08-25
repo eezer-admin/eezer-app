@@ -29,9 +29,9 @@ export default {
     French: 'French',
     English: 'English',
     location: {
-      permission_heading: 'We need access to your location',
+      permission_heading: 'Do you want to allow location data in the background?',
       permission_description:
-        'Eezer uses your location to log the distance you travel when you have an ongoing transport. This is used for analysis and statistics.',
+        'Eezer uses your location when the app is closed to log the distance and route you travel when you have an ongoing transport. This is used to analyze and improve your routes.',
     },
     actions: {
       agree: 'Agree',
