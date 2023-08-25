@@ -60,6 +60,7 @@ export default function RequestLocationPermissionModal() {
             fontWeight: 'bold',
             marginTop: Styles.margins.large * 2,
             marginBottom: Styles.margins.medium,
+            textAlign: 'center',
           }}>
           {__('location.permission_heading')}
         </Text>
