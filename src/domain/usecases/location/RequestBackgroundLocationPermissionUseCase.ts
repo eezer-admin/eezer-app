@@ -11,6 +11,9 @@ export default class RequestBackgroundLocationPermissionUseCase {
       return response;
     }
 
+    // Must be reuqested before getting background location permission.
+    await Location.requestForegroundPermissionsAsync();
+
     // User needs to be asked permission again.
     return await Location.requestBackgroundPermissionsAsync();
   }
