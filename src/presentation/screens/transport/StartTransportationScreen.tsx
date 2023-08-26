@@ -2,6 +2,8 @@ import { TransportCoordinate } from '@interfaces/Transport';
 import VehicleSelector from '@presentation/ui/VehicleSelector';
 import { BACKGROUND_LOCATION_TASK_NAME } from '@src/Constants';
 import Logo from '@src/presentation/ui/Logo';
+import GetBackgroundLocationPermissionUseCase from '@usecases/location/GetBackgroundLocationPermissionUseCase';
+import WatchLocationUseCase from '@usecases/location/WatchLocationUseCase';
 import { AddCoordinatesToTransportUseCase } from '@usecases/transport/AddCoordinatesToTransportUseCase';
 import { StartTransportUseCase } from '@usecases/transport/StartTransportUseCase';
 import * as TaskManager from 'expo-task-manager';
@@ -9,7 +11,6 @@ import * as React from 'react';
 import { useContext, useState } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 
-import WatchLocationUseCase from '@usecases/location/WatchLocationUseCase';
 import { TransportContext } from '../../../../contexts/transportContext';
 import { __ } from '../../../../localization/Localization';
 import Styles from '../../../../styles/Styles';
@@ -46,7 +47,11 @@ export default function StartTransportationScreen({ route, navigation }) {
       return null;
     }
 
-    registerLocationTask();
+    const permission = await new GetBackgroundLocationPermissionUseCase().execute();
+
+    if (permission.granted) {
+      registerLocationTask();
+    }
 
     context.transport.reason = reason;
     context.transport.vehicleId = vehicleId;
@@ -55,7 +60,9 @@ export default function StartTransportationScreen({ route, navigation }) {
 
     context.setTransport(transport);
 
-    await new WatchLocationUseCase().execute();
+    if (permission.granted) {
+      await new WatchLocationUseCase().execute();
+    }
 
     navigation.navigate('StopTransportation', { reason });
   };
