@@ -19,7 +19,7 @@ export class SyncLocalTransportsToBackendUseCase {
 
     // Only sync transports that are not synced yet.
     const transports = (await new GetLocalTransportLogUseCase().execute()).filter((transport) =>
-      transport.isNotSynced()
+      transport?.isNotSynced()
     );
 
     // If there are no transports to sync or no user, return null.
