@@ -37,7 +37,10 @@ export const DrawerNavigation = (props) => {
             setLanguage('sw');
           }}>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <Image style={{ width: 20, height: 13 }} source={require('../../../assets/flag-tz.png')} />
+            <Image
+              style={{ width: 20, height: 13 }}
+              source={require('../../../assets/flag-tz.png')}
+            />
             <Text
               style={{
                 marginLeft: Styles.margins.medium,
@@ -58,7 +61,10 @@ export const DrawerNavigation = (props) => {
             setLanguage('en');
           }}>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <Image style={{ width: 20, height: 13 }} source={require('../../../assets/flag-en.png')} />
+            <Image
+              style={{ width: 20, height: 13 }}
+              source={require('../../../assets/flag-en.png')}
+            />
             <Text
               style={{
                 marginLeft: Styles.margins.medium,
@@ -79,7 +85,10 @@ export const DrawerNavigation = (props) => {
             setLanguage('fr');
           }}>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <Image style={{ width: 20, height: 13 }} source={require('../../../assets/flag-fr.png')} />
+            <Image
+              style={{ width: 20, height: 13 }}
+              source={require('../../../assets/flag-fr.png')}
+            />
             <Text
               style={{
                 marginLeft: Styles.margins.medium,
@@ -100,7 +109,10 @@ export const DrawerNavigation = (props) => {
             setLanguage('rn');
           }}>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-            <Image style={{ width: 20, height: 13 }} source={require('../../../assets/flag-rn.png')} />
+            <Image
+              style={{ width: 20, height: 13 }}
+              source={require('../../../assets/flag-rn.png')}
+            />
             <Text
               style={{
                 marginLeft: Styles.margins.medium,
