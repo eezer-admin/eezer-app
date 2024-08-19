@@ -13,13 +13,17 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "bundleIdentifier": "com.eezer.eezer",
       "supportsTablet": true,
       "infoPlist": {
         "NSLocationWhenInUseUsageDescription": "Your location is tracked when you have an active transport ongoing.",
-        "UIBackgroundModes": ["location"]
+        "UIBackgroundModes": [
+          "location"
+        ]
       }
     },
     "android": {
@@ -29,8 +33,13 @@
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.eezer.eezer",
-      "permissions": ["ACCESS_BACKGROUND_LOCATION", "ACCESS_FINE_LOCATION"],
-      "blockedPermissions": ["android.permission.RECORD_AUDIO"]
+      "permissions": [
+        "ACCESS_BACKGROUND_LOCATION",
+        "ACCESS_FINE_LOCATION"
+      ],
+      "blockedPermissions": [
+        "android.permission.RECORD_AUDIO"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -43,14 +52,9 @@
         "projectId": "1d5e9549-3c17-4f77-b851-cd23b7d8656d"
       }
     },
-    "hooks": {
-      "postPublish": [
-        {
-          "file": "@bugsnag/expo/hooks/post-publish.js",
-          "config": {}
-        }
-      ]
-    },
-    "plugins": ["expo-localization"]
+    "plugins": [
+      "expo-localization",
+      "expo-secure-store"
+    ]
   }
 }
