@@ -2,7 +2,7 @@
   "expo": {
     "name": "eezer",
     "slug": "eezer",
-    "version": "1.8.2",
+    "version": "1.9.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -13,33 +13,24 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "bundleIdentifier": "com.eezer.eezer",
       "supportsTablet": true,
       "infoPlist": {
         "NSLocationWhenInUseUsageDescription": "Your location is tracked when you have an active transport ongoing.",
-        "UIBackgroundModes": [
-          "location"
-        ]
+        "UIBackgroundModes": ["location"]
       }
     },
     "android": {
-      "versionCode": 19,
+      "versionCode": 20,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.eezer.eezer",
-      "permissions": [
-        "ACCESS_BACKGROUND_LOCATION",
-        "ACCESS_FINE_LOCATION"
-      ],
-      "blockedPermissions": [
-        "android.permission.RECORD_AUDIO"
-      ]
+      "permissions": ["ACCESS_BACKGROUND_LOCATION", "ACCESS_FINE_LOCATION"],
+      "blockedPermissions": ["android.permission.RECORD_AUDIO"]
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -52,9 +43,6 @@
         "projectId": "1d5e9549-3c17-4f77-b851-cd23b7d8656d"
       }
     },
-    "plugins": [
-      "expo-localization",
-      "expo-secure-store"
-    ]
+    "plugins": ["expo-localization", "expo-secure-store"]
   }
 }
