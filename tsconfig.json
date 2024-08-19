@@ -22,8 +22,7 @@
       "@screens/*": ["src/presentation/screens/*"],
       "@src/*": ["src/*"],
       "@tests/*": ["__tests__/*"],
-      "@interfaces/*": ["interfaces/*"],
-      "*": ["node_modules/*", "src/*"]
+      "@interfaces/*": ["interfaces/*"]
     },
     "allowSyntheticDefaultImports": true,
     "types": ["react", "react-native", "jest"]
