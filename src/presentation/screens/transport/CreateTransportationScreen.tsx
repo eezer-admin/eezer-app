@@ -202,8 +202,15 @@ const Router = () => {
 
   return initialRouteName ? (
     <Stack.Navigator initialRouteName={initialRouteName} screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="CreateTransportation" component={CreateTransportation} options={{ headerLeft: null }} />
-      <Stack.Screen name="CreatePregnancyTransportation" component={CreatePregnancyTransportationScreen} />
+      <Stack.Screen
+        name="CreateTransportation"
+        component={CreateTransportation}
+        options={{ headerLeft: null }}
+      />
+      <Stack.Screen
+        name="CreatePregnancyTransportation"
+        component={CreatePregnancyTransportationScreen}
+      />
       <Stack.Screen name="CreateOtherTransportation" component={CreateOtherTransportationScreen} />
       <Stack.Screen
         name="StartTransportation"
