@@ -26,7 +26,7 @@ Bugsnag.start();
 SplashScreen.preventAutoHideAsync();
 
 const Drawer = createDrawerNavigator();
-i18n.locale = Localization.locale;
+i18n.locale = Localization.getLocales()[0].languageCode;
 
 container.register();
 
@@ -72,7 +72,9 @@ const ErrorView = () => (
       alignItems: 'center',
       padding: Styles.margins.large,
     }}>
-    <Text style={{ textAlign: 'center' }}>An unexpected error occurred. Please restart the app and try again.</Text>
+    <Text style={{ textAlign: 'center' }}>
+      An unexpected error occurred. Please restart the app and try again.
+    </Text>
     <TouchableOpacity
       style={{ marginTop: Styles.margins.large, ...Styles.button, ...Styles.button.green }}
       onPress={() => {
@@ -87,8 +89,8 @@ export default function App() {
   const [appIsReady, setAppIsReady] = useState(false);
   const ErrorBoundary = Bugsnag.getPlugin('react');
 
-  let initialLanguage = Localization.locale;
-  if (supportedLanguages().indexOf(Localization.locale) < 0) {
+  let initialLanguage = Localization.getLocales()[0].languageCode || defaultLanguage();
+  if (supportedLanguages().indexOf(initialLanguage) < 0) {
     initialLanguage = defaultLanguage();
   }
 

@@ -1,7 +1,7 @@
 import { DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';
 import * as React from 'react';
 import { useContext } from 'react';
-import { Image, Text, TouchableOpacity, View } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 
 import Constants from 'expo-constants';
 import { AuthContext } from '../../../contexts/authContext';
@@ -19,6 +19,16 @@ export const DrawerNavigation = (props) => {
         <DrawerItemList {...props} />
       </DrawerContentScrollView>
 
+      <Text
+        style={{
+          fontSize: Styles.fontSizes.small,
+          color: Styles.colors.grayDarker,
+          margin: Styles.margins.medium,
+          textAlign: 'right',
+        }}>
+        v{Constants.expoConfig?.version}-{Constants.expoConfig?.android?.versionCode || null}
+      </Text>
+      {/* Temporarily disabled because of bug causing crash when changing language the pressing Android back button.
       <View
         style={{
           borderTopColor: Styles.colors.gray,
@@ -34,7 +44,7 @@ export const DrawerNavigation = (props) => {
             borderRadius: 5,
           }}
           onPress={() => {
-            setLanguage('sw');
+            updateLocale('sw');
           }}>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
             <Image
@@ -58,7 +68,7 @@ export const DrawerNavigation = (props) => {
             borderRadius: 5,
           }}
           onPress={() => {
-            setLanguage('en');
+            updateLocale('en');
           }}>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
             <Image
@@ -82,7 +92,7 @@ export const DrawerNavigation = (props) => {
             borderRadius: 5,
           }}
           onPress={() => {
-            setLanguage('fr');
+            updateLocale('fr');
           }}>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
             <Image
@@ -106,7 +116,7 @@ export const DrawerNavigation = (props) => {
             borderRadius: 5,
           }}
           onPress={() => {
-            setLanguage('rn');
+            updateLocale('rn');
           }}>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
             <Image
@@ -122,17 +132,8 @@ export const DrawerNavigation = (props) => {
             </Text>
           </View>
         </TouchableOpacity>
-
-        <Text
-          style={{
-            fontSize: Styles.fontSizes.small,
-            color: Styles.colors.grayDarker,
-            marginTop: Styles.margins.medium,
-            textAlign: 'right',
-          }}>
-          v{Constants.expoConfig?.version}-{Constants.expoConfig?.android?.versionCode || null}
-        </Text>
       </View>
+       */}
 
       {auth.isLoggedIn() ? (
         <View
