@@ -29,7 +29,12 @@
         "backgroundColor": "#FFFFFF"
       },
       "package": "com.eezer.eezer",
-      "permissions": ["ACCESS_BACKGROUND_LOCATION", "ACCESS_FINE_LOCATION"],
+      "permissions": [
+        "android.permission.ACCESS_BACKGROUND_LOCATION",
+        "android.permission.ACCESS_FINE_LOCATION",
+        "android.permission.FOREGROUND_SERVICE",
+        "android.permission.FOREGROUND_SERVICE_LOCATION"
+      ],
       "blockedPermissions": ["android.permission.RECORD_AUDIO"]
     },
     "web": {
@@ -43,6 +48,17 @@
         "projectId": "1d5e9549-3c17-4f77-b851-cd23b7d8656d"
       }
     },
-    "plugins": ["expo-localization", "expo-secure-store"]
+    "plugins": [
+      "expo-localization",
+      "expo-secure-store",
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Allow Eezer to use your location.",
+          "isAndroidBackgroundLocationEnabled": true,
+          "isAndroidForegroundServiceEnabled": true
+        }
+      ]
+    ]
   }
 }
