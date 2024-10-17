@@ -35,6 +35,7 @@
     "expo-status-bar": "~1.12.1",
     "expo-task-manager": "~11.8.2",
     "expo-updates": "~0.25.27",
+    "fast-loops": "1.1.4",
     "geolib": "^3.3.3",
     "i18n-js": "^3.8.0",
     "react": "18.2.0",
@@ -47,7 +48,7 @@
     "react-native-web": "~0.19.6"
   },
   "devDependencies": {
-    "@babel/core": "^7.24.0",
+    "@babel/core": "^7.25.8",
     "@jest/globals": "^29.6.1",
     "@types/node-fetch": "^2.6.4",
     "@types/react": "~18.2.14",
