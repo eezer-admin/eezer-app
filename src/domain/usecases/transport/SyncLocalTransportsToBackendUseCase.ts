@@ -24,6 +24,8 @@ export class SyncLocalTransportsToBackendUseCase {
 
     // If there are no transports to sync or no user, return null.
     if (transports.length === 0 || !user) {
+      console.log('No local transports to upload.');
+
       return Promise.resolve(null);
     }
 

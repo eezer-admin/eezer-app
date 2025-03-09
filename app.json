@@ -2,7 +2,7 @@
   "expo": {
     "name": "eezer",
     "slug": "eezer",
-    "version": "1.9.1",
+    "version": "1.10.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -23,7 +23,6 @@
       }
     },
     "android": {
-      "versionCode": 22,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
@@ -65,10 +64,10 @@
           "backgroundColor": "#fff",
           "image": "./assets/logo.png",
           "dark": {
-            "image": "./assets/splash-icon-dark.png",
+            "image": "./assets/logo.png",
             "backgroundColor": "#000000"
           },
-          "imageWidth": 200
+          "imageWidth": 240
         }
       ]
     ]
