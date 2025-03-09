@@ -15,7 +15,11 @@ exports[`LoginScreen renders correctly 1`] = `
   }
 >
   <Image
-    source={1}
+    source={
+      {
+        "testUri": "../../../assets/logo.png",
+      }
+    }
     style={
       {
         "height": 60,
