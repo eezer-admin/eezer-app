@@ -23,6 +23,7 @@ export default function StopTransportationScreen({ route, navigation }) {
     const transport = await new StopTransportUseCase().execute(context.transport);
 
     context.setTransport(transport);
+    context.uploadTransportsIfConnectedToNetwork();
 
     navigation.navigate('TransportationSummary', {
       duration: context.transport.getReadableDuration(),

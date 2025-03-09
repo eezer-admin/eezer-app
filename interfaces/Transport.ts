@@ -24,6 +24,7 @@ export type TransportContextData = {
   transport: Transport;
   setTransport: React.Dispatch<React.SetStateAction<Transport>>;
   resetTransport: () => Promise<void>;
+  uploadTransportsIfConnectedToNetwork: () => Promise<void>;
 };
 
 export type PostBackendTransport = {
