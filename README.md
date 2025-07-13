@@ -8,10 +8,10 @@ To get started, clone the repository. Then follow these commands:
 
 ```
 // 1. Install dependencies:
-yarn
+npm install
 
 // 2. Run the tests:
-yarn test
+npm run test
 
 // 3. Run the app:
 npx expo start

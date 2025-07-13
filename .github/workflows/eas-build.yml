@@ -25,7 +25,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18.x
-          cache: yarn
+          cache: npm
 
       - name: Setup Expo and EAS
         uses: expo/expo-github-action@v8
@@ -34,7 +34,7 @@ jobs:
           token: ${{ secrets.EXPO_TOKEN }}
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: npm install --frozen-lockfile
 
       - name: Generate native modules with `expo prebuild`
         run: npx expo prebuild
