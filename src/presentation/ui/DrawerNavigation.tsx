@@ -1,9 +1,9 @@
 import { DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';
+import Constants from 'expo-constants';
 import * as React from 'react';
 import { useContext } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 
-import Constants from 'expo-constants';
 import { AuthContext } from '../../../contexts/authContext';
 import { LanguageContext } from '../../../contexts/languageContext';
 import { __ } from '../../../localization/Localization';
@@ -26,7 +26,7 @@ export const DrawerNavigation = (props) => {
           margin: Styles.margins.medium,
           textAlign: 'right',
         }}>
-        v{Constants.expoConfig?.version}-{Constants.expoConfig?.android?.versionCode || null}
+        v{Constants.expoConfig?.version}
       </Text>
       {/* Temporarily disabled because of bug causing crash when changing language the pressing Android back button.
       <View

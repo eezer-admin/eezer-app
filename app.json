@@ -2,7 +2,7 @@
   "expo": {
     "name": "eezer",
     "slug": "eezer",
-    "version": "1.11.0",
+    "version": "1.12.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -35,6 +35,9 @@
         "android.permission.FOREGROUND_SERVICE_LOCATION"
       ],
       "blockedPermissions": ["android.permission.RECORD_AUDIO"]
+    },
+    "androidStatusBar": {
+      "backgroundColor": "#00000088"
     },
     "web": {
       "favicon": "./assets/favicon.png"
