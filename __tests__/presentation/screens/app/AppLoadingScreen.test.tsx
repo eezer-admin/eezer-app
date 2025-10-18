@@ -1,10 +1,10 @@
 import { describe, expect, it } from '@jest/globals';
 import AppLoadingScreen from '@presentation/screens/app/AppLoadingScreen';
-import renderer from 'react-test-renderer';
+import { render, screen } from '@testing-library/react-native';
 
 describe('AppLoadingScreen', () => {
   it('renders correctly', () => {
-    const tree = renderer.create(<AppLoadingScreen />).toJSON();
-    expect(tree).toMatchSnapshot();
+    render(<AppLoadingScreen />);
+    expect(screen.toJSON()).toMatchSnapshot();
   });
 });

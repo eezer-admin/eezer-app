@@ -1,10 +1,10 @@
 import { describe, expect, it } from '@jest/globals';
 import LoginScreen from '@presentation/screens/auth/LoginScreen';
-import renderer from 'react-test-renderer';
+import { render, screen } from '@testing-library/react-native';
 
 describe('LoginScreen', () => {
   it('renders correctly', () => {
-    const tree = renderer.create(<LoginScreen />).toJSON();
-    expect(tree).toMatchSnapshot();
+    render(<LoginScreen />);
+    expect(screen.toJSON()).toMatchSnapshot();
   });
 });

@@ -1,15 +1,14 @@
 import { describe, expect, it } from '@jest/globals';
-import renderer from 'react-test-renderer';
-
 import TransportLogRow from '@presentation/ui/TransportLogRow';
 import { TRANSPORT_REASON } from '@src/Constants';
 import { Transport } from '@src/domain/entities/Transport';
+import { render, screen } from '@testing-library/react-native';
 
 describe('TransportLogRow', () => {
   it('renders correctly', () => {
     const transport = new Transport({ reason: TRANSPORT_REASON.ACCIDENT });
-    const tree = renderer.create(<TransportLogRow transport={transport} />).toJSON();
+    render(<TransportLogRow transport={transport} />);
 
-    expect(tree).toMatchSnapshot();
+    expect(screen.toJSON()).toMatchSnapshot();
   });
 });
