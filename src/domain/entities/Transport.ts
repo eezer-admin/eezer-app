@@ -114,11 +114,11 @@ export class Transport {
   }
 
   fromApiFormat(data: GetBackendTransport): Transport {
-    this.id = data.id ?? null;
-    this.started = data.started_at ?? null;
-    this.ended = data.ended_at ?? null;
-    this.distanceMeters = data.distance_meters ?? 0;
-    this.reason = data.reason ?? null;
+    this.id = data.id;
+    this.started = data.started_at;
+    this.ended = data.ended_at;
+    this.distanceMeters = data.distance_meters;
+    this.reason = data.reason;
 
     return this;
   }

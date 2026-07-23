@@ -27,11 +27,11 @@ export class ApiBackendRepository implements BackendRepository {
       (await rawResponse.json()) as paths['/api/v1/login']['post']['responses']['200']['content']['application/json'];
 
     return new User({
-      id: response.data.id || 0,
-      first_name: response.data.first_name || null,
-      last_name: response.data.last_name || null,
-      email: response.data.email || '',
-      phone: response.data.phone || null,
+      id: response.data.id,
+      first_name: response.data.first_name,
+      last_name: response.data.last_name,
+      email: response.data.email,
+      phone: response.data.phone,
       access_token: response.token,
     });
   }
