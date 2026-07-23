@@ -97,12 +97,11 @@ export class Transport {
 
   toApiFormat(): PostBackendTransport {
     return {
-      id: this.id,
-      vehicle_id: this.vehicleId,
+      vehicle_id: this.vehicleId || 0,
       started_at: this.started || '',
       ended_at: this.ended || '',
       distance_meters: this.distanceMeters,
-      reason: this.reason,
+      reason: this.reason || '',
       coordinates: this.coordinates.map((coordinate: TransportCoordinate) => {
         return {
           latitude: coordinate.latitude,
@@ -111,15 +110,15 @@ export class Transport {
           logged_at: coordinate.timestamp,
         };
       }),
-    } as PostBackendTransport;
+    };
   }
 
   fromApiFormat(data: GetBackendTransport): Transport {
-    this.id = data.id;
-    this.started = data.started_at;
-    this.ended = data.ended_at;
-    this.distanceMeters = data.distance_meters;
-    this.reason = data.reason;
+    this.id = data.id ?? null;
+    this.started = data.started_at ?? null;
+    this.ended = data.ended_at ?? null;
+    this.distanceMeters = data.distance_meters ?? 0;
+    this.reason = data.reason ?? null;
 
     return this;
   }
