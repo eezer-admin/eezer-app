@@ -8,6 +8,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - name: Authenticate against the Fender npm registry
+        run: echo "//fender-tepyfoha.on-forge.com/:_authToken=${{ secrets.FENDER_NPM_TOKEN }}" >> ~/.npmrc
       - uses: ArtiomTr/jest-coverage-report-action@v2
         with:
           test-script: npm run test-report

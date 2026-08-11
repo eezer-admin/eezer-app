@@ -33,6 +33,9 @@ jobs:
           eas-version: latest
           token: ${{ secrets.EXPO_TOKEN }}
 
+      - name: Authenticate against the Fender npm registry
+        run: echo "//fender-tepyfoha.on-forge.com/:_authToken=${{ secrets.FENDER_NPM_TOKEN }}" >> ~/.npmrc
+
       - name: Install dependencies
         run: npm install --frozen-lockfile
 

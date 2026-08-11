@@ -154,7 +154,6 @@ describe('Transport', () => {
       });
 
       expect(transport.toApiFormat()).toEqual({
-        id: 1,
         vehicle_id: 1,
         started_at: '2023-01-01T10:00:00.000Z',
         ended_at: '2023-01-01T12:33:25.000Z',

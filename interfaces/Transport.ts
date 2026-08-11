@@ -1,3 +1,4 @@
+import type { components } from '@fender/eezer-backend-eezer-api';
 import { Transport } from '@src/domain/entities/Transport';
 
 export type TransportCoordinate = {
@@ -27,26 +28,6 @@ export type TransportContextData = {
   uploadTransportsIfConnectedToNetwork: () => Promise<void>;
 };
 
-export type PostBackendTransport = {
-  vehicle_id: number;
-  started_at: string;
-  ended_at: string;
-  distance_meters: number;
-  reason: string;
-  passenger_name?: string;
-  passenger_phone?: string;
-  coordinates: {
-    latitude: number;
-    longitude: number;
-    altitude?: number | null;
-    logged_at: string;
-  }[];
-};
+export type PostBackendTransport = components['schemas']['TransportInput'];
 
-export type GetBackendTransport = {
-  id: number;
-  started_at: string;
-  ended_at: string;
-  distance_meters: number;
-  reason: string;
-};
+export type GetBackendTransport = components['schemas']['Transport'];
