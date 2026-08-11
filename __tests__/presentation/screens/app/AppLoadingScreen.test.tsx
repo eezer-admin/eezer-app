@@ -3,8 +3,8 @@ import AppLoadingScreen from '@presentation/screens/app/AppLoadingScreen';
 import { render, screen } from '@testing-library/react-native';
 
 describe('AppLoadingScreen', () => {
-  it('renders correctly', () => {
-    render(<AppLoadingScreen />);
+  it('renders correctly', async () => {
+    await render(<AppLoadingScreen />);
     expect(screen.toJSON()).toMatchSnapshot();
   });
 });

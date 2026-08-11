@@ -5,9 +5,9 @@ import { Transport } from '@src/domain/entities/Transport';
 import { render, screen } from '@testing-library/react-native';
 
 describe('TransportLogRow', () => {
-  it('renders correctly', () => {
+  it('renders correctly', async () => {
     const transport = new Transport({ reason: TRANSPORT_REASON.ACCIDENT });
-    render(<TransportLogRow transport={transport} />);
+    await render(<TransportLogRow transport={transport} />);
 
     expect(screen.toJSON()).toMatchSnapshot();
   });

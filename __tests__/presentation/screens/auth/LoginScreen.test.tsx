@@ -3,8 +3,8 @@ import LoginScreen from '@presentation/screens/auth/LoginScreen';
 import { render, screen } from '@testing-library/react-native';
 
 describe('LoginScreen', () => {
-  it('renders correctly', () => {
-    render(<LoginScreen />);
+  it('renders correctly', async () => {
+    await render(<LoginScreen />);
     expect(screen.toJSON()).toMatchSnapshot();
   });
 });

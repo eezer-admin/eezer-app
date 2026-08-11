@@ -6,8 +6,8 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { AuthProvider } from '../../../contexts/authContext';
 
 describe('VehicleSelector', () => {
-  it('renders correctly', () => {
-    render(
+  it('renders correctly', async () => {
+    await render(
       <SafeAreaProvider>
         <AuthProvider>
           <VehicleSelector

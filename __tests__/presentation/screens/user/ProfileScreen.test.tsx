@@ -6,8 +6,8 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { AuthProvider } from '../../../../contexts/authContext';
 
 describe('ProfileScreen', () => {
-  it('renders correctly', () => {
-    render(
+  it('renders correctly', async () => {
+    await render(
       <SafeAreaProvider>
         <AuthProvider>
           <ProfileScreen />
