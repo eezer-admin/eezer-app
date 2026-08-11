@@ -16,7 +16,7 @@ describe('StoreUserUseCase', () => {
   it('stores the user in the storage', async () => {
     jest.spyOn(dbRepo, 'store');
 
-    (dbRepo.store as jest.Mock).mockResolvedValueOnce(true);
+    jest.mocked(dbRepo.store).mockResolvedValueOnce(true);
 
     const result = await new StoreUserUseCase().execute(mockUser);
 

@@ -1,8 +1,13 @@
 import { beforeEach, describe, expect, it, jest } from '@jest/globals';
-import { STORAGE_KEYS } from '@src/Constants';
+import { ERROR_CODES, STORAGE_KEYS } from '@src/Constants';
 import { container } from '@src/di/Container';
 import { Transport } from '@src/domain/entities/Transport';
-import { MockBackendRepository, MockDatabaseRepository, mockMappedUserApiTransports, mockUser } from '@tests/utils';
+import {
+  MockBackendRepository,
+  MockDatabaseRepository,
+  mockMappedUserApiTransports,
+  mockUser,
+} from '@tests/utils';
 import { GetFullTransportLogUseCase } from '@usecases/transport/GetFullTransportLogUseCase';
 
 describe('GetFullTransportLogUseCase', () => {
@@ -20,7 +25,7 @@ describe('GetFullTransportLogUseCase', () => {
   });
 
   it('returns an empty array if logged in user is not available', async () => {
-    (dbRepo.get as jest.Mock).mockResolvedValueOnce(null);
+    jest.mocked(dbRepo.get).mockResolvedValueOnce(null);
 
     const result = await new GetFullTransportLogUseCase().execute();
 
@@ -29,7 +34,7 @@ describe('GetFullTransportLogUseCase', () => {
   });
 
   it('fetches the transport log from the backend correctly', async () => {
-    (dbRepo.get as jest.Mock).mockResolvedValueOnce(JSON.stringify(mockUser));
+    jest.mocked(dbRepo.get).mockResolvedValueOnce(JSON.stringify(mockUser));
 
     await new GetFullTransportLogUseCase().execute();
 
@@ -37,9 +42,12 @@ describe('GetFullTransportLogUseCase', () => {
   });
 
   it('ignores backend log if the request fails', async () => {
-    (backendRepo.getUserTransports as jest.Mock).mockReturnValue(Promise.resolve(new Response('', { status: 403 })));
-    (dbRepo.get as jest.Mock).mockResolvedValueOnce(JSON.stringify(mockUser));
-    (dbRepo.get as jest.Mock).mockResolvedValueOnce(JSON.stringify([]));
+    // The repository throws when the response is not ok, so a failing request rejects.
+    jest
+      .mocked(backendRepo.getUserTransports)
+      .mockRejectedValue(new Error(ERROR_CODES.FAILED_GETTING_USER_TRANSPORTS));
+    jest.mocked(dbRepo.get).mockResolvedValueOnce(JSON.stringify(mockUser));
+    jest.mocked(dbRepo.get).mockResolvedValueOnce(JSON.stringify([]));
 
     const result = await new GetFullTransportLogUseCase().execute();
 
@@ -49,13 +57,15 @@ describe('GetFullTransportLogUseCase', () => {
   });
 
   it('fetches the local transport log correctly', async () => {
-    (dbRepo.get as jest.Mock).mockResolvedValueOnce(JSON.stringify(mockUser));
-    (dbRepo.get as jest.Mock).mockResolvedValueOnce(
-      JSON.stringify([
-        new Transport({ started: '2023-01-01T10:30:00.000Z' }),
-        new Transport({ started: '2023-01-05T10:00:00.000Z' }),
-      ])
-    );
+    jest.mocked(dbRepo.get).mockResolvedValueOnce(JSON.stringify(mockUser));
+    jest
+      .mocked(dbRepo.get)
+      .mockResolvedValueOnce(
+        JSON.stringify([
+          new Transport({ started: '2023-01-01T10:30:00.000Z' }),
+          new Transport({ started: '2023-01-05T10:00:00.000Z' }),
+        ])
+      );
 
     const result = await new GetFullTransportLogUseCase().execute();
 
@@ -65,14 +75,16 @@ describe('GetFullTransportLogUseCase', () => {
   });
 
   it('combines the two log sources and sorts the list by start date', async () => {
-    (backendRepo.getUserTransports as jest.Mock).mockResolvedValueOnce(mockMappedUserApiTransports);
-    (dbRepo.get as jest.Mock).mockResolvedValueOnce(JSON.stringify(mockUser));
-    (dbRepo.get as jest.Mock).mockResolvedValueOnce(
-      JSON.stringify([
-        new Transport({ started: '2023-01-01T10:30:00.000Z' }),
-        new Transport({ started: '2023-01-05T10:00:00.000Z' }),
-      ])
-    );
+    jest.mocked(backendRepo.getUserTransports).mockResolvedValueOnce(mockMappedUserApiTransports);
+    jest.mocked(dbRepo.get).mockResolvedValueOnce(JSON.stringify(mockUser));
+    jest
+      .mocked(dbRepo.get)
+      .mockResolvedValueOnce(
+        JSON.stringify([
+          new Transport({ started: '2023-01-01T10:30:00.000Z' }),
+          new Transport({ started: '2023-01-05T10:00:00.000Z' }),
+        ])
+      );
 
     const result = await new GetFullTransportLogUseCase().execute();
 

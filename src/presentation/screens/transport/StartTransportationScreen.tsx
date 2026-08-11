@@ -1,3 +1,5 @@
+import { TransportStackParamList } from '@interfaces/Navigation';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { TransportCoordinate } from '@interfaces/Transport';
 import VehicleSelector from '@presentation/ui/VehicleSelector';
 import { BACKGROUND_LOCATION_TASK_NAME } from '@src/Constants';
@@ -15,10 +17,13 @@ import { TransportContext } from '../../../../contexts/transportContext';
 import { __ } from '../../../../localization/Localization';
 import Styles from '../../../../styles/Styles';
 
-export default function StartTransportationScreen({ route, navigation }) {
+export default function StartTransportationScreen({
+  route,
+  navigation,
+}: NativeStackScreenProps<TransportStackParamList, 'StartTransportation'>) {
   const { reason } = route.params;
   const context = useContext(TransportContext);
-  const [vehicleId, setVehicleId] = useState(null);
+  const [vehicleId, setVehicleId] = useState<number | null>(null);
 
   const registerLocationTask = React.useCallback(() => {
     TaskManager.defineTask(
@@ -90,17 +95,17 @@ export default function StartTransportationScreen({ route, navigation }) {
 
       {vehicleId && (
         <View style={{ ...Styles.container, flex: 0 }}>
-          <View style={{ ...Styles.input, marginVertical: Styles.margins.medium }}>
+          <View style={{ ...Styles.field, marginVertical: Styles.margins.medium }}>
             <Text>{context.transport.getReadableDuration()}</Text>
           </View>
-          <View style={{ ...Styles.input }}>
+          <View style={{ ...Styles.field }}>
             <Text>{context.transport.getReadableDistance()}</Text>
           </View>
 
           <TouchableOpacity
             style={{
               ...Styles.button,
-              ...Styles.button.green,
+              ...Styles.buttonGreen,
               marginTop: Styles.margins.medium,
               marginBottom: Styles.margins.large,
             }}

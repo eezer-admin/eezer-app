@@ -8,7 +8,6 @@ exports[`LoginScreen renders correctly 1`] = `
       "alignSelf": "center",
       "flex": 1,
       "justifyContent": "center",
-      "justifySelf": "center",
       "paddingHorizontal": 15,
       "width": "100%",
     }
@@ -112,24 +111,10 @@ exports[`LoginScreen renders correctly 1`] = `
         "alignItems": "center",
         "backgroundColor": "#86efac",
         "borderRadius": 8,
-        "green": {
-          "backgroundColor": "#86efac",
-        },
         "justifyContent": "center",
         "opacity": 1,
         "paddingHorizontal": 25,
         "paddingVertical": 20,
-        "red": {
-          "backgroundColor": "#fca5a5",
-          "text": {
-            "color": "#b91c1c",
-          },
-        },
-        "text": {
-          "color": "#059669",
-          "fontWeight": "bold",
-          "textTransform": "uppercase",
-        },
         "width": "100%",
       }
     }

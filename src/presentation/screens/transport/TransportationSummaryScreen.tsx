@@ -1,3 +1,5 @@
+import { TransportStackParamList } from '@interfaces/Navigation';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import Logo from '@src/presentation/ui/Logo';
 import * as React from 'react';
 import { useContext } from 'react';
@@ -7,7 +9,10 @@ import { TransportContext } from '../../../../contexts/transportContext';
 import { __ } from '../../../../localization/Localization';
 import Styles from '../../../../styles/Styles';
 
-export default function TransportationSummaryScreen({ route, navigation }) {
+export default function TransportationSummaryScreen({
+  route,
+  navigation,
+}: NativeStackScreenProps<TransportStackParamList, 'TransportationSummary'>) {
   const context = useContext(TransportContext);
   const { duration, distance } = route.params;
 
@@ -20,7 +25,7 @@ export default function TransportationSummaryScreen({ route, navigation }) {
       <Logo />
 
       <TouchableOpacity
-        style={{ ...Styles.button, ...Styles.button.green, marginTop: Styles.margins.medium }}
+        style={{ ...Styles.button, ...Styles.buttonGreen, marginTop: Styles.margins.medium }}
         onPress={() => {
           navigation.navigate('CreateTransportation');
         }}>
@@ -34,10 +39,10 @@ export default function TransportationSummaryScreen({ route, navigation }) {
         <Text style={{ ...Styles.text.default }}>{__('Back to start')}</Text>
       </TouchableOpacity>
 
-      <View style={{ ...Styles.input, marginVertical: Styles.margins.medium }}>
+      <View style={{ ...Styles.field, marginVertical: Styles.margins.medium }}>
         <Text style={{ ...Styles.text.default }}>{duration}</Text>
       </View>
-      <View style={{ ...Styles.input }}>
+      <View style={{ ...Styles.field }}>
         <Text style={{ ...Styles.text.default }}>{distance}</Text>
       </View>
     </View>

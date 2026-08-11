@@ -1,3 +1,5 @@
+import { StyleSheet, ViewStyle } from 'react-native';
+
 const margins = {
   small: 5,
   medium: 10,
@@ -22,27 +24,29 @@ const colors = {
   white: 'white',
 };
 
-export default {
-  margins,
-  colors,
-  fontSizes,
+// The boxed field shared by TextInputs and the read-only Views that display a value.
+const field: ViewStyle = {
+  backgroundColor: colors.white,
+  borderRadius: 8,
+  paddingVertical: 10,
+  paddingHorizontal: 25,
+  width: '100%',
+};
 
+const styles = StyleSheet.create({
   container: {
     paddingHorizontal: margins.large,
     width: '100%',
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    justifySelf: 'center',
     alignSelf: 'center',
   },
 
+  field,
+
   input: {
-    backgroundColor: colors.white,
-    borderRadius: 8,
-    paddingVertical: 10,
-    paddingHorizontal: 25,
-    width: '100%',
+    ...field,
     textAlign: 'center',
   },
 
@@ -58,26 +62,46 @@ export default {
     borderRadius: 8,
     justifyContent: 'center',
     alignItems: 'center',
-    text: {
-      textTransform: 'uppercase',
-      fontWeight: 'bold',
-      color: colors.greenDark,
-    },
-    green: {
-      backgroundColor: colors.greenLight,
-    },
-    red: {
-      backgroundColor: colors.redLight,
-
-      text: {
-        color: colors.red,
-      },
-    },
   },
 
-  text: {
-    default: {
-      fontSize: fontSizes.default,
-    },
+  buttonText: {
+    textTransform: 'uppercase',
+    fontWeight: 'bold',
+    color: colors.greenDark,
   },
+
+  buttonGreen: {
+    backgroundColor: colors.greenLight,
+  },
+
+  buttonRed: {
+    backgroundColor: colors.redLight,
+  },
+
+  buttonRedText: {
+    color: colors.red,
+  },
+
+  textDefault: {
+    fontSize: fontSizes.default,
+  },
+});
+
+export default {
+  margins,
+  colors,
+  fontSizes,
+
+  container: styles.container,
+  field: styles.field,
+  input: styles.input,
+  inputWithError: styles.inputWithError,
+
+  button: styles.button,
+  buttonText: styles.buttonText,
+  buttonGreen: styles.buttonGreen,
+  buttonRed: styles.buttonRed,
+  buttonRedText: styles.buttonRedText,
+
+  text: { default: styles.textDefault },
 };

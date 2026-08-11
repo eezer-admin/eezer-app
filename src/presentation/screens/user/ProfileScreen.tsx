@@ -15,9 +15,9 @@ export default function ProfileScreen() {
           marginBottom: Styles.margins.medium,
           ...Styles.text.default,
         }}>
-        {auth.user.first_name} {auth.user.last_name}
+        {auth.user?.first_name} {auth.user?.last_name}
       </Text>
-      <Text style={{ ...Styles.text.default }}>{auth.user.email}</Text>
+      <Text style={{ ...Styles.text.default }}>{auth.user?.email}</Text>
     </View>
   );
 }

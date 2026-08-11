@@ -45,7 +45,7 @@ export default function LogScreen() {
         <TouchableOpacity
           style={{
             ...Styles.button,
-            ...Styles.button.green,
+            ...Styles.buttonGreen,
             flex: 1,
           }}
           onPress={() => {

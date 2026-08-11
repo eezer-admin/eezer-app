@@ -1,3 +1,5 @@
+import { TransportStackParamList } from '@interfaces/Navigation';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import Logo from '@src/presentation/ui/Logo';
 import StopWatchingLocationUseCase from '@usecases/location/StopWatchingLocationUseCase';
 import { StopTransportUseCase } from '@usecases/transport/StopTransportUseCase';
@@ -9,7 +11,10 @@ import { TransportContext } from '../../../../contexts/transportContext';
 import { __ } from '../../../../localization/Localization';
 import Styles from '../../../../styles/Styles';
 
-export default function StopTransportationScreen({ route, navigation }) {
+export default function StopTransportationScreen({
+  route,
+  navigation,
+}: NativeStackScreenProps<TransportStackParamList, 'StopTransportation'>) {
   const context = useContext(TransportContext);
   const [duration, setDuration] = useState(context.transport.getReadableDuration());
 
@@ -44,7 +49,7 @@ export default function StopTransportationScreen({ route, navigation }) {
 
       {context.transport.ended ? (
         <TouchableOpacity
-          style={{ ...Styles.button, ...Styles.button.green, marginTop: Styles.margins.medium }}
+          style={{ ...Styles.button, ...Styles.buttonGreen, marginTop: Styles.margins.medium }}
           onPress={() => {
             navigation.navigate('CreateTransportation');
           }}>
@@ -59,18 +64,18 @@ export default function StopTransportationScreen({ route, navigation }) {
         </TouchableOpacity>
       ) : (
         <TouchableOpacity
-          style={{ ...Styles.button, ...Styles.button.red }}
+          style={{ ...Styles.button, ...Styles.buttonRed }}
           onPress={() => {
             stopTransport();
           }}>
-          <Text style={{ ...Styles.text.default, ...Styles.button.red.text }}>{__('Stop')}</Text>
+          <Text style={{ ...Styles.text.default, ...Styles.buttonRedText }}>{__('Stop')}</Text>
         </TouchableOpacity>
       )}
 
-      <View style={{ ...Styles.input, marginVertical: Styles.margins.medium }}>
+      <View style={{ ...Styles.field, marginVertical: Styles.margins.medium }}>
         <Text style={{ ...Styles.text.default }}>{duration}</Text>
       </View>
-      <View style={{ ...Styles.input }}>
+      <View style={{ ...Styles.field }}>
         <Text style={{ ...Styles.text.default }}>{context.transport.getReadableDistance()}</Text>
       </View>
     </View>

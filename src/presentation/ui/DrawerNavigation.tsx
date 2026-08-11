@@ -1,4 +1,8 @@
-import { DrawerContentScrollView, DrawerItemList } from '@react-navigation/drawer';
+import {
+  DrawerContentComponentProps,
+  DrawerContentScrollView,
+  DrawerItemList,
+} from '@react-navigation/drawer';
 import Constants from 'expo-constants';
 import * as React from 'react';
 import { useContext } from 'react';
@@ -9,7 +13,7 @@ import { LanguageContext } from '../../../contexts/languageContext';
 import { __ } from '../../../localization/Localization';
 import Styles from '../../../styles/Styles';
 
-export const DrawerNavigation = (props) => {
+export const DrawerNavigation = (props: DrawerContentComponentProps) => {
   const auth = useContext(AuthContext);
   const [language, setLanguage] = useContext(LanguageContext);
 

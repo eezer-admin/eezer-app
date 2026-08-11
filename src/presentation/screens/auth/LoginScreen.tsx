@@ -12,7 +12,7 @@ export default function LoginScreen() {
   const [username, onChangeUsername] = React.useState('');
   const [password, onChangePassword] = React.useState('');
   const [loginFailed, setLoginFailed] = React.useState(false);
-  const passwordRef = React.useRef(null);
+  const passwordRef = React.useRef<TextInput>(null);
 
   const inputStyle = {
     ...Styles.input,
@@ -40,7 +40,7 @@ export default function LoginScreen() {
         onFocus={() => {
           setLoginFailed(false);
         }}
-        onSubmitEditing={() => passwordRef.current.focus()}
+        onSubmitEditing={() => passwordRef.current?.focus()}
         blurOnSubmit={false}
       />
 
@@ -61,7 +61,7 @@ export default function LoginScreen() {
       <TouchableOpacity
         style={{
           ...Styles.button,
-          ...Styles.button.green,
+          ...Styles.buttonGreen,
           width: '100%',
         }}
         onPress={() => {
@@ -73,7 +73,7 @@ export default function LoginScreen() {
             });
           }
         }}>
-        <Text style={Styles.button.text}>{__('Log in')}</Text>
+        <Text style={Styles.buttonText}>{__('Log in')}</Text>
       </TouchableOpacity>
     </View>
   );

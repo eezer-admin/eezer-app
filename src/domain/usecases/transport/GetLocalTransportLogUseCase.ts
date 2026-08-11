@@ -1,6 +1,7 @@
 import { DatabaseRepository } from '@interfaces/DatabaseRepository';
 import { STORAGE_KEYS } from '@src/Constants';
 import { container } from '@src/di/Container';
+import { NewTransportData } from '@interfaces/Transport';
 import { Transport } from '@src/domain/entities/Transport';
 
 import { SortTransportLogUseCase } from './SortTransportLogUseCase';
@@ -19,7 +20,7 @@ export class GetLocalTransportLogUseCase {
       return [];
     }
 
-    const parsedLog = JSON.parse(log) as Transport[];
+    const parsedLog = JSON.parse(log) as NewTransportData[];
 
     return new SortTransportLogUseCase().execute(
       parsedLog.map((transportData) => {

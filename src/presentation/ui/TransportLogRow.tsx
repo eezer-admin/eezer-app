@@ -25,7 +25,7 @@ export default function TransportLogRow(props: TransportLogRowProps) {
           setShowDetails(!showDetails);
         }}
         style={{
-          backgroundColor: showDetails ? Styles.colors.grayDark : null,
+          backgroundColor: showDetails ? Styles.colors.grayDark : undefined,
           paddingVertical: Styles.margins.large,
           paddingHorizontal: Styles.container.paddingHorizontal,
           flex: 1,
@@ -34,8 +34,12 @@ export default function TransportLogRow(props: TransportLogRowProps) {
           justifyContent: 'space-between',
         }}>
         <Text style={{ width: '33%' }}>{props.transport.getReadableStartDate()}</Text>
-        <Text style={{ width: '33%', textAlign: 'center' }}>{props.transport.getReadableDuration()}</Text>
-        <Text style={{ width: '33%', textAlign: 'right' }}>{props.transport.isSynced() ? __('Yes') : __('No')}</Text>
+        <Text style={{ width: '33%', textAlign: 'center' }}>
+          {props.transport.getReadableDuration()}
+        </Text>
+        <Text style={{ width: '33%', textAlign: 'right' }}>
+          {props.transport.isSynced() ? __('Yes') : __('No')}
+        </Text>
       </TouchableOpacity>
 
       {showDetails ? (
@@ -56,14 +60,20 @@ export default function TransportLogRow(props: TransportLogRowProps) {
             </Text>
           </View>
           <View style={{ width: '33%' }}>
-            <Text style={{ textAlign: 'center', fontSize: Styles.fontSizes.small }}>{__('Distance')}</Text>
+            <Text style={{ textAlign: 'center', fontSize: Styles.fontSizes.small }}>
+              {__('Distance')}
+            </Text>
             <Text style={{ textAlign: 'center', fontSize: Styles.fontSizes.small }}>
               {props.transport.getReadableDistance()}
             </Text>
           </View>
           <View style={{ width: '33%' }}>
-            <Text style={{ textAlign: 'right', fontSize: Styles.fontSizes.small }}>{__('Cause')}</Text>
-            <Text style={{ textAlign: 'right', fontSize: Styles.fontSizes.small }}>{props.transport.reason}</Text>
+            <Text style={{ textAlign: 'right', fontSize: Styles.fontSizes.small }}>
+              {__('Cause')}
+            </Text>
+            <Text style={{ textAlign: 'right', fontSize: Styles.fontSizes.small }}>
+              {props.transport.reason}
+            </Text>
           </View>
         </View>
       ) : null}

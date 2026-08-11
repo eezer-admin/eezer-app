@@ -21,7 +21,7 @@ describe('SyncLocalTransportsToBackendUseCase', () => {
   });
 
   it('returns null if logged in user is not available', async () => {
-    (dbRepo.get as jest.Mock).mockResolvedValueOnce(null);
+    jest.mocked(dbRepo.get).mockResolvedValueOnce(null);
 
     const result = await new SyncLocalTransportsToBackendUseCase().execute();
 
@@ -30,8 +30,8 @@ describe('SyncLocalTransportsToBackendUseCase', () => {
   });
 
   it('returns null if there are no transports to sync', async () => {
-    (dbRepo.get as jest.Mock).mockResolvedValueOnce(JSON.stringify(mockUser));
-    (dbRepo.get as jest.Mock).mockResolvedValueOnce(JSON.stringify([]));
+    jest.mocked(dbRepo.get).mockResolvedValueOnce(JSON.stringify(mockUser));
+    jest.mocked(dbRepo.get).mockResolvedValueOnce(JSON.stringify([]));
 
     const result = await new SyncLocalTransportsToBackendUseCase().execute();
 
@@ -40,10 +40,10 @@ describe('SyncLocalTransportsToBackendUseCase', () => {
   });
 
   it('returns null if only synced transports are available', async () => {
-    (dbRepo.get as jest.Mock).mockResolvedValueOnce(JSON.stringify(mockUser));
-    (dbRepo.get as jest.Mock).mockResolvedValueOnce(
-      JSON.stringify([new Transport({ id: 1 }), new Transport({ id: 2 })])
-    );
+    jest.mocked(dbRepo.get).mockResolvedValueOnce(JSON.stringify(mockUser));
+    jest
+      .mocked(dbRepo.get)
+      .mockResolvedValueOnce(JSON.stringify([new Transport({ id: 1 }), new Transport({ id: 2 })]));
 
     const result = await new SyncLocalTransportsToBackendUseCase().execute();
 
@@ -54,9 +54,9 @@ describe('SyncLocalTransportsToBackendUseCase', () => {
   it('posts the transports to the backend correctly', async () => {
     const transport = new Transport({ id: null, started: '2023-01-01T10:00:00.000Z' });
     const user = mockUser;
-    (dbRepo.get as jest.Mock).mockResolvedValueOnce(JSON.stringify(user));
-    (dbRepo.get as jest.Mock).mockResolvedValueOnce(JSON.stringify([transport]));
-    (backendRepo.postUserTransports as jest.Mock).mockResolvedValueOnce([]);
+    jest.mocked(dbRepo.get).mockResolvedValueOnce(JSON.stringify(user));
+    jest.mocked(dbRepo.get).mockResolvedValueOnce(JSON.stringify([transport]));
+    jest.mocked(backendRepo.postUserTransports).mockResolvedValueOnce([]);
 
     await new SyncLocalTransportsToBackendUseCase().execute();
 
@@ -66,9 +66,9 @@ describe('SyncLocalTransportsToBackendUseCase', () => {
   it('clears the current log from the local storage', async () => {
     const transport = new Transport({ id: null, started: '2023-01-01T10:00:00.000Z' });
     const user = mockUser;
-    (dbRepo.get as jest.Mock).mockResolvedValueOnce(JSON.stringify(user));
-    (dbRepo.get as jest.Mock).mockResolvedValueOnce(JSON.stringify([transport]));
-    (dbRepo.delete as jest.Mock).mockResolvedValueOnce(true);
+    jest.mocked(dbRepo.get).mockResolvedValueOnce(JSON.stringify(user));
+    jest.mocked(dbRepo.get).mockResolvedValueOnce(JSON.stringify([transport]));
+    jest.mocked(dbRepo.delete).mockResolvedValueOnce(true);
 
     await new SyncLocalTransportsToBackendUseCase().execute();
 
@@ -78,9 +78,9 @@ describe('SyncLocalTransportsToBackendUseCase', () => {
   it('returns the full list of transports', async () => {
     const transport = new Transport({ id: null, started: '2023-01-01T10:00:00.000Z' });
     const user = mockUser;
-    (dbRepo.get as jest.Mock).mockResolvedValueOnce(JSON.stringify(user));
-    (dbRepo.get as jest.Mock).mockResolvedValueOnce(JSON.stringify([transport]));
-    (backendRepo.postUserTransports as jest.Mock).mockResolvedValueOnce([transport]);
+    jest.mocked(dbRepo.get).mockResolvedValueOnce(JSON.stringify(user));
+    jest.mocked(dbRepo.get).mockResolvedValueOnce(JSON.stringify([transport]));
+    jest.mocked(backendRepo.postUserTransports).mockResolvedValueOnce([transport]);
 
     const result = await new SyncLocalTransportsToBackendUseCase().execute();
 

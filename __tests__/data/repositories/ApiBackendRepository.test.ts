@@ -3,6 +3,7 @@ import { ApiBackendRepository } from '@repositories/ApiBackendRepository';
 import { ERROR_CODES, TRANSPORT_REASON } from '@src/Constants';
 import { Transport } from '@src/domain/entities/Transport';
 import { mockLoginApiResponse, mockUser, mockUserTransportsApiResponse } from '@tests/utils';
+import type { Response as FetchResponse } from 'node-fetch';
 import fetch from 'node-fetch';
 
 jest.mock('@react-native-async-storage/async-storage', () => ({
@@ -11,6 +12,11 @@ jest.mock('@react-native-async-storage/async-storage', () => ({
   removeItem: jest.fn(),
 }));
 
+// node-fetch is mocked for this suite, so responses are built with the global
+// Response and stand in for node-fetch's structurally-equivalent one.
+const mockFetchResponse = (body: string, init?: ResponseInit) =>
+  Promise.resolve(new Response(body, init) as unknown as FetchResponse);
+
 describe('ApiBackendRepository', () => {
   beforeEach(() => {
     jest.clearAllMocks();
@@ -18,7 +24,7 @@ describe('ApiBackendRepository', () => {
 
   describe('login', () => {
     it('calls the login endpoint', async () => {
-      fetch.mockReturnValue(Promise.resolve(new Response(JSON.stringify(mockLoginApiResponse))));
+      jest.mocked(fetch).mockReturnValue(mockFetchResponse(JSON.stringify(mockLoginApiResponse)));
 
       const repo = new ApiBackendRepository();
 
@@ -36,7 +42,7 @@ describe('ApiBackendRepository', () => {
     });
 
     it('handles non successful responses', async () => {
-      fetch.mockReturnValue(Promise.resolve(new Response('', { status: 422 })));
+      jest.mocked(fetch).mockReturnValue(mockFetchResponse('', { status: 422 }));
 
       try {
         const repo = new ApiBackendRepository();
@@ -47,7 +53,7 @@ describe('ApiBackendRepository', () => {
     });
 
     it('returns a user instance', async () => {
-      fetch.mockReturnValue(Promise.resolve(new Response(JSON.stringify(mockLoginApiResponse))));
+      jest.mocked(fetch).mockReturnValue(mockFetchResponse(JSON.stringify(mockLoginApiResponse)));
 
       const repo = new ApiBackendRepository();
 
@@ -59,7 +65,9 @@ describe('ApiBackendRepository', () => {
 
   describe('getUserTransports', () => {
     it('calls the user transports endpoint correctly', async () => {
-      fetch.mockReturnValue(Promise.resolve(new Response(JSON.stringify(mockUserTransportsApiResponse))));
+      jest
+        .mocked(fetch)
+        .mockReturnValue(mockFetchResponse(JSON.stringify(mockUserTransportsApiResponse)));
 
       const repo = new ApiBackendRepository();
 
@@ -76,7 +84,9 @@ describe('ApiBackendRepository', () => {
     });
 
     it('returns a list of transports', async () => {
-      fetch.mockReturnValue(Promise.resolve(new Response(JSON.stringify(mockUserTransportsApiResponse))));
+      jest
+        .mocked(fetch)
+        .mockReturnValue(mockFetchResponse(JSON.stringify(mockUserTransportsApiResponse)));
 
       const repo = new ApiBackendRepository();
 
@@ -93,7 +103,7 @@ describe('ApiBackendRepository', () => {
     });
 
     it('handles non successful responses', async () => {
-      fetch.mockReturnValue(Promise.resolve(new Response('', { status: 401 })));
+      jest.mocked(fetch).mockReturnValue(mockFetchResponse('', { status: 401 }));
 
       try {
         const repo = new ApiBackendRepository();
@@ -106,7 +116,9 @@ describe('ApiBackendRepository', () => {
 
   describe('postUserTransports', () => {
     it('calls the user transports endpoint correctly', async () => {
-      fetch.mockReturnValue(Promise.resolve(new Response(JSON.stringify(mockUserTransportsApiResponse))));
+      jest
+        .mocked(fetch)
+        .mockReturnValue(mockFetchResponse(JSON.stringify(mockUserTransportsApiResponse)));
 
       const repo = new ApiBackendRepository();
       const transport = new Transport();
@@ -127,7 +139,9 @@ describe('ApiBackendRepository', () => {
     });
 
     it('returns a list of transports', async () => {
-      fetch.mockReturnValue(Promise.resolve(new Response(JSON.stringify(mockUserTransportsApiResponse))));
+      jest
+        .mocked(fetch)
+        .mockReturnValue(mockFetchResponse(JSON.stringify(mockUserTransportsApiResponse)));
 
       const repo = new ApiBackendRepository();
 
@@ -144,7 +158,7 @@ describe('ApiBackendRepository', () => {
     });
 
     it('handles non successful responses', async () => {
-      fetch.mockReturnValue(Promise.resolve(new Response('', { status: 401 })));
+      jest.mocked(fetch).mockReturnValue(mockFetchResponse('', { status: 401 }));
 
       try {
         const repo = new ApiBackendRepository();

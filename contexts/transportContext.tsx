@@ -4,11 +4,11 @@ import { ClearTransportUseCase } from '@usecases/transport/ClearTransportUseCase
 import { GetTransportUseCase } from '@usecases/transport/GetTransportUseCase';
 import { SyncLocalTransportsToBackendUseCase } from '@usecases/transport/SyncLocalTransportsToBackendUseCase';
 import * as Network from 'expo-network';
-import { createContext, useEffect, useState } from 'react';
+import { createContext, PropsWithChildren, useEffect, useState } from 'react';
 
 export const TransportContext = createContext<TransportContextData>({} as TransportContextData);
 
-export const TransportProvider = (props) => {
+export const TransportProvider = (props: PropsWithChildren) => {
   const [transport, setTransport] = useState<Transport>(new Transport());
   const [isConnected, setIsConnected] = useState<boolean | null>(null);
 

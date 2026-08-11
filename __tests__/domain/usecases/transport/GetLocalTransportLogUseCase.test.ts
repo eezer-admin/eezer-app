@@ -16,7 +16,7 @@ describe('GetLocalTransportLogUseCase', () => {
   });
 
   it('returns an empty array if there is no log stored', async () => {
-    (dbRepo.get as jest.Mock).mockResolvedValueOnce(null);
+    jest.mocked(dbRepo.get).mockResolvedValueOnce(null);
 
     const result = await new GetLocalTransportLogUseCase().execute();
 
@@ -25,7 +25,7 @@ describe('GetLocalTransportLogUseCase', () => {
   });
 
   it('returns an empty array if just an empty string is stored', async () => {
-    (dbRepo.get as jest.Mock).mockResolvedValueOnce('');
+    jest.mocked(dbRepo.get).mockResolvedValueOnce('');
 
     const result = await new GetLocalTransportLogUseCase().execute();
 
@@ -37,7 +37,7 @@ describe('GetLocalTransportLogUseCase', () => {
     const transport1 = new Transport({ started: '2023-01-02T10:00:00.000Z' });
     const transport2 = new Transport({ started: '2023-01-01T10:00:00.000Z' });
 
-    (dbRepo.get as jest.Mock).mockResolvedValueOnce(JSON.stringify([transport1, transport2]));
+    jest.mocked(dbRepo.get).mockResolvedValueOnce(JSON.stringify([transport1, transport2]));
 
     const result = await new GetLocalTransportLogUseCase().execute();
 
@@ -50,7 +50,9 @@ describe('GetLocalTransportLogUseCase', () => {
     const transport2 = new Transport({ started: '2023-01-05T10:15:00.000Z' });
     const transport3 = new Transport({ started: '2023-01-05T10:00:00.000Z' });
 
-    (dbRepo.get as jest.Mock).mockResolvedValueOnce(JSON.stringify([transport1, transport2, transport3]));
+    jest
+      .mocked(dbRepo.get)
+      .mockResolvedValueOnce(JSON.stringify([transport1, transport2, transport3]));
 
     const result = await new GetLocalTransportLogUseCase().execute();
 

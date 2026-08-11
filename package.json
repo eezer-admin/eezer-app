@@ -10,6 +10,7 @@
     "ios": "expo run:ios",
     "web": "npx expo start --web",
     "eject": "expo eject",
+    "typecheck": "tsc --noEmit",
     "test": "APP_ENV=testing jest",
     "test-report": "APP_ENV=testing jest --coverage",
     "create-development-build": "eas build --profile development --platform android"
@@ -62,6 +63,7 @@
     "@fender/eezer-backend-eezer-api": "^1.1.0",
     "@jest/globals": "^29.6.1",
     "@testing-library/react-native": "^14.0.1",
+    "@types/i18n-js": "^3.8.9",
     "@types/node-fetch": "^2.6.13",
     "@types/react": "~19.1.10",
     "@typescript-eslint/eslint-plugin": "^5.9.1",

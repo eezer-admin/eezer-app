@@ -40,7 +40,7 @@ exports[`TransportLogRow renders correctly 1`] = `
     style={
       {
         "alignItems": "center",
-        "backgroundColor": null,
+        "backgroundColor": undefined,
         "flex": 1,
         "flexDirection": "row",
         "justifyContent": "space-between",

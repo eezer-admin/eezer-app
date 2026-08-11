@@ -1,4 +1,6 @@
 import Bugsnag from '@bugsnag/expo';
+import RequestLocationPermissionModal from '@presentation/location/RequestLocationPermissionModal';
+import CreateTransportationScreen from '@presentation/screens/transport/CreateTransportationScreen';
 import LogScreen from '@presentation/screens/transport/LogScreen';
 import { DrawerNavigation } from '@presentation/ui/DrawerNavigation';
 import { createDrawerNavigator, DrawerContentComponentProps } from '@react-navigation/drawer';
@@ -12,13 +14,10 @@ import * as SplashScreen from 'expo-splash-screen';
 import * as Updates from 'expo-updates';
 import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
-import i18n, { __, defaultLanguage, supportedLanguages } from './localization/Localization';
 
 import { AuthContext, AuthProvider } from './contexts/authContext';
 import { LanguageContext, LanguageProvider } from './contexts/languageContext';
-
-import RequestLocationPermissionModal from '@presentation/location/RequestLocationPermissionModal';
-import CreateTransportationScreen from '@presentation/screens/transport/CreateTransportationScreen';
+import i18n, { __, defaultLanguage, supportedLanguages } from './localization/Localization';
 import Styles from './styles/Styles';
 
 // require('dotenv').config()
@@ -26,7 +25,7 @@ Bugsnag.start();
 SplashScreen.preventAutoHideAsync();
 
 const Drawer = createDrawerNavigator();
-i18n.locale = Localization.getLocales()[0].languageCode;
+i18n.locale = Localization.getLocales()[0].languageCode || defaultLanguage();
 
 container.register();
 
@@ -39,7 +38,7 @@ const Router = () => {
   }
 
   return (
-    <NavigationContainer style={{ flex: 1 }}>
+    <NavigationContainer>
       {auth.isLoggedIn() ? (
         <Drawer.Navigator
           drawerContent={(props: DrawerContentComponentProps) => <DrawerNavigation {...props} />}
@@ -76,11 +75,11 @@ const ErrorView = () => (
       An unexpected error occurred. Please restart the app and try again.
     </Text>
     <TouchableOpacity
-      style={{ marginTop: Styles.margins.large, ...Styles.button, ...Styles.button.green }}
+      style={{ marginTop: Styles.margins.large, ...Styles.button, ...Styles.buttonGreen }}
       onPress={() => {
         Updates.reloadAsync();
       }}>
-      <Text style={Styles.button.text}>Restart</Text>
+      <Text style={Styles.buttonText}>Restart</Text>
     </TouchableOpacity>
   </View>
 );

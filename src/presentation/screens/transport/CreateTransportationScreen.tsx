@@ -1,4 +1,5 @@
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { TransportStackParamList } from '@interfaces/Navigation';
+import { createNativeStackNavigator, NativeStackScreenProps } from '@react-navigation/native-stack';
 import Logo from '@src/presentation/ui/Logo';
 import { ClearTransportUseCase } from '@usecases/transport/ClearTransportUseCase';
 import React, { useContext, useEffect, useState } from 'react';
@@ -12,9 +13,11 @@ import StartTransportationScreen from './StartTransportationScreen';
 import StopTransportationScreen from './StopTransportationScreen';
 import TransportationSummaryScreen from './TransportationSummaryScreen';
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator<TransportStackParamList>();
 
-function CreateTransportation({ navigation }) {
+function CreateTransportation({
+  navigation,
+}: NativeStackScreenProps<TransportStackParamList, 'CreateTransportation'>) {
   useContext(LanguageContext);
 
   return (
@@ -62,7 +65,9 @@ function CreateTransportation({ navigation }) {
   );
 }
 
-function CreatePregnancyTransportationScreen({ navigation }) {
+function CreatePregnancyTransportationScreen({
+  navigation,
+}: NativeStackScreenProps<TransportStackParamList, 'CreatePregnancyTransportation'>) {
   useContext(LanguageContext);
 
   return (
@@ -123,7 +128,9 @@ function CreatePregnancyTransportationScreen({ navigation }) {
   );
 }
 
-function CreateOtherTransportationScreen({ navigation }) {
+function CreateOtherTransportationScreen({
+  navigation,
+}: NativeStackScreenProps<TransportStackParamList, 'CreateOtherTransportation'>) {
   useContext(LanguageContext);
 
   return (
@@ -185,7 +192,9 @@ function CreateOtherTransportationScreen({ navigation }) {
 const Router = () => {
   useContext(LanguageContext);
   const context = useContext(TransportContext);
-  const [initialRouteName, setInitialRouteName] = useState<string | null>(null);
+  const [initialRouteName, setInitialRouteName] = useState<keyof TransportStackParamList | null>(
+    null
+  );
 
   const determineInitialRoute = async () => {
     if (context.transport.isOngoing()) {
@@ -205,7 +214,7 @@ const Router = () => {
       <Stack.Screen
         name="CreateTransportation"
         component={CreateTransportation}
-        options={{ headerLeft: null }}
+        options={{ headerLeft: () => null }}
       />
       <Stack.Screen
         name="CreatePregnancyTransportation"
@@ -220,17 +229,17 @@ const Router = () => {
       <Stack.Screen
         name="StopTransportation"
         component={StopTransportationScreen}
-        options={({ route }) => ({
-          title: context.transport ? __(context.transport.reason) : __('Stop transport'),
-          headerLeft: (props) => null,
+        options={() => ({
+          title: context.transport?.reason ? __(context.transport.reason) : __('Stop transport'),
+          headerLeft: () => null,
         })}
       />
       <Stack.Screen
         name="TransportationSummary"
         component={TransportationSummaryScreen}
-        options={({ route }) => ({
-          title: context.transport ? __(context.transport.reason) : __('Summary'),
-          headerLeft: (props) => null,
+        options={() => ({
+          title: context.transport?.reason ? __(context.transport.reason) : __('Summary'),
+          headerLeft: () => null,
         })}
       />
     </Stack.Navigator>

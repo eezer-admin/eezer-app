@@ -16,7 +16,7 @@ describe('GetUserUseCase', () => {
   it('retrieves the user from the storage', async () => {
     jest.spyOn(dbRepo, 'get');
 
-    (dbRepo.get as jest.Mock).mockResolvedValueOnce(JSON.stringify(mockUser));
+    jest.mocked(dbRepo.get).mockResolvedValueOnce(JSON.stringify(mockUser));
 
     const user = await new GetUserUseCase().execute();
 
@@ -27,7 +27,7 @@ describe('GetUserUseCase', () => {
   it('returns null if nothing is stored', async () => {
     jest.spyOn(dbRepo, 'get');
 
-    (dbRepo.get as jest.Mock).mockResolvedValueOnce(null);
+    jest.mocked(dbRepo.get).mockResolvedValueOnce(null);
 
     const user = await new GetUserUseCase().execute();
 

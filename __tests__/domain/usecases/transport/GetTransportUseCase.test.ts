@@ -16,7 +16,7 @@ describe('GetTransportUseCase', () => {
   it('retrieves the transport from the storage', async () => {
     jest.spyOn(dbRepo, 'get');
 
-    (dbRepo.get as jest.Mock).mockResolvedValueOnce(JSON.stringify(mockTransport));
+    jest.mocked(dbRepo.get).mockResolvedValueOnce(JSON.stringify(mockTransport));
 
     const transport = await new GetTransportUseCase().execute();
 
@@ -27,7 +27,7 @@ describe('GetTransportUseCase', () => {
   it('returns null if nothing is stored', async () => {
     jest.spyOn(dbRepo, 'get');
 
-    (dbRepo.get as jest.Mock).mockResolvedValueOnce(null);
+    jest.mocked(dbRepo.get).mockResolvedValueOnce(null);
 
     const transport = await new GetTransportUseCase().execute();
 

@@ -17,7 +17,7 @@ export function uuid(): string {
 }
 
 export function formatDuration(startDate: string, endDate: string): string {
-  const timeDiff = Math.abs(parseISO(endDate) - parseISO(startDate));
+  const timeDiff = Math.abs(parseISO(endDate).getTime() - parseISO(startDate).getTime());
 
   return new Date(timeDiff).toISOString().slice(11, 19);
 }

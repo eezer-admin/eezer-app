@@ -5,12 +5,12 @@ import { ClearTransportUseCase } from '@usecases/transport/ClearTransportUseCase
 import { ClearUserUseCase } from '@usecases/user/ClearUserUseCase';
 import { GetUserUseCase } from '@usecases/user/GetUserUseCase';
 import { LoginUseCase } from '@usecases/user/LoginUseCase';
-import { createContext, useEffect, useState } from 'react';
+import { createContext, PropsWithChildren, useEffect, useState } from 'react';
 
 export const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
-export const AuthProvider = (props) => {
-  const [user, setUser] = useState<AuthContextData>();
+export const AuthProvider = (props: PropsWithChildren) => {
+  const [user, setUser] = useState<User | null>();
   const [authLoaded, setAuthLoaded] = useState(false);
 
   // Determine if the user is already logged in when the app loads.

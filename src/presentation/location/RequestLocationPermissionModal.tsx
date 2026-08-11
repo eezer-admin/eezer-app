@@ -69,7 +69,7 @@ export default function RequestLocationPermissionModal() {
         <TouchableOpacity
           style={{
             ...Styles.button,
-            ...Styles.button.green,
+            ...Styles.buttonGreen,
             marginTop: Styles.margins.large * 5,
             width: '100%',
           }}
@@ -84,7 +84,9 @@ export default function RequestLocationPermissionModal() {
             denyAccess();
           }}
           style={{ marginTop: Styles.margins.large * 2 }}>
-          <Text style={{ color: Styles.colors.red, fontWeight: 'bold' }}>{__('actions.no_thanks')}</Text>
+          <Text style={{ color: Styles.colors.red, fontWeight: 'bold' }}>
+            {__('actions.no_thanks')}
+          </Text>
         </Pressable>
       </View>
     </Modal>

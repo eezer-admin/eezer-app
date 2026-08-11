@@ -16,7 +16,7 @@ describe('DeleteUserUseCase', () => {
   it('deletes the user from the storage', async () => {
     jest.spyOn(dbRepo, 'delete');
 
-    (dbRepo.delete as jest.Mock).mockResolvedValueOnce(true);
+    jest.mocked(dbRepo.delete).mockResolvedValueOnce(true);
 
     const result = await new ClearUserUseCase().execute();
 

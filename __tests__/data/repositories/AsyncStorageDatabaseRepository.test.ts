@@ -13,7 +13,7 @@ describe('AsyncStorageDatabaseRepository', () => {
   it('stores a string value correctly', async () => {
     const repo = new AsyncStorageDatabaseRepository();
 
-    (AsyncStorage.setItem as jest.Mock).mockResolvedValueOnce(undefined);
+    jest.mocked(AsyncStorage.setItem).mockResolvedValueOnce(undefined);
 
     await repo.store('USER', 'value');
 
@@ -23,7 +23,7 @@ describe('AsyncStorageDatabaseRepository', () => {
   it('stores an object value correctly', async () => {
     const repo = new AsyncStorageDatabaseRepository();
 
-    (AsyncStorage.setItem as jest.Mock).mockResolvedValueOnce(undefined);
+    jest.mocked(AsyncStorage.setItem).mockResolvedValueOnce(undefined);
 
     await repo.store('USER', mockUser);
 
@@ -33,17 +33,17 @@ describe('AsyncStorageDatabaseRepository', () => {
   it('gets a value', async () => {
     const repo = new AsyncStorageDatabaseRepository();
 
-    (AsyncStorage.getItem as jest.Mock).mockResolvedValueOnce(JSON.stringify(mockUser));
+    jest.mocked(AsyncStorage.getItem).mockResolvedValueOnce(JSON.stringify(mockUser));
     const user = await repo.get('MOCK_USER');
 
     expect(AsyncStorage.getItem).toHaveBeenCalledWith('EEZER::MOCK_USER');
-    expect(JSON.parse(user)).toEqual(mockUser);
+    expect(JSON.parse(user ?? 'null')).toEqual(mockUser);
   });
 
   it('returns null if the value does not exist', async () => {
     const repo = new AsyncStorageDatabaseRepository();
 
-    (AsyncStorage.getItem as jest.Mock).mockResolvedValueOnce(undefined);
+    jest.mocked(AsyncStorage.getItem).mockResolvedValueOnce(null);
     const user = await repo.get('USER');
 
     expect(AsyncStorage.getItem).toHaveBeenCalledWith('EEZER::USER');
@@ -53,7 +53,7 @@ describe('AsyncStorageDatabaseRepository', () => {
   it('deletes a value', async () => {
     const repo = new AsyncStorageDatabaseRepository();
 
-    (AsyncStorage.removeItem as jest.Mock).mockResolvedValueOnce(undefined);
+    jest.mocked(AsyncStorage.removeItem).mockResolvedValueOnce(undefined);
 
     await repo.delete('USER');
 

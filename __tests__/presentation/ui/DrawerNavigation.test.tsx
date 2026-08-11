@@ -1,4 +1,5 @@
 import { describe, expect, it } from '@jest/globals';
+import { DrawerContentComponentProps } from '@react-navigation/drawer';
 import { DrawerNavigation } from '@presentation/ui/DrawerNavigation';
 import { render, screen } from '@testing-library/react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
@@ -10,7 +11,8 @@ describe('DrawerNavigation', () => {
     await render(
       <SafeAreaProvider>
         <AuthProvider>
-          <DrawerNavigation />
+          {/* The drawer props are supplied by the navigator at runtime. */}
+          <DrawerNavigation {...({} as DrawerContentComponentProps)} />
         </AuthProvider>
       </SafeAreaProvider>
     );

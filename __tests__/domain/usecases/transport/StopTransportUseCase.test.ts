@@ -27,22 +27,28 @@ describe('StopTransportUseCase', () => {
   it('adds the transport to the top of the log', async () => {
     // Create and persist a log with one transport.
     const log = [new Transport({ started: '2023-01-01T10:00:00.000Z' })];
-    const transport = new Transport({ started: '2023-02-01T10:00:00.000Z', ended: '2023-02-01T11:00:00Z' });
+    const transport = new Transport({
+      started: '2023-02-01T10:00:00.000Z',
+      ended: '2023-02-01T11:00:00Z',
+    });
     dbRepo.store(STORAGE_KEYS.TRANSPORT_LOG, log);
 
     // Complete the current transport.
     await new StopTransportUseCase().execute(transport);
 
     // Get the new log from the storage.
-    let result = await dbRepo.get(STORAGE_KEYS.TRANSPORT_LOG);
-    result = JSON.parse(result);
+    const stored = await dbRepo.get(STORAGE_KEYS.TRANSPORT_LOG);
+    const result = JSON.parse(stored ?? 'null');
 
     // Assert that the new log has the new transport at the top.
     expect(result[0].identifier).toBe(transport.identifier);
   });
 
   it('removes the transport from the current transport local storage', async () => {
-    const transport = new Transport({ started: '2023-02-01T10:00:00.000Z', ended: '2023-02-01T11:00:00Z' });
+    const transport = new Transport({
+      started: '2023-02-01T10:00:00.000Z',
+      ended: '2023-02-01T11:00:00Z',
+    });
     await dbRepo.store(STORAGE_KEYS.TRANSPORT, transport);
 
     await new StopTransportUseCase().execute(transport);
@@ -52,12 +58,15 @@ describe('StopTransportUseCase', () => {
   });
 
   it('creates a new log if there are no transports from before', async () => {
-    const transport = new Transport({ started: '2023-02-01T10:00:00.000Z', ended: '2023-02-01T11:00:00Z' });
+    const transport = new Transport({
+      started: '2023-02-01T10:00:00.000Z',
+      ended: '2023-02-01T11:00:00Z',
+    });
 
     await new StopTransportUseCase().execute(transport);
 
-    let result = await dbRepo.get(STORAGE_KEYS.TRANSPORT_LOG);
-    result = JSON.parse(result);
+    const stored = await dbRepo.get(STORAGE_KEYS.TRANSPORT_LOG);
+    const result = JSON.parse(stored ?? 'null');
 
     expect(result[0].identifier).toBe(transport.identifier);
   });
@@ -68,13 +77,16 @@ describe('StopTransportUseCase', () => {
       new Transport({ started: '2023-01-05T10:00:00.000Z' }),
       new Transport({ started: '2023-01-02T10:00:00.000Z' }),
     ];
-    const transport = new Transport({ started: '2023-02-01T10:00:00.000Z', ended: '2023-02-01T11:00:00Z' });
+    const transport = new Transport({
+      started: '2023-02-01T10:00:00.000Z',
+      ended: '2023-02-01T11:00:00Z',
+    });
     dbRepo.store(STORAGE_KEYS.TRANSPORT_LOG, log);
 
     await new StopTransportUseCase().execute(transport);
 
-    let result = await dbRepo.get(STORAGE_KEYS.TRANSPORT_LOG);
-    result = JSON.parse(result);
+    const stored = await dbRepo.get(STORAGE_KEYS.TRANSPORT_LOG);
+    const result = JSON.parse(stored ?? 'null');
 
     expect(result[0].identifier).toBe(transport.identifier);
     expect(result[1].started).toBe('2023-01-05T10:00:00.000Z');

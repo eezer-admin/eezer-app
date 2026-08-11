@@ -27,7 +27,7 @@ describe('StartTransportUseCase', () => {
   it('persists the changes', async () => {
     jest.spyOn(dbRepo, 'store');
 
-    (dbRepo.store as jest.Mock).mockResolvedValueOnce(true);
+    jest.mocked(dbRepo.store).mockResolvedValueOnce(true);
 
     const transport = new Transport({ started: null, ended: null });
 
