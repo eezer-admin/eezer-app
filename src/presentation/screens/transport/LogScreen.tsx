@@ -4,7 +4,8 @@ import { GetFullTransportLogUseCase } from '@usecases/transport/GetFullTransport
 import { SyncLocalTransportsToBackendUseCase } from '@usecases/transport/SyncLocalTransportsToBackendUseCase';
 import * as React from 'react';
 import { useContext, useEffect, useState } from 'react';
-import { FlatList, Image, SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
+import { FlatList, Image, Text, TouchableOpacity, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { LanguageContext } from '../../../../contexts/languageContext';
 import { __ } from '../../../../localization/Localization';
@@ -81,8 +82,12 @@ export default function LogScreen() {
           justifyContent: 'space-between',
         }}>
         <Text style={{ width: '33%', ...Styles.text.default }}>{__('Date')}</Text>
-        <Text style={{ width: '33%', textAlign: 'center', ...Styles.text.default }}>{__('Time')}</Text>
-        <Text style={{ width: '33%', textAlign: 'right', ...Styles.text.default }}>{__('Uploaded')}</Text>
+        <Text style={{ width: '33%', textAlign: 'center', ...Styles.text.default }}>
+          {__('Time')}
+        </Text>
+        <Text style={{ width: '33%', textAlign: 'right', ...Styles.text.default }}>
+          {__('Uploaded')}
+        </Text>
       </View>
       <FlatList
         style={{ width: '100%' }}
