@@ -1,0 +1,29 @@
+# Temporary: diagnose Fender registry auth in CI. Prints no secrets. Remove once resolved.
+name: Debug Fender auth (temporary)
+
+on:
+  push:
+    branches: [feature/expo-sdk-54]
+
+jobs:
+  debug:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Fender registry auth
+        env:
+          TOKEN: ${{ secrets.FENDER_NPM_TOKEN }}
+        run: |
+          URL="https://fender.app/registry/npm/@fender/eezer-backend-eezer-api/-/eezer-backend-eezer-api-1.0.0.tgz"
+          echo "npm $(npm -v), node $(node -v)"
+          echo "token length=${#TOKEN} sha256-prefix=$(printf %s "$TOKEN" | sha256sum | cut -c1-12)"
+          echo "tarball with token:    HTTP $(curl -s -o /dev/null -w '%{http_code}' -H "Authorization: Bearer $TOKEN" "$URL")"
+          echo "tarball without token: HTTP $(curl -s -o /dev/null -w '%{http_code}' "$URL")"
+          if [ -f ~/.npmrc ]; then
+            echo "pre-existing ~/.npmrc: $(wc -l < ~/.npmrc) lines, last byte: $(tail -c1 ~/.npmrc | od -An -c)"
+          else
+            echo "no pre-existing ~/.npmrc"
+          fi
+          echo "//fender.app/registry/:_authToken=$TOKEN" >> ~/.npmrc
+          echo "@fender:registry=https://fender.app/registry/npm" >> ~/.npmrc
+          echo "npm sees auth key: $(npm config get //fender.app/registry/:_authToken)"
+          npm view @fender/eezer-backend-eezer-api version --prefer-online --loglevel=http || true
