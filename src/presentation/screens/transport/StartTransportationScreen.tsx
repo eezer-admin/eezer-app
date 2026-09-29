@@ -115,7 +115,7 @@ export default function StartTransportationScreen({ route, navigation }) {
       <TouchableOpacity
         style={{ marginTop: Styles.margins.large * 3 }}
         onPress={() => {
-          navigation.navigate('CreateTransportation');
+          navigation.popTo('CreateTransportation');
         }}>
         <Text>{__('Go back')}</Text>
       </TouchableOpacity>
