@@ -55,6 +55,29 @@ describe('ApiBackendRepository', () => {
 
       expect(response).toEqual(mockUser);
     });
+
+    it("maps the user's vehicles", async () => {
+      const vehicles = [
+        { id: 1, name: 'Eezer 1' },
+        { id: 2, name: 'Eezer 2' },
+      ];
+      fetch.mockReturnValue(
+        Promise.resolve(
+          new Response(
+            JSON.stringify({
+              ...mockLoginApiResponse,
+              data: { ...mockLoginApiResponse.data, vehicles },
+            })
+          )
+        )
+      );
+
+      const repo = new ApiBackendRepository();
+
+      const response = await repo.login('johndoe@example.org', 'password', 'My Device');
+
+      expect(response.vehicles).toEqual(vehicles);
+    });
   });
 
   describe('getUserTransports', () => {
