@@ -42,8 +42,7 @@ const Router = () => {
     <NavigationContainer style={{ flex: 1 }}>
       {auth.isLoggedIn() ? (
         <Drawer.Navigator
-          drawerContent={(props: DrawerContentComponentProps) => <DrawerNavigation {...props} />}
-          initialRouteName="CreateTransportation">
+          drawerContent={(props: DrawerContentComponentProps) => <DrawerNavigation {...props} />}>
           <Drawer.Screen
             name={__('Select transportation')}
             navigationKey="CreateTransportation"
@@ -54,8 +53,7 @@ const Router = () => {
         </Drawer.Navigator>
       ) : (
         <Drawer.Navigator
-          drawerContent={(props: DrawerContentComponentProps) => <DrawerNavigation {...props} />}
-          initialRouteName="Login">
+          drawerContent={(props: DrawerContentComponentProps) => <DrawerNavigation {...props} />}>
           <Drawer.Screen name={__('Log in')} navigationKey="Login" component={LoginScreen} />
         </Drawer.Navigator>
       )}

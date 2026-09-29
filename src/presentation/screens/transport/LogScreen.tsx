@@ -4,7 +4,8 @@ import { GetFullTransportLogUseCase } from '@usecases/transport/GetFullTransport
 import { SyncLocalTransportsToBackendUseCase } from '@usecases/transport/SyncLocalTransportsToBackendUseCase';
 import * as React from 'react';
 import { useContext, useEffect, useState } from 'react';
-import { FlatList, Image, SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
+import { FlatList, Image, Text, TouchableOpacity, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { LanguageContext } from '../../../../contexts/languageContext';
 import { __ } from '../../../../localization/Localization';

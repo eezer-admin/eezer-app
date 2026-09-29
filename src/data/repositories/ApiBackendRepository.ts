@@ -1,5 +1,6 @@
 import type { paths } from '@fender/eezer-backend-eezer-api';
 import { BackendRepository } from '@interfaces/BackendRepository';
+import { Vehicle } from '@interfaces/User';
 import { ERROR_CODES } from '@src/Constants';
 import { Transport } from '@src/domain/entities/Transport';
 import { User } from '@src/domain/entities/User';
@@ -33,6 +34,7 @@ export class ApiBackendRepository implements BackendRepository {
       email: response.data.email,
       phone: response.data.phone,
       access_token: response.token,
+      vehicles: response.data.vehicles as Vehicle[] | undefined,
     });
   }
 

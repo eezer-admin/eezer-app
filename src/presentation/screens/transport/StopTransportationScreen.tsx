@@ -46,7 +46,7 @@ export default function StopTransportationScreen({ route, navigation }) {
         <TouchableOpacity
           style={{ ...Styles.button, ...Styles.button.green, marginTop: Styles.margins.medium }}
           onPress={() => {
-            navigation.navigate('CreateTransportation');
+            navigation.popTo('CreateTransportation');
           }}>
           <Image
             source={require('../../../../assets/icon-check.png')}
