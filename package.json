@@ -12,7 +12,8 @@
     "eject": "expo eject",
     "test": "APP_ENV=testing jest",
     "test-report": "APP_ENV=testing jest --coverage",
-    "create-development-build": "eas build --profile development --platform android"
+    "create-development-build": "eas build --profile development --platform android",
+    "eas-build-pre-install": "bash scripts/eas-build-pre-install.sh"
   },
   "dependencies": {
     "@babel/runtime": "^7.27.6",
