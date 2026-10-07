@@ -37,7 +37,7 @@
       "blockedPermissions": ["android.permission.RECORD_AUDIO"]
     },
     "androidStatusBar": {
-      "backgroundColor": "#00000088"
+      "barStyle": "dark-content"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -64,23 +64,13 @@
       [
         "expo-splash-screen",
         {
-          "backgroundColor": "#fff",
+          "backgroundColor": "#ffffff",
           "image": "./assets/logo.png",
           "dark": {
             "image": "./assets/logo.png",
             "backgroundColor": "#000000"
           },
           "imageWidth": 240
-        }
-      ],
-      [
-        "expo-build-properties",
-        {
-          "android": {
-            "compileSdkVersion": 35,
-            "targetSdkVersion": 35,
-            "buildToolsVersion": "35.0.0"
-          }
         }
       ]
     ]

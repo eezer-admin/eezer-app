@@ -33,8 +33,12 @@ jobs:
           eas-version: latest
           token: ${{ secrets.EXPO_TOKEN }}
 
-      - name: Authenticate against the Fender npm registry
-        run: echo "//fender-tepyfoha.on-forge.com/:_authToken=${{ secrets.FENDER_NPM_TOKEN }}" >> ~/.npmrc
+      - name: Authenticate with Fender
+        run: >-
+          npm config set
+          "//fender.app/registry/npm/:_authToken=${FENDER_TOKEN}"
+        env:
+          FENDER_TOKEN: ${{ secrets.FENDER_TOKEN }}
 
       - name: Install dependencies
         run: npm install --frozen-lockfile
@@ -44,3 +48,12 @@ jobs:
 
       - name: Build and submit on EAS
         run: eas build --platform ${{ github.event.inputs.platform }} --non-interactive --auto-submit --no-wait --clear-cache
+
+      - name: Report deployment to Fender
+        run: >-
+          curl -sS --fail-with-body "https://fender.app/registry/deployments?environment=production"
+          -H "Authorization: Bearer ${FENDER_TOKEN}"
+          -H "Content-Type: application/octet-stream"
+          --data-binary @package-lock.json
+        env:
+          FENDER_TOKEN: ${{ secrets.FENDER_TOKEN }}

@@ -3,6 +3,7 @@ import Constants from 'expo-constants';
 import * as React from 'react';
 import { useContext } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { AuthContext } from '../../../contexts/authContext';
 import { LanguageContext } from '../../../contexts/languageContext';
@@ -12,9 +13,10 @@ import Styles from '../../../styles/Styles';
 export const DrawerNavigation = (props) => {
   const auth = useContext(AuthContext);
   const [language, setLanguage] = useContext(LanguageContext);
+  const insets = useSafeAreaInsets();
 
   return (
-    <View style={{ flex: 1 }}>
+    <View style={{ flex: 1, paddingBottom: insets.bottom }}>
       <DrawerContentScrollView {...props}>
         <DrawerItemList {...props} />
       </DrawerContentScrollView>
